@@ -33,7 +33,7 @@ bower_components
 build/Release
 
 #ignoring db stuff
-db/
+data/db/
 
 # Dependency directories
 node_modules/
