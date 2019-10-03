@@ -1,0 +1,44 @@
+<div class="backLink">
+    <a class="noLinkStyle" href="/">
+        <div class="flexer">
+            <div><i class="material-icons grey">arrow_back</i></div>
+            <div class="caseBackButton"> Back</div>
+        </div>
+    </a>
+</div>
+<div class="caseHeader">
+    <p class="caseTags"> {{ cases.tags }} </p>
+    <div class="flexer">
+        <h1 class="caseTitle"> <i class="material-icons grey">bookmark</i> {{ cases.name }} </h1>
+        <a class="caseLinks" onclick="getURL();">
+            <div class="tooltip">
+                <i class="material-icons md-24 grey">link</i> <span class="tooltiptext">Link kopieren</span>
+            </div>
+        </a>
+            <div class="tooltip">
+                <a class="caseLinks" onclick="window.print();return false;"> <i class="material-icons md-24 grey">save_alt</i> <span class="tooltiptext">Als PDF herunterladen</span> </a>
+            </div>
+    </div>
+</div>
+<div class="colorBox">
+    <p class="caseAuthorTitle"> DER AUTHOR</p>
+    <div class="authorBox">
+        <div>
+            <img src="./images/avatar.png" class="authorImg">
+        </div>
+        <div>
+            <p class="caseAuthor"> {{ cases.author }} </p>
+            <p class="caseAuthorUni"> Humboldt University </p>
+        </div>
+    </div>
+</div>
+<div class="caseContent">
+    <h2 class="sachverhalt">Sachverhalt</h2>
+    <span class="caseText" style="white-space: pre-wrap;"> {{ cases.content }} </span>
+    <p class="caseQuestion">{{ cases.question }}</p>
+    <button id="showSolutionButton" onclick="showSolution()"> Musterloesung ansehen </button>
+</div>
+<div id="caseSolution" style="display: none;">
+    <h2 class="sachverhalt">Musterloesung</h2>
+    <span class="caseText" style="white-space: pre-wrap;"> {{ cases.solution }} </span>
+</div>
