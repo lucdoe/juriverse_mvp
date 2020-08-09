@@ -12,7 +12,7 @@ body {
 }
 
 .logo {
-	margin: 10%;
+	margin: 1.5vw;
 	font-family: Gilroy;
 	color: #cca768;
 	font-size: 2.5vw;
@@ -42,11 +42,19 @@ li a.active {
 
 .listBox:hover:not(.firstItem) {
 	background-color: white;
-	color: white;
+	color: var(--lawra-dark);
+}
+
+.listBox:hover a {
+	color: var(--lawra-dark);
+}
+
+.logout .listLink a:hover {
+	color: var(--lawra-dark);
 }
 
 .firstItem {
-	margin-bottom: 3vw;
+	margin-bottom: 1vw;
 }
 
 .listBox {
@@ -56,11 +64,15 @@ li a.active {
 }
 
 .categories {
-	margin-top: 3vw;
+	margin-top: 1.5vw;
+}
+
+.upload {
+	margin-top: 1.5vw;
 }
 
 .listIcon {
-	margin-left: 10%;
+	margin-left: 2vw;
 }
 
 .material-icons.md-24 {
@@ -81,7 +93,7 @@ li a.active {
 }
 
 .listLink a {
-	color: var(--lawra-dark);
+	color: #a3a3a8;
 	font-size: 16px;
 	font-family: Gilroy;
 	letter-spacing: 1px;
@@ -90,8 +102,19 @@ li a.active {
 .profile {
 	position: absolute;
 	bottom: 0;
-	margin-bottom: 8vw;
+	margin-bottom: 10vw;
 	width: 100%;
+}
+
+.logout {
+	position: absolute;
+	bottom: 0;
+	margin-bottom: 2vw;
+	width: 100%;
+}
+
+.logout a {
+	font-size: 14px;
 }
 
 .avatar {
@@ -102,6 +125,6 @@ li a.active {
 }
 
 .settings {
-	padding-left: 6vw;
+	padding-left: 7vw;
 	margin-left: -10%;
 }
