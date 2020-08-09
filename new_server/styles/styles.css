@@ -1,0 +1,107 @@
+:root {
+	--lawra-dark: #46464a;
+}
+
+@font-face {
+	font-family: Gilroy;
+	src: url(Gilroy-ExtraBold.otf);
+}
+
+body {
+	margin: 0;
+}
+
+.logo {
+	margin: 10%;
+	font-family: Gilroy;
+	color: #cca768;
+	font-size: 2.5vw;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	width: 22%;
+	background-color: #f1f1f1;
+	position: fixed;
+	height: 100%;
+	overflow: auto;
+}
+
+li a {
+	display: block;
+	padding: 8px 16px;
+	text-decoration: none;
+}
+
+li a.active {
+	background-color: #4caf50;
+	color: white;
+}
+
+.listBox:hover:not(.firstItem) {
+	background-color: white;
+	color: white;
+}
+
+.firstItem {
+	margin-bottom: 3vw;
+}
+
+.listBox {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+.categories {
+	margin-top: 3vw;
+}
+
+.listIcon {
+	margin-left: 10%;
+}
+
+.material-icons.md-24 {
+	font-size: 24px;
+}
+
+.material-icons.md-gold {
+	color: #a3a3a8;
+}
+
+.listBox:hover:not(.active) .material-icons {
+	color: #cca768;
+	transform: scale(1.3, 1.3);
+}
+
+.listLink {
+	margin: 5%;
+}
+
+.listLink a {
+	color: var(--lawra-dark);
+	font-size: 16px;
+	font-family: Gilroy;
+	letter-spacing: 1px;
+}
+
+.profile {
+	position: absolute;
+	bottom: 0;
+	margin-bottom: 8vw;
+	width: 100%;
+}
+
+.avatar {
+	vertical-align: middle;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+}
+
+.settings {
+	padding-left: 6vw;
+	margin-left: -10%;
+}

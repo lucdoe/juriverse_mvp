@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>{{ title }}</title>
+		<link rel="stylesheet" href="/stylesheets/style.css" />
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+	</head>
+
+	<body>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		/>
+
+		<div class="topnav" id="myTopnav">
+			<a href="/" class="active">Dashboard</a>
+			<a href="/upload">Upload</a>
+			<a href="/following">Following</a>
+			<a href="/saved">Saved</a>
+			<a href="/history">History</a>
+			<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+				<i class="fa fa-bars"></i>
+			</a>
+			<a class="floatRight"> <img src="../images/avatar.png" class="authorImg navimg" /> </a>
+		</div>
+		<div class="main">
+			{{{ body }}}
+		</div>
+		<script src="/javascripts/scripts.js"></script>
+	</body>
+</html>
