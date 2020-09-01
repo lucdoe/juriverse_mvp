@@ -1,3 +1,16 @@
-<h1> {{message}} </h1>
-<h2> {{error.status}} </h2>
-<h2> {{error.stack}} </h2>
+<div class="error-box">
+	<img src="/images/towing.svg" />
+	<h1>Ups, ein Fehler ist aufgetreten!</h1>
+	<h3>Ignoriere die unten stehende Nachricht und kehre <a href="/">hier</a> zum Dashboard zurueck.</h3>
+	<p>
+		Error Message: <br />
+		{{message}}
+	</p>
+	<br />
+	<p>
+		Error Status: <br />
+		{{error.status}}
+	</p>
+	<br />
+	<p>Stack: <br />{{error.stack}}</p>
+</div>

@@ -1,10 +1,7 @@
 import app from './app'
-import * as createError from 'http-errors'
+import { connectDB } from './middlewares/db'
 
-// catch 404 and forward to error handler
-app.use((req, res, next) => {
-	next(createError(404))
-})
+connectDB()
 
 // error handler
 app.use((err, req, res, next) => {

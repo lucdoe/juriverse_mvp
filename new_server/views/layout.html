@@ -1,34 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 	<head>
 		<meta charset="UTF-8" />
-		<title>{{ title }}</title>
-		<link rel="stylesheet" href="/stylesheets/style.css" />
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-		<link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet" />
-		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Juriverse App</title>
+		<link rel="stylesheet" href="/styles/styles.css" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 	</head>
 
 	<body>
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-		/>
+		<nav>
+			<ul>
+				<li>
+					<div class="listBox firstItem">
+						<span id="logo"><a href="/">JURIVERSE</a></span>
+					</div>
+				</li>
+				<li>
+					<div class="listBox activeBox">
+						<div class="listIcon">
+							<i class="material-icons md-24 md-activeIcon">home</i>
+						</div>
+						<div class="listLink"><a id="activeLink" href="/">Home</a></div>
+					</div>
+				</li>
+				<li>
+					<div class="listBox">
+						<div class="listIcon">
+							<i class="material-icons md-24 md-grey">bookmark</i>
+						</div>
+						<div class="listLink"><a href="/">Gespeichert (1)</a></div>
+					</div>
+				</li>
+				<li>
+					<div class="listBox categories">
+						<div class="listIcon">
+							<i class="material-icons md-24 md-grey">account_circle</i>
+						</div>
+						<div class="listLink"><a href="/">Zivilrecht</a></div>
+					</div>
+				</li>
+				<li>
+					<div class="listBox">
+						<div class="listIcon">
+							<i class="material-icons md-24 md-grey">public</i>
+						</div>
+						<div class="listLink"><a href="/">Öffentliches Recht</a></div>
+					</div>
+				</li>
+				<li>
+					<div class="listBox">
+						<div class="listIcon">
+							<i class="material-icons md-24 md-grey">security</i>
+						</div>
+						<div class="listLink"><a href="/">Strafrecht</a></div>
+					</div>
+				</li>
+				<li>
+					<div class="listBox upload">
+						<div class="listIcon">
+							<i class="material-icons md-24 md-grey">publish</i>
+						</div>
+						<div class="listLink"><a href="/">Fall hochladen</a></div>
+					</div>
+				</li>
+				<li>
+					<div class="listBox profile">
+						<div class="listIcon">
+							<img src="/images/avatar.png" alt="Avatar" class="avatar" />
+						</div>
+						<div class="listLink">
+							<a href="upload.html"
+								>Profil <br />
+								<span class="username" nowrap>Max Muster</span></a
+							>
+						</div>
+						<div class="listIcon settings">
+							<i class="material-icons md-24 md-grey">settings</i>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="logout">
+						<div class="listLink"><a href="#">Hilfe</a></div>
 
-		<div class="topnav" id="myTopnav">
-			<a href="/" class="active">Dashboard</a>
-			<a href="/upload">Upload</a>
-			<a href="/following">Following</a>
-			<a href="/saved">Saved</a>
-			<a href="/history">History</a>
-			<a href="javascript:void(0);" class="icon" onclick="myFunction()">
-				<i class="fa fa-bars"></i>
-			</a>
-			<a class="floatRight"> <img src="../images/avatar.png" class="authorImg navimg" /> </a>
-		</div>
-		<div class="main">
-			{{{ body }}}
-		</div>
+						<div class="listLink"><a href="#">Ausloggen</a></div>
+					</div>
+				</li>
+			</ul>
+		</nav>
+		<section class="main">{{{ body }}}</section>
 		<script src="/javascripts/scripts.js"></script>
 	</body>
 </html>

@@ -1,33 +1,33 @@
+<section class="top-box">
+	<h2 class="page-header">Home</h2>
+	<input class="search-bar" ntype="search" name="searchInput" id="searchInput"
+		placeholder="Suche nach Titel, Autor, Kategorie, etc." onkeyup="search_case()" />
+	<p class="search-suggestion">
+		Oft benuzte Kategorien: <span>Deliktrecht</span> <span id="special">BGB AT</span>
+		<span>Staatshaftungsrecht</span>
+		<span>Staatshaftungsrecht</span>
+	</p>
+</section>
+<div class="divider"></div>
+<section class="bottom-box">
+	<h3 class="content-header">ALLE FÄLLE</h2>
+		{{# each result}}
+		<article class="card-wrapper">
+			<div class="title-flex">
+				<div class="card-title-holder"><a class="card-title" href="/fall/{{this._id}}"">{{ this.name }}</a></div>
+								<div class=" bookmark"><i class="material-icons md-24 md-gold">turned_in_not</i></div>
+			</div>
+			<p class="card-author">von <span><a href="/author/{{this.author.email}}">{{ this.author.name }}</a></span>
+			</p>
+			<p class="card-tags">
 
-<h1>Home</h1>
-<div class="searchHolder">
-	<form class="searchBox" method="get" action="/search">
-		<div class="dropdown">
-			<div class="searchBar">
-				<!-- <i class="material-icons" id="searchImg">search</i> --><input
-					type="text"
-					name="searchInput"
-					id="searchInput"
-					placeholder="  Search Title, Autor, Kategorie, etc."
-					onkeyup="filterFunction()"
-				/>
-			</div>
-			<div id="searchDropdown" class="dropdown-content">
-				{{# each cases }}
-				<a href="/case/{{this.name}}">{{ this.name }} by {{ this.author.name }}</a>
-				{{/each}}
-			</div>
-		</div>
-	</form>
-	<p>Oft gesuchte Kategorien: Sachenrecht Handelsrecht ZPO 2 Verwaltungsrecht AT</p>
-</div>
-<div class="cardHolder">
-	<h2 class="continueReading">Weiterlesen</h2>
-	{{# each cases}}
-	<div class="card">
-		<a class="cardTitle" href="case/{{this.name}}""> {{ this.name }}</a>
-		<p class="cardAuthor">von <strong> {{ this.author.name }} </strong></p>
-		<p class="cardTags">{{ this.tags }}</p>
-	</div>
-	{{/each}}
-</div>
+				<span>
+					<span id="categorie-link">{{#each this.categories}}<a href="#">{{this}}</a>{{/each}}</span>
+					<span>{{#each this.subcategories}}<a href="#">{{ this }}</a>{{/each}}</span>
+					{{#each this.problems}}<a href="#">{{ this }}</a>{{/each}}
+				</span>
+
+			</p>
+		</article>
+		{{/each}}
+</section>
