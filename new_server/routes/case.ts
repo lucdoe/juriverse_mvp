@@ -1,6 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express'
 import Case from '../models/Case'
-import ObjectId from 'mongodb'
 
 const router = Router()
 
