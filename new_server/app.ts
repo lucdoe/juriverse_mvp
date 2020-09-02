@@ -6,8 +6,9 @@ import helmet from 'helmet'
 import dotenv from 'dotenv'
 dotenv.config()
 
-import indexRouter from './routes/'
-import caseRouter from './routes/case'
+import indexRouter from './routes/route.index'
+import caseRouter from './routes/route.case'
+import authRouter from './routes/route.auth'
 
 const app = express()
 
@@ -24,5 +25,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
 app.use('/fall', caseRouter)
+app.use('/auth', authRouter)
 
 export default app

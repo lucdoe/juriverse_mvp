@@ -4,6 +4,7 @@ import { ObjectID } from 'mongodb'
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
+	id: String,
 	name: String,
 	email: String,
 	university: String,
@@ -20,10 +21,12 @@ const userSchema = new Schema({
 				note: String,
 			},
 		],
-		solutions: [{
-			caseId: ObjectID,
-			solution: String,
-		}],
+		solutions: [
+			{
+				caseId: ObjectID,
+				solution: String,
+			},
+		],
 	},
 	draft: Boolean,
 })

@@ -1,5 +1,5 @@
 import app from './app'
-import { connectDB } from './middlewares/db'
+import { connectDB } from './middlewares/middleware.db'
 
 connectDB()
 

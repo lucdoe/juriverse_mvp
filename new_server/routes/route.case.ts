@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express'
-import Case from '../models/Case'
+import Case from '../models/model.Case'
+import User from '../models/model.User'
 
 const router = Router()
 
@@ -29,9 +30,17 @@ router.get('/strafrecht', async (req: Request, res: Response, next: NextFunction
 	res.render('strafrecht', { result })
 })
 
+// gets zivilrecht cases
 router.get('/zivilrecht', async (req: Request, res: Response, next: NextFunction) => {
 	let result = await Case.find({ categories: 'Zivilrecht' })
 	res.render('zivilrecht', { result })
+})
+
+router.get('/author/:key', async (req: Request, res: Response) => {
+	const search = req.params.key
+	const drafts = User.find({ key: search }, 'drafts')
+	const result = Case.find({ $and: [{ 'author.email': search }, { key: drafts }] })
+	res.render('upload', { result })
 })
 
 export default router
