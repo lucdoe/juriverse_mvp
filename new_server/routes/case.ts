@@ -41,4 +41,11 @@ router.get('/oefrecht', async (req: Request, res: Response, next: NextFunction) 
 	res.render('oefrecht', { result })
 })
 
+// gets
+router.get('/zivilrecht/bgbat', async (req: Request, res: Response, next: NextFunction) => {
+	let result = await Case.find({ categories: 'Oeffentliches Recht'}, { subcategories: 'BGB AT' })
+	res.render('bgbat', { result })
+})
+
+
 export default router
