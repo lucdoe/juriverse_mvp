@@ -22,9 +22,8 @@ router.post('/done', async (req: Request, res: Response, next: NextFunction) => 
 })
 
 router.get('/strafrecht', async (req: Request, res: Response, next: NextFunction) => {
-	let result = await Case.find({ categories: 'strafrecht' })
+	let result = await Case.find({ categories: 'Strafrecht' })
 	res.render('strafrecht', { result })
 })
-
 
 export default router
