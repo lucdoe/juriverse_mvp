@@ -25,4 +25,9 @@ router.get('/strafrecht', async (req: Request, res: Response, next: NextFunction
 	res.render('strafrecht', { result })
 })
 
+router.get('/zivilrecht', async (req: Request, res: Response, next: NextFunction) => {
+	let result = await Case.find({ categories: 'Zivilrecht' })
+	res.render('zivilrecht', { result })
+})
+
 export default router
