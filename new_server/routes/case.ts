@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express'
 import Case from '../models/Case'
+import { search } from 'superagent'
 
 const router = Router()
 
@@ -19,5 +20,11 @@ router.post('/done', async (req: Request, res: Response, next: NextFunction) => 
 	let result = await Case.find({})
 	res.render('index', { result })
 })
+
+router.get('/strafrecht', async (req: Request, res: Response, next: NextFunction) => {
+	let result = await Case.find({ categories: 'strafrecht' })
+	res.render('strafrecht', { result })
+})
+
 
 export default router
