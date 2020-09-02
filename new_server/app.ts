@@ -8,7 +8,6 @@ dotenv.config()
 
 import indexRouter from './routes/'
 import caseRouter from './routes/case'
-import uploadRouter from './routes/upload'
 
 const app = express()
 
@@ -25,6 +24,5 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
 app.use('/fall', caseRouter)
-app.use('/upload', uploadRouter)
 
 export default app
