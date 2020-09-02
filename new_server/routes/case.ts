@@ -5,8 +5,8 @@ import { search } from 'superagent'
 const router = Router()
 
 // GET home page.
-router.get('/:key', async (req: Request, res: Response, next: NextFunction) => {
-	const key = req.params.key
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
+	const key = req.query.key
 	console.log('id: ', key)
 	try {
 		const result = await Case.findOne({ key })
