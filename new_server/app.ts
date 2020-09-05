@@ -13,9 +13,9 @@ dotenv.config()
 import indexRouter from './routes/route.index'
 import caseRouter from './routes/route.case'
 import authRouter from './routes/route.auth'
-import { userInViews } from './middlewares/middleware.userInViews'
+import { userInViews } from './middlewares/userInViews'
 import usersRouter from './routes/route.users'
-var secured = require('./middlewares/middleware.secured')
+var secured = require('./middlewares/secured')
 
 const app = express()
 
