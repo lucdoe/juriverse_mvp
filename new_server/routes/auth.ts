@@ -1,14 +1,12 @@
-// routes/auth.js
-
-var express = require('express')
-var router = express.Router()
-var passport = require('passport')
-var dotenv = require('dotenv')
-var util = require('util')
-var url = require('url')
-var querystring = require('querystring')
+import { Router } from 'express'
+import passport from 'passport'
+import dotenv from 'dotenv'
+import util from 'util'
+import url from 'url'
+import querystring from 'querystring'
 
 dotenv.config()
+const router = Router()
 
 // Perform the login, after login Auth0 will redirect to callback
 router.get(
@@ -22,7 +20,7 @@ router.get(
 )
 
 // Perform the final stage of authentication and redirect to previously requested URL or '/user'
-router.get('/callback', function (req, res, next) {
+router.get('/callback', function (req: any, res, next) {
 	passport.authenticate('auth0', function (err, user, info) {
 		if (err) {
 			return next(err)
@@ -42,16 +40,16 @@ router.get('/callback', function (req, res, next) {
 })
 
 // Perform session logout and redirect to homepage
-router.get('/logout', (req, res) => {
+router.get('/logout', (req: any, res: any) => {
 	req.logout()
 
-	var returnTo = req.protocol + '://' + req.hostname
-	var port = req.connection.localPort
+	let returnTo = req.protocol + '://' + req.hostname
+	const port = req.connection.localPort
 	if (port !== undefined && port !== 80 && port !== 443) {
 		returnTo += ':' + port
 	}
-	var logoutURL = new url.URL(util.format('https://%s/v2/logout', process.env.AUTH0_DOMAIN))
-	var searchString = querystring.stringify({
+	const logoutURL = new url.URL(util.format('https://%s/v2/logout', process.env.AUTH0_DOMAIN))
+	const searchString = querystring.stringify({
 		client_id: process.env.AUTH0_CLIENT_ID,
 		returnTo: returnTo,
 	})

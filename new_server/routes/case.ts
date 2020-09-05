@@ -16,7 +16,7 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
 })
 
 // marks case as done, renders home
-router.post('/done', async (req: any, res: Response, next: NextFunction) => {
+router.post('/done', async (req: any, res: Response) => {
 	const key = req.query.key
 	const userId = req.user.id
 	Users.updateOne({ id: userId }, { $push: { 'cases.finished': key } }).exec()
@@ -25,19 +25,19 @@ router.post('/done', async (req: any, res: Response, next: NextFunction) => {
 })
 
 // gets strafrecht cases
-router.get('/strafrecht', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/strafrecht', async (req: Request, res: Response) => {
 	let result = await Case.find({ categories: 'Strafrecht' })
 	res.render('strafrecht', { result })
 })
 
 // gets zivilrecht cases
-router.get('/zivilrecht', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/zivilrecht', async (req: Request, res: Response) => {
 	let result = await Case.find({ categories: 'Zivilrecht' })
 	res.render('zivilrecht', { result })
 })
 
 // gets zivilrecht cases
-router.get('/oefrecht', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/oefrecht', async (req: Request, res: Response) => {
 	let result = await Case.find({ categories: 'Öffentliches Recht' })
 	res.render('oefrecht', { result })
 })
