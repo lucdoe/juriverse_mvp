@@ -1,25 +1,74 @@
-<h2 class="page-header">Deine Fälle</h2>
-<div class="divider"></div>
+<section class="top-box">
+	<h2 class="page-header">Deine Fälle</h2>
+</section>
 <section class="bottom-box">
-	<h3 class="content-header">ALLE FÄLLE</h2>
-		{{# each result}}
+	<div class="tab">
+		<button class="tablinks content-header gold-header active" onclick="uploadTabs(event, 'drafts')">Entwürfe
+			{{edits.length}}</button>
+		<button class="tablinks content-header gold-header" onclick="uploadTabs(event, 'owns')">Veröffentlicht
+			{{done.length}}</button>
+	</div>
+	<div id="drafts" class="tabcontent">
+		{{# each edits}}
 		<article class="card-wrapper">
 			<div class="title-flex">
-				<div class="card-title-holder"><a class="card-title" href="/fall/?key={{this._id}}"">{{ this.name }}</a></div>
-								<!-- <div class=" bookmark"><i class="material-icons md-24 md-gold">turned_in_not</i></div> -->
+				<div class="card-title-holder"><a class="card-title" href="/faelle/?key={{this._id}}"">{{ this.name }}</a></div>
+				<div class="bookmark">
+					<div class="tooltip"><i class="material-icons md-24 md-gold">edit</i><span class="tooltiptext">Bearbeiten</span></div>
+					<div class="tooltip"><i class="material-icons md-24 md-gold">public_on</i><span class="tooltiptext" id="align-left">Veröffentlichen</span></div>
+				</div>
 			</div>
 			<p class="card-author">von <span><a href="/author/{{this.author.email}}">{{ this.author.name }}</a></span>
 			</p>
 			<p class="card-tags">
-
-
 				<span>
-					<span id="categorie-link">{{#each this.categories}}<a href="#">{{this}}</a>{{/each}}</span>
+					<span id="categorie-link">{{#each this.categories}}<a
+							href="/faelle/{{this}}">{{this}}</a>{{/each}}</span>
 					<span>{{#each this.subcategories}}<a href="#">{{ this }}</a>{{/each}}</span>
 					{{#each this.problems}}<a href="#">{{ this }}</a>{{/each}}
 				</span>
-
 			</p>
 		</article>
 		{{/each}}
+	</div>
+	<div id="owns" class="tabcontent public-hide">
+		{{# each done}}
+		<article class="card-wrapper">
+			<div class="title-flex">
+				<div class="card-title-holder"><a class="card-title" href="/faelle/?key={{this._id}}"">{{ this.name }}</a></div>
+				<div class="bookmark">
+					<div class="tooltip"><i class="material-icons md-24 md-gold">edit</i><span class="tooltiptext">Bearbeiten</span></div>
+					<div class="tooltip"><i class="material-icons md-24 md-gold">public_off</i><span class="tooltiptext" id="align-left">Unpublish</span></div>
+				</div>
+			</div>
+			<p class="card-author">von <span><a href="/author/{{this.author.email}}">{{ this.author.name }}</a></span>
+			</p>
+			<p class="card-tags">
+				<span>
+					<span id="categorie-link">{{#each this.categories}}<a
+							href="/faelle/{{this}}">{{this}}</a>{{/each}}</span>
+					<span>{{#each this.subcategories}}<a href="#">{{ this }}</a>{{/each}}</span>
+					{{#each this.problems}}<a href="#">{{ this }}</a>{{/each}}
+				</span>
+			</p>
+		</article>
+		{{/each}}
+	</div>
 </section>
+
+
+<script>
+	const uploadTabs = (evt, cityName) => {
+		let i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+		document.getElementById(cityName).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
+</script>

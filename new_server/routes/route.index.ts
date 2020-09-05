@@ -1,11 +1,12 @@
 import Case from '../models/model.Case'
 import User from '../models/model.Case'
 import { Router, Request, Response, NextFunction } from 'express'
+var secured = require('../middlewares/middleware.secured')
 
 const router = Router()
 
 // GET home page.
-router.get('/', async (req: Request, res: Response) => {
+router.get('/', secured(), async (req: Request, res: Response) => {
 	const searchInput = req.query.searchInput
 	if (searchInput) {
 		const regex = new RegExp(escapeRegex(searchInput), 'gi')

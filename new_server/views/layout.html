@@ -17,19 +17,11 @@
 					</div>
 				</li>
 				<li>
-					<div class="listBox activeBox">
-						<div class="listIcon">
-							<i class="material-icons md-24 md-activeIcon">home</i>
-						</div>
-						<div class="listLink"><a id="activeLink" href="/">Home</a></div>
-					</div>
-				</li>
-				<li>
 					<div class="listBox">
 						<div class="listIcon">
-							<i class="material-icons md-24 md-grey">bookmark</i>
+							<i class="material-icons md-24 md-grey">home</i>
 						</div>
-						<div class="listLink"><a href="/">Gespeichert (1)</a></div>
+						<div class="listLink"><a href="/">Home</a></div>
 					</div>
 				</li>
 				<li>
@@ -37,7 +29,7 @@
 						<div class="listIcon">
 							<i class="material-icons md-24 md-grey">account_circle</i>
 						</div>
-						<div class="listLink"><a href="/fall/zivilrecht">Zivilrecht</a></div>
+						<div class="listLink"><a href="/faelle/zivilrecht">Zivilrecht</a></div>
 					</div>
 				</li>
 				<li>
@@ -45,7 +37,7 @@
 						<div class="listIcon">
 							<i class="material-icons md-24 md-grey">public</i>
 						</div>
-						<div class="listLink"><a href="/">Öffentliches Recht</a></div>
+						<div class="listLink"><a href="/faelle/oefrecht">Öffentliches Recht</a></div>
 					</div>
 				</li>
 				<li>
@@ -53,7 +45,7 @@
 						<div class="listIcon">
 							<i class="material-icons md-24 md-grey">security</i>
 						</div>
-						<div class="listLink"><a href="/fall/strafrecht">Strafrecht</a></div>
+						<div class="listLink"><a href="/faelle/strafrecht">Strafrecht</a></div>
 					</div>
 				</li>
 				<li>
@@ -61,30 +53,29 @@
 						<div class="listIcon">
 							<i class="material-icons md-24 md-grey">publish</i>
 						</div>
-						<div class="listLink"><a href="/fall/author/{{this.id}}">Fall hochladen</a></div>
+						<div class="listLink">
+							<a href="/users/{{user.user_id}}/faelle">Fall hochladen</a>
+						</div>
 					</div>
 				</li>
 				<li>
 					<div class="listBox profile">
 						<div class="listIcon">
-							<img src="/images/avatar.png" alt="Avatar" class="avatar" />
+							<img src="{{user.picture}}" alt="Avatar" class="avatar" />
 						</div>
 						<div class="listLink">
-							<a href="upload.html"
+							<a href="/users"
 								>Profil <br />
-								<span class="username" nowrap>Max Muster</span></a
+								<span class="username" nowrap>{{user.nickname}}</span></a
 							>
-						</div>
-						<div class="listIcon settings">
-							<i class="material-icons md-24 md-grey">settings</i>
 						</div>
 					</div>
 				</li>
 				<li>
 					<div class="logout">
-						<div class="listLink"><a href="#">Hilfe</a></div>
-
-						<div class="listLink"><a href="#">Ausloggen</a></div>
+						<div><a href="#">Hilfe</a></div>
+						<div><a href="#">Einstellungen</a></div>
+						<div><a href="/logout">Ausloggen</a></div>
 					</div>
 				</li>
 			</ul>

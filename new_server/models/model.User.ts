@@ -5,9 +5,7 @@ const Schema = mongoose.Schema
 
 const userSchema = new Schema({
 	id: String,
-	name: String,
-	email: String,
-	university: String,
+	uni: String,
 	cases: {
 		saved: [ObjectID],
 		drafts: [ObjectID],
@@ -19,18 +17,12 @@ const userSchema = new Schema({
 				caseId: ObjectID,
 				positionIndex: Number,
 				note: String,
-			},
-		],
-		solutions: [
-			{
-				caseId: ObjectID,
 				solution: String,
 			},
 		],
 	},
-	draft: Boolean,
 })
 
-const User = mongoose.model('User', userSchema)
+const Users = mongoose.model('Users', userSchema)
 
-export default User
+export default Users

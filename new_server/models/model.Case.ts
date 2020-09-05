@@ -1,12 +1,13 @@
 import mongoose from 'mongoose'
-import { ObjectID } from 'mongodb'
 
 const Schema = mongoose.Schema
 
 const caseSchema = new Schema({
-	name: String,
 	key: String,
+	name: String,
+	owner: String,
 	author: {
+		id: String,
 		name: String,
 		email: String,
 		uni: String,
@@ -22,15 +23,14 @@ const caseSchema = new Schema({
 	meta: {
 		votes: Number,
 		favs: Number,
-		draft: Boolean,
 		private: Boolean,
 	},
 	uploadDate: Date,
-	sharedWith: [String],
 	selfWriteConfirm: Boolean,
 	recommended: Number,
+	draft: Boolean,
 })
 
-const Blog = mongoose.model('Case', caseSchema)
+const Cases = mongoose.model('Cases', caseSchema)
 
-export default Blog
+export default Cases

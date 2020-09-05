@@ -6,5 +6,5 @@ export const connectDB = () => {
 	mongoose
 		.connect(process.env.URI, { useNewUrlParser: true, useUnifiedTopology: true })
 		.catch((err) => console.log(err.reason))
-	console.log('Database connected')
+	console.log('\n  > Database connected')
 }
