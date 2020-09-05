@@ -43,13 +43,13 @@ router.get('/callback', (req: any, res, next) => {
 router.get('/logout', (req: any, res) => {
 	req.logout()
 
-	var returnTo = req.protocol + '://' + req.hostname
-	var port = req.connection.localPort
+	let returnTo = req.protocol + '://' + req.hostname
+	const port = req.connection.localPort
 	if (port !== undefined && port !== 80 && port !== 443) {
 		returnTo += ':' + port
 	}
-	var logoutURL: any = new url.URL(util.format('https://%s/v2/logout', process.env.AUTH0_DOMAIN))
-	var searchString = querystring.stringify({
+	const logoutURL: any = new url.URL(util.format('https://%s/v2/logout', process.env.AUTH0_DOMAIN))
+	const searchString = querystring.stringify({
 		client_id: process.env.AUTH0_CLIENT_ID,
 		returnTo: returnTo,
 	})

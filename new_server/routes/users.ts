@@ -19,10 +19,15 @@ router.get('/:userid/faelle', (req: any, res: Response) => {
 	Users.findOne({ id: userId }, async (err, data: any) => {
 		const { cases } = data
 		const { drafts } = cases
-		const edits = await Cases.find({ $and: [{ key: drafts }, { draft: true }] }).exec()
-		const done = await Cases.find({ owner: userId }).exec()
-		res.render('upload', { edits, done })
+		const draftCases = await Cases.find({ $and: [{ key: drafts }, { draft: true }] }).exec()
+		const ownedCases = await Cases.find({ owner: userId }).exec()
+		res.render('uploadStep1', { userId, draftCases, ownedCases })
 	})
+})
+
+router.get('/:userid/faelle/upload', (req, res) => {
+	const userId = req.params.userid
+	res.render('uploadStep2', { userId })
 })
 
 export default router

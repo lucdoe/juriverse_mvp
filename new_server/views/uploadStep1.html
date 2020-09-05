@@ -1,15 +1,18 @@
-<section class="top-box">
-	<h2 class="page-header">Deine Fälle</h2>
+<section class="top-box upload-box">
+	<h2 class="upload-header">Deine Fälle</h2>
+	<form action="/users/{{userId}}/faelle/upload" method="get">
+		<input id="" class="rob-font" type="submit" value="Fall schreiben">
+	</form>
 </section>
 <section class="bottom-box">
 	<div class="tab">
 		<button class="tablinks content-header gold-header active" onclick="uploadTabs(event, 'drafts')">Entwürfe
-			{{edits.length}}</button>
+			{{draftCases.length}}</button>
 		<button class="tablinks content-header gold-header" onclick="uploadTabs(event, 'owns')">Veröffentlicht
-			{{done.length}}</button>
+			{{ownedCases.length}}</button>
 	</div>
 	<div id="drafts" class="tabcontent">
-		{{# each edits}}
+		{{# each draftCases}}
 		<article class="card-wrapper">
 			<div class="title-flex">
 				<div class="card-title-holder"><a class="card-title" href="/faelle/?key={{this._id}}"">{{ this.name }}</a></div>
@@ -32,7 +35,7 @@
 		{{/each}}
 	</div>
 	<div id="owns" class="tabcontent public-hide">
-		{{# each done}}
+		{{# each ownedCases}}
 		<article class="card-wrapper">
 			<div class="title-flex">
 				<div class="card-title-holder"><a class="card-title" href="/faelle/?key={{this._id}}"">{{ this.name }}</a></div>
