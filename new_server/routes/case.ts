@@ -1,11 +1,11 @@
-import { Router, Request, Response, NextFunction } from 'express'
+import { Router, Request, Response } from 'express'
 import Case from '../models/Case'
 import Users from '../models/User'
 
 const router = Router()
 
 // get case
-router.get('/', async (req: any, res: Response, next: NextFunction) => {
+router.get('/', async (req: any, res: Response) => {
 	const key = req.query.key
 	try {
 		const result = await Case.findOne({ key })
@@ -16,7 +16,7 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
 })
 
 // marks case as done, renders home
-router.post('/done', async (req: any, res: Response, next: NextFunction) => {
+router.post('/done', async (req: any, res: Response) => {
 	const key = req.query.key
 	const userId = req.user.id
 	Users.updateOne({ id: userId }, { $push: { 'cases.finished': key } }).exec()
@@ -25,20 +25,20 @@ router.post('/done', async (req: any, res: Response, next: NextFunction) => {
 })
 
 // gets strafrecht cases
-router.get('/strafrecht', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/strafrecht', async (req: Request, res: Response) => {
 	let result = await Case.find({ categories: 'Strafrecht' })
 	res.render('strafrecht', { result })
 })
 
 // gets zivilrecht cases
-router.get('/zivilrecht', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/zivilrecht', async (req: Request, res: Response) => {
 	let result = await Case.find({ categories: 'Zivilrecht' })
 	res.render('zivilrecht', { result })
 })
 
 // gets öffentliches recht cases
-router.get('/oefrecht', async (req: Request, res: Response, next: NextFunction) => {
-	let result = await Case.find({ categories: 'Oeffentliches Recht' })
+router.get('/oefrecht', async (req: Request, res: Response) => {
+	let result = await Case.find({ categories: 'Öffentliches Recht' })
 	res.render('oefrecht', { result })
 })
 

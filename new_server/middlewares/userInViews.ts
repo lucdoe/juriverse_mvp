@@ -1,5 +1,7 @@
+import { NextFunction } from 'express'
+
 export const userInViews = () => {
-	return function (req, res, next) {
+	return (req: any, res: any, next: NextFunction) => {
 		res.locals.user = req.user
 		next()
 	}

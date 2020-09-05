@@ -1,6 +1,5 @@
 import Case from '../models/Case'
-import User from '../models/Case'
-import { Router, Request, Response, NextFunction } from 'express'
+import { Router, Request, Response } from 'express'
 var secured = require('../middlewares/secured')
 
 const router = Router()
