@@ -1,9 +1,20 @@
 <section class="top-box">
-	<input id="" class="rob-font" type="text" />
-	<h3 class="upload-subheader">Sachverhalt</h3>
-	<input id="" class="rob-font" type="text" />
-	<h3 class="upload-subheader">Aufgaben</h3>
-	<input id="" class="rob-font" type="text" />
-	<h3 class="upload-subheader">Musterloesung</h3>
-	<input id="" class="rob-font" type="text" />
+	<form action="/users/{{userId}}/faelle" method="post">
+		<div class="upload-subheader-wrapper">
+		<input id="upload-title" class="slab-font" type="text" placeholder="Titel" />
+		<div class="upload-subheader-wrapper">
+			<label for="sachverhalt" class="upload-subheader">Sachverhalt</label>
+		</div>
+		<textarea id="sachverhalt" class="slab-font upload-input">Beschreibe den Sachverhalt...</textarea>
+		<div class="upload-subheader-wrapper">
+			<label for="aufgabe" class="upload-subheader">Aufgaben</label>
+		</div>
+		<textarea id="aufgabe" class="slab-font upload-input">Formuliere die Aufgaben...</textarea>
+		<div class="upload-subheader-wrapper">
+			<label for="musterloesung" class="upload-subheader">MusterLösung</label>
+		</div>
+		<textarea id="musterloesung" class="slab-font upload-input">Beschreibe die Lösung...</textarea>
+		<input class="continue-upload" value="Weiter" type="submit"><br>
+		<input id="save-draft" class="continue-upload" value="Als Entwurf speichern" type="submit">
+	</form>
 </section>
