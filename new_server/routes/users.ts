@@ -30,4 +30,14 @@ router.get('/:userid/faelle/upload', (req, res) => {
 	res.render('uploadStep2', { userId })
 })
 
+router.post('/:userid/faelle', (req, res) => {
+	const userId = req.params.userid
+	// const { title, sachverhalt, aufgabe, musterloesung } = req.body
+	// Users.create(
+	// 	{ owner: userId, cases: { title, sachverhalt, aufgabe, musterloesung } },
+	// 	async (err, data: any) => {}
+	// )
+	res.render('uploadStep3', { userId })
+})
+
 export default router

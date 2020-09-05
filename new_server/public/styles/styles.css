@@ -642,3 +642,47 @@ li a {
 	margin-top: 1vw;
 	cursor: pointer;
 }
+
+.continue-upload:hover {
+	font-weight: bold;
+	letter-spacing: 0.2px;
+}
+
+#choose-title {
+	letter-spacing: 0.2px;
+	color: var(--juriverse-dark);
+	width: 80%;
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 30px;
+	border: none;
+}
+
+#publish-upload {
+	background-color: #d1d1d3;
+	color: white;
+	font-family: 'Roboto', sans-serif;
+}
+
+.upload-checkbox {
+	display: flex;
+	margin-top: 1.5vw;
+	width: 70%;
+}
+
+.checkbox {
+	margin: 20px;
+	padding-top: 6px;
+}
+
+input[type='checkbox'] {
+	/* Double-sized Checkboxes */
+	-ms-transform: scale(2); /* IE */
+	-moz-transform: scale(2); /* FF */
+	-webkit-transform: scale(2); /* Safari and Chrome */
+	-o-transform: scale(2); /* Opera */
+	transform: scale(2);
+	padding: 10px;
+	align-self: center;
+	color: var(--juriverse-gold);
+}
