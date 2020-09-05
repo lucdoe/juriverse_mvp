@@ -1,5 +1,5 @@
-import Cases from '../models/model.Case'
-import Users from '../models/model.User'
+import Cases from '../models/Case'
+import Users from '../models/User'
 import { Router, Request, Response, NextFunction } from 'express'
 const router = Router()
 

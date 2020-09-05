@@ -1,5 +1,5 @@
-import Case from '../models/model.Case'
-import User from '../models/model.Case'
+import Case from '../models/Case'
+import User from '../models/Case'
 import { Router, Request, Response, NextFunction } from 'express'
 var secured = require('../middlewares/secured')
 

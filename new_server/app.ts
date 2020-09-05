@@ -10,11 +10,11 @@ import passport from 'passport'
 import Auth0Strategy from 'passport-auth0'
 dotenv.config()
 
-import indexRouter from './routes/route.index'
-import caseRouter from './routes/route.case'
-import authRouter from './routes/route.auth'
+import indexRouter from './routes/index'
+import caseRouter from './routes/case'
+import authRouter from './routes/auth'
 import { userInViews } from './middlewares/userInViews'
-import usersRouter from './routes/route.users'
+import usersRouter from './routes/users'
 var secured = require('./middlewares/secured')
 
 const app = express()
