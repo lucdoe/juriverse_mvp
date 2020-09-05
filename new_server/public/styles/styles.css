@@ -566,3 +566,31 @@ li a {
 	color: #414145;
 	margin-bottom: 2.5vw;
 }
+
+.upload-box {
+	display: flex;
+}
+
+.upload-box form input {
+	margin-top: 15px;
+	margin-left: 37vw;
+	font-weight: 600;
+	border: none;
+	background-color: var(--juriverse-gold);
+	padding: 15px 20px;
+	color: white;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.upload-box form input:hover {
+	border: 1px solid white;
+}
+
+.upload-subheader {
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 17px;
+	text-transform: uppercase;
+	color: var(--juriverse-dark);
+}
