@@ -4,9 +4,8 @@ import { ObjectID } from 'mongodb'
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
-	name: String,
-	email: String,
-	university: String,
+	id: String,
+	uni: String,
 	cases: {
 		saved: [ObjectID],
 		drafts: [ObjectID],
@@ -18,16 +17,12 @@ const userSchema = new Schema({
 				caseId: ObjectID,
 				positionIndex: Number,
 				note: String,
+				solution: String,
 			},
 		],
-		solutions: [{
-			caseId: ObjectID,
-			solution: String,
-		}],
 	},
-	draft: Boolean,
 })
 
-const User = mongoose.model('User', userSchema)
+const Users = mongoose.model('Users', userSchema)
 
-export default User
+export default Users

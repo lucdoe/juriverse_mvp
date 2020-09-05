@@ -1,25 +1,26 @@
 import { Router, Request, Response, NextFunction } from 'express'
 import Case from '../models/Case'
+import Users from '../models/User'
 
 const router = Router()
 
-// gett all cases
-router.get('/', async (req: Request, res: Response, next: NextFunction) => {
+// get case
+router.get('/', async (req: any, res: Response, next: NextFunction) => {
 	const key = req.query.key
 	try {
 		const result = await Case.findOne({ key })
-		res.render('fall', { result })
+		res.render('fall', { result, key })
 	} catch (err) {
 		return 1
 	}
 })
 
 // marks case as done, renders home
-router.post('/done', async (req: Request, res: Response, next: NextFunction) => {
-	// TODO:
-	// - mark case as done
-	// - authentification
-	let result = await Case.find({})
+router.post('/done', async (req: any, res: Response, next: NextFunction) => {
+	const key = req.query.key
+	const userId = req.user.id
+	Users.updateOne({ id: userId }, { $push: { 'cases.finished': key } }).exec()
+	const result = await Case.find({})
 	res.render('index', { result })
 })
 

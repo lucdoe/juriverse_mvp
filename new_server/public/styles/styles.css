@@ -53,7 +53,7 @@ ul {
 
 li a {
 	display: block;
-	padding: 8px 16px;
+	padding: 8px 10px;
 	text-decoration: none;
 }
 
@@ -78,7 +78,7 @@ li a {
 	color: var(--juriverse-dark);
 }
 
-.logout .listLink a:hover {
+.listLink a:hover {
 	color: var(--juriverse-dark);
 }
 
@@ -155,9 +155,16 @@ li a {
 }
 
 .logout a {
-	font-size: 14px;
+	color: var(--juriverse-grey);
+	font-weight: 600;
+	font-size: 12px;
+	padding: 8px;
+	margin-left: 2vw;
 }
 
+.logout a:hover {
+	color: var(--juriverse-dark);
+}
 .avatar {
 	vertical-align: middle;
 	width: 40px;
@@ -167,7 +174,7 @@ li a {
 
 .settings {
 	padding: 1.5vw;
-	margin-left: -10%;
+	margin-left: -14%;
 }
 
 .main {
@@ -253,8 +260,8 @@ li a {
 	justify-content: space-between;
 }
 
-.bookmark {
-	align-self: flex-end;
+.bookmark i {
+	padding-right: 2vw;
 }
 
 .card-title {
@@ -458,4 +465,91 @@ li a {
 
 .error-box h3 {
 	justify-self: center;
+}
+
+/* upload */
+/* Style the tab */
+.tab {
+	overflow: hidden;
+	margin-left: 8vw;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding-bottom: 10px;
+	transition: 0.3s;
+	font-weight: 600;
+	color: var(--juriverse-grey);
+	padding-left: 3px;
+	margin-left: 0vw;
+	margin-right: 1.5vw;
+	margin-top: 1vw;
+	border-bottom: 2px solid var(--juriverse-grey);
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+	border-bottom: 2px solid var(--juriverse-gold);
+	color: var(--juriverse-gold);
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+	border-bottom: 2px solid var(--juriverse-gold);
+	color: var(--juriverse-gold);
+}
+
+.public-hide {
+	display: none;
+}
+
+/* Tooltip container */
+.tooltip {
+	position: relative;
+	display: inline-block;
+}
+
+.tooltip #align-left {
+	margin-left: -8.5vw;
+}
+/* Tooltip text */
+.tooltip .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: #555;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 6px 0px;
+
+	/* Position the tooltip text */
+	position: absolute;
+	z-index: 1;
+	top: 150%;
+	left: 50%;
+	margin-left: -60px;
+
+	/* Fade in tooltip */
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+	position: absolute;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+	opacity: 1;
 }

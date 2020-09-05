@@ -1,64 +1,74 @@
-<h1>Upload Content</h1>
-<form id="regForm" method="post" action="/upload/insert">
-	<!-- One "tab" for each step in the form: -->
+<section class="top-box">
+	<h2 class="page-header">Deine Fälle</h2>
+</section>
+<section class="bottom-box">
 	<div class="tab">
-		<h3>Name of the Author & Case</h3>
-		<p>
-			<input id="authorName" placeholder="Author Name" oninput="this.className = ''" name="authorName" />
-		</p>
-		<p><input id="authorName" placeholder="University" oninput="this.className = ''" name="uni" /></p>
-		<p><input id="caseName" placeholder="Case Name" oninput="this.className = ''" name="caseName" /></p>
+		<button class="tablinks content-header gold-header active" onclick="uploadTabs(event, 'drafts')">Entwürfe
+			{{edits.length}}</button>
+		<button class="tablinks content-header gold-header" onclick="uploadTabs(event, 'owns')">Veröffentlicht
+			{{done.length}}</button>
 	</div>
-	<div class="tab">
-		<h3>Case Content & Question</h3>
-		<textarea
-			id="caseContent"
-			placeholder="Case Content/ Description "
-			rows="10"
-			cols="50"
-			oninput="this.className='' "
-			name="caseContent"
-		>
-		</textarea>
-		<p>
-			<input
-				id="caseQuestion"
-				placeholder="Case Question"
-				oninput="this.className = ''"
-				name="caseQuestion"
-			/>
-		</p>
-		<br />
+	<div id="drafts" class="tabcontent">
+		{{# each edits}}
+		<article class="card-wrapper">
+			<div class="title-flex">
+				<div class="card-title-holder"><a class="card-title" href="/faelle/?key={{this._id}}"">{{ this.name }}</a></div>
+				<div class="bookmark">
+					<div class="tooltip"><i class="material-icons md-24 md-gold">edit</i><span class="tooltiptext">Bearbeiten</span></div>
+					<div class="tooltip"><i class="material-icons md-24 md-gold">public_on</i><span class="tooltiptext" id="align-left">Veröffentlichen</span></div>
+				</div>
+			</div>
+			<p class="card-author">von <span><a href="/author/{{this.author.email}}">{{ this.author.name }}</a></span>
+			</p>
+			<p class="card-tags">
+				<span>
+					<span id="categorie-link">{{#each this.categories}}<a
+							href="/faelle/{{this}}">{{this}}</a>{{/each}}</span>
+					<span>{{#each this.subcategories}}<a href="#">{{ this }}</a>{{/each}}</span>
+					{{#each this.problems}}<a href="#">{{ this }}</a>{{/each}}
+				</span>
+			</p>
+		</article>
+		{{/each}}
 	</div>
-	<div class="tab">
-		<h3>Solution</h3>
-		<textarea
-			id="caseSolution"
-			placeholder="Enter Text here"
-			rows="10"
-			cols="50"
-			oninput="this.className='' "
-			name="caseSolution"
-		>
-		</textarea>
+	<div id="owns" class="tabcontent public-hide">
+		{{# each done}}
+		<article class="card-wrapper">
+			<div class="title-flex">
+				<div class="card-title-holder"><a class="card-title" href="/faelle/?key={{this._id}}"">{{ this.name }}</a></div>
+				<div class="bookmark">
+					<div class="tooltip"><i class="material-icons md-24 md-gold">edit</i><span class="tooltiptext">Bearbeiten</span></div>
+					<div class="tooltip"><i class="material-icons md-24 md-gold">public_off</i><span class="tooltiptext" id="align-left">Unpublish</span></div>
+				</div>
+			</div>
+			<p class="card-author">von <span><a href="/author/{{this.author.email}}">{{ this.author.name }}</a></span>
+			</p>
+			<p class="card-tags">
+				<span>
+					<span id="categorie-link">{{#each this.categories}}<a
+							href="/faelle/{{this}}">{{this}}</a>{{/each}}</span>
+					<span>{{#each this.subcategories}}<a href="#">{{ this }}</a>{{/each}}</span>
+					{{#each this.problems}}<a href="#">{{ this }}</a>{{/each}}
+				</span>
+			</p>
+		</article>
+		{{/each}}
 	</div>
-	<div class="tab">
-		<h3>Case Tags</h3>
-		<form>
-			<p><input id="test" type="checkbox" name="test" value="Bike" /> I have a bike<br /></p>
-		</form>
-	</div>
-	<div style="overflow: auto;">
-		<div style="float: right;">
-			<button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-			<button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-		</div>
-	</div>
-	<!-- Circles which indicates the steps of the form: -->
-	<div style="text-align: center; margin-top: 40px;">
-		<span class="step"></span>
-		<span class="step"></span>
-		<span class="step"></span>
-		<span class="step"></span>
-	</div>
-</form>
+</section>
+
+
+<script>
+	const uploadTabs = (evt, cityName) => {
+		let i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+		document.getElementById(cityName).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
+</script>

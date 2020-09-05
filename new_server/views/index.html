@@ -1,6 +1,6 @@
 <section class="top-box">
 	<h2 class="page-header">Home</h2>
-	<form  action="/" method="get">
+	<form  action="/" method="post">
 		<input class="search-bar" ntype="search" name="searchInput" id="searchInput"
 			placeholder="Suche nach Titel, Autor, Kategorie, etc." />
 	</form>
@@ -16,7 +16,7 @@
 		{{# each result}}
 		<article class="card-wrapper">
 			<div class="title-flex">
-				<div class="card-title-holder"><a class="card-title" href="/fall/?key={{this._id}}"">{{ this.name }}</a></div>
+				<div class="card-title-holder"><a class="card-title" href="/faelle/?key={{this._id}}"">{{ this.name }}</a></div>
 								<!-- <div class=" bookmark"><i class="material-icons md-24 md-gold">turned_in_not</i></div> -->
 			</div>
 			<p class="card-author">von <span><a href="/author/{{this.author.email}}">{{ this.author.name }}</a></span>
@@ -25,7 +25,7 @@
 			
 
 				<span>
-					<span id="categorie-link">{{#each this.categories}}<a href="#">{{this}}</a>{{/each}}</span>
+					<span id="categorie-link">{{#each this.categories}}<a href="/faelle/{{this}}">{{this}}</a>{{/each}}</span>
 					<span>{{#each this.subcategories}}<a href="#">{{ this }}</a>{{/each}}</span>
 					{{#each this.problems}}<a href="#">{{ this }}</a>{{/each}}
 				</span>
