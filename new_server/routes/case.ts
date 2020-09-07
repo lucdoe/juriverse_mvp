@@ -8,8 +8,9 @@ const router = Router()
 router.get('/', async (req: any, res: Response, next: NextFunction) => {
 	const key = req.query.key
 	try {
-		const result = await Case.findOne({ key })
-		res.render('fall', { result, key })
+		const result = await Case.findOne({ case_id: key }, (err, data) => {
+			res.render('fall', { data })
+		})
 	} catch (err) {
 		return 1
 	}

@@ -13,7 +13,7 @@ router.get('/', secured(), async (req: Request, res: Response) => {
 		Case.find(
 			{
 				$or: [
-					{ name: regex },
+					{ 'case.title': regex },
 					{ categories: regex },
 					{ subcategories: regex },
 					{ problems: regex },

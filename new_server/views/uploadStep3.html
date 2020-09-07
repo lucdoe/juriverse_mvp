@@ -1,5 +1,6 @@
 <section class="top-box">
-	<form action="/users/{{userId}}/faelle" method="post">
+	<form action="/users/{{userId}}/faelle" method="patch">
+		<input type="hidden" name="case_id" value="{{case_id}}">
 		<div class="upload-subheader-wrapper">
 			<h1 id="choose-title" class="slab-font">Wähle aus...</h1>
 		<div class="upload-subheader-wrapper">
@@ -16,7 +17,7 @@
 		<textarea id="musterloesung" class="slab-font upload-input">z.B. Mittäterschaft</textarea>
 		<div class="upload-checkbox">
 			<div class="checkbox">
-				<input type="checkbox" id="vehicle1" name="selfWriteConfirm" value="selfWriteConfirm">
+				<input type="checkbox" id="vehicle1" class="selfWriteConfirm" name="selfWriteConfirm" value="selfWriteConfirm">
 			</div>
 			<div class="checkbox-text">
 				<p>Für die Verifizierung und Empfehlung an NutzerInnen von Juriverse freigeben.
@@ -24,7 +25,18 @@
 				</p>
 			</div>
 		</div>
-		<input id="publish-upload" class="continue-upload" value="Veröffentlichen" type="submit"><br>
+		<input id="publish-upload" class="continue-upload continue-upload-btn" value="Veröffentlichen" type="submit"><br>
 		<input id="save-draft" class="continue-upload" value="Als Entwurf speichern" type="submit">
 	</form>
 </section>
+<script>
+	const checkbox = document.querySelector("input[name=selfWriteConfirm]");
+
+		checkbox.addEventListener('change', () => {
+			if (this.checked) {
+				document.getElementsByClassName("continue-upload-btn").className = "confirmedColor";
+			} else {
+				// Checkbox is not checked..
+			}
+		});
+</script>

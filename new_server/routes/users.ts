@@ -1,7 +1,7 @@
 import Cases from '../models/Case'
 import Users from '../models/User'
 import { Router } from 'express'
-import uuidv5 from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 const router = Router()
 
 /* GET user profile. */
@@ -34,7 +34,7 @@ router.get('/:userid/faelle/upload', (req, res) => {
 // saving case content
 router.post('/:userid/faelle', (req: any, res) => {
 	const userId = req.params.userid
-	const caseId = uuidv5()
+	const caseId = uuidv4()
 	const { uploadTitle, sachverhalt, aufgabe, musterloesung, fussnoten } = req.body
 	const data = {
 		case_id: caseId,
@@ -48,7 +48,7 @@ router.post('/:userid/faelle', (req: any, res) => {
 		categories: [],
 		subcategories: [],
 		problems: [],
-		cases: {
+		case: {
 			title: uploadTitle,
 			sachverhalt,
 			aufgabe,

@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const caseSchema = new Schema({
-	string_id: String,
+	case_id: String,
 	author: {
 		author_id: String,
 		picture: String,
