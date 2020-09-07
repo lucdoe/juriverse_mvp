@@ -14,9 +14,11 @@ app.use((err, req, res, next) => {
 	res.render('error')
 })
 
-const server = app.listen('3000', () => {
-	console.log('  > Juriverse App running on http://localhost:%d in %s mode.', '3000', app.get('env'))
-	console.log('  > Press CTRL-C to stop the application.\n')
+const port = process.env.port || 3000
+
+const server = app.listen(port, () => {
+	console.log('	' + '> Juriverse App live on http://localhost:%d in %s mode.', port, app.get('env'))
+	console.log('	> Press CTRL-C to stop the application.\n')
 })
 
 export default server

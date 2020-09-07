@@ -1,6 +1,5 @@
 import Case from '../models/Case'
-import User from '../models/Case'
-import { Router, Request, Response, NextFunction } from 'express'
+import { Router, Request, Response } from 'express'
 var secured = require('../middlewares/secured')
 
 const router = Router()
@@ -26,8 +25,8 @@ router.get('/', secured(), async (req: Request, res: Response) => {
 				} else {
 					if (result.length < 1) {
 						const noMatch = 'No campgrounds match that query, please try again.'
+						res.render('index', { result, noMatch })
 					}
-					res.render('index', { result })
 				}
 			}
 		)
