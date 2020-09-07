@@ -1,5 +1,4 @@
 import express, { json } from 'express'
-import morgan from 'morgan'
 import path from 'path'
 import hbs from 'hbs'
 import helmet from 'helmet'
@@ -15,7 +14,7 @@ import caseRouter from './routes/case'
 import authRouter from './routes/auth'
 import { userInViews } from './middlewares/userInViews'
 import usersRouter from './routes/users'
-const secured = require('./middlewares/secured')
+import { secured } from './middlewares/secured'
 
 const app = express()
 
@@ -73,15 +72,14 @@ app.engine('html', hbs.__express)
 app.set('views', path.join(__dirname, 'views'))
 
 app.use(helmet())
-app.use(morgan('dev'))
 app.use(json())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(userInViews())
 
 app.use('/', authRouter)
-app.use('/users', secured(), usersRouter)
-app.use('/', secured(), indexRouter)
-app.use('/faelle', secured(), caseRouter)
+app.use('/users', secured, usersRouter)
+app.use('/', secured, indexRouter)
+app.use('/faelle', secured, caseRouter)
 
 export default app
