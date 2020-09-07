@@ -1,18 +1,17 @@
 import Case from '../models/Case'
 import { Router, Request, Response } from 'express'
-var secured = require('../middlewares/secured')
 
 const router = Router()
 
 // GET home page.
-router.get('/', secured(), async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
 	const searchInput = req.query.searchInput
 	if (searchInput) {
 		const regex = new RegExp(escapeRegex(searchInput), 'gi')
 		Case.find(
 			{
 				$or: [
-					{ name: regex },
+					{ 'case.title': regex },
 					{ categories: regex },
 					{ subcategories: regex },
 					{ problems: regex },
@@ -25,8 +24,8 @@ router.get('/', secured(), async (req: Request, res: Response) => {
 				} else {
 					if (result.length < 1) {
 						const noMatch = 'No campgrounds match that query, please try again.'
+						res.render('index', { result, noMatch })
 					}
-					res.render('index', { result })
 				}
 			}
 		)

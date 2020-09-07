@@ -3,11 +3,10 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const caseSchema = new Schema({
-	key: String,
-	name: String,
-	owner: String,
+	case_id: String,
 	author: {
-		id: String,
+		author_id: String,
+		picture: String,
 		name: String,
 		email: String,
 		uni: String,
@@ -16,19 +15,21 @@ const caseSchema = new Schema({
 	subcategories: [String],
 	problems: [String],
 	case: {
-		question: String,
-		intro: String,
-		solution: String,
+		title: String,
+		aufgabe: String,
+		sachverhalt: String,
+		musterloesung: String,
+		fussnoten: String,
 	},
 	meta: {
 		votes: Number,
 		favs: Number,
-		private: Boolean,
+		recommended: Number,
+		public: Boolean,
+		draft: Boolean,
+		uploadDate: Date,
 	},
-	uploadDate: Date,
 	selfWriteConfirm: Boolean,
-	recommended: Number,
-	draft: Boolean,
 })
 
 const Cases = mongoose.model('Cases', caseSchema)

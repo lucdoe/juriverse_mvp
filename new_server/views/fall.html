@@ -4,15 +4,15 @@
 		<!-- <span><a href="/">J</a></span> -->
 	</div>
 	<article class="case-container">
-		<h1 class="case-title">{{ result.name }}</h1>
+		<h1 class="case-title">{{ data.case.title }}</h1>
 		<p class="card-author case-author">
-			von <span><a href="upload.html">{{ result.author.name }}</a></span>
+			von <span><a href="upload.html">{{ data.author.name }}</a></span>
 		</p>
 		<p class="card-tags">
-			<span>{{# each result.categories}}<a id="first-tag" href="upload.html">{{ this }}</a>{{/each}}</span>
-			•<span><a href="upload.html">{{ result.subcategories }}</a></span> •<span
+			<span>{{# each data.categories}}<a id="first-tag" href="upload.html">{{ this }}</a>{{/each}}</span>
+			•<span><a href="upload.html">{{ data.subcategories }}</a></span> •<span
 				>
-			<span><a href="upload.html">{{ result.problems }}</a></span>
+			<span><a href="upload.html">{{ data.problems }}</a></span>
 		</p>
 	</article>
 </section>
@@ -21,15 +21,15 @@
 	<section class="middle-container">
 		<article class="case-content">
 			<h4 class="sub-header">Sachverhalt</h4>
-			<p class="case-text">{{ result.case.intro }}</p>
-			<p class="case-question">{{ result.case.question}}</p>
+			<p class="case-text">{{ data.case.sachverhalt }}</p>
+			<p class="case-question">{{ data.case.aufgabe}}</p>
 			<button id="showSolutionButton" onclick="showSolution()">Musterloesung ansehen</button>
 		</article>
 	</section>
 	<article id="case-solution">
 		<h2 class="sub-header">Musterloesung</h2>
-		<p class="case-text"> <span style="white-space: pre-wrap;">{{ result.case.solution }}</span></p>
-		<form action="/faelle/done?key={{key}}" method="post">
+		<p class="case-text"> <span style="white-space: pre-wrap;">{{ data.case.musterloesung }}</span></p>
+		<form action="/faelle/done?key={{data.case_id}}" method="post">
 			<h5 class="done-header">Fertig bearbeitet?</h5>
 			<input id="showSolutionButton" class="rob-font" type="submit" value="Abschließen">
 		</form>

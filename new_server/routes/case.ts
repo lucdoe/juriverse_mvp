@@ -8,8 +8,9 @@ const router = Router()
 router.get('/', async (req: any, res: Response) => {
 	const key = req.query.key
 	try {
-		const result = await Case.findOne({ key })
-		res.render('fall', { result, key })
+		const result = await Case.findOne({ case_id: key }, (err, data) => {
+			res.render('fall', { data })
+		})
 	} catch (err) {
 		return 1
 	}
@@ -18,10 +19,11 @@ router.get('/', async (req: any, res: Response) => {
 // marks case as done, renders home
 router.post('/done', async (req: any, res: Response) => {
 	const key = req.query.key
-	const userId = req.user.id
-	Users.updateOne({ id: userId }, { $push: { 'cases.finished': key } }).exec()
-	const result = await Case.find({})
-	res.render('index', { result })
+	const user_id = req.user.id
+	Users.updateOne({ user_id }, { $push: { 'cases.finished': key } }, async (err, data) => {
+		const result = await Case.find({})
+		res.render('index', { result })
+	})
 })
 
 // gets strafrecht cases
