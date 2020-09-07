@@ -17,11 +17,16 @@ router.get('/', (req: any, res: Response) => {
 router.get('/:userid/faelle', (req: any, res: Response) => {
 	const userId = req.params.userid
 	Users.findOne({ id: userId }, async (err, data: any) => {
-		const { cases } = data
-		const { drafts } = cases
-		const draftCases = await Cases.find({ $and: [{ key: drafts }, { draft: true }] }).exec()
-		const ownedCases = await Cases.find({ owner: userId }).exec()
-		res.render('uploadStep1', { userId, draftCases, ownedCases })
+		try {
+			const user = data
+			const { cases } = user
+			const { drafts } = cases
+			const draftCases = await Cases.find({ $and: [{ key: drafts }, { draft: true }] }).exec()
+			const ownedCases = await Cases.find({ owner: userId }).exec()
+			res.render('uploadStep1', { userId, draftCases, ownedCases })
+		} catch (err) {
+			console.log(err)
+		}
 	})
 })
 
