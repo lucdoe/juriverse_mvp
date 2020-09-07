@@ -1,6 +1,7 @@
 import Cases from '../models/Case'
 import Users from '../models/User'
 import { Router } from 'express'
+import uuidv5 from 'uuid'
 const router = Router()
 
 /* GET user profile. */
@@ -30,14 +31,47 @@ router.get('/:userid/faelle/upload', (req, res) => {
 	res.render('uploadStep2', { userId })
 })
 
-router.post('/:userid/faelle', (req, res) => {
+// saving case content
+router.post('/:userid/faelle', (req: any, res) => {
 	const userId = req.params.userid
-	// const { title, sachverhalt, aufgabe, musterloesung } = req.body
-	// Users.create(
-	// 	{ owner: userId, cases: { title, sachverhalt, aufgabe, musterloesung } },
-	// 	async (err, data: any) => {}
-	// )
-	res.render('uploadStep3', { userId })
+	const caseId = uuidv5()
+	const { uploadTitle, sachverhalt, aufgabe, musterloesung, fussnoten } = req.body
+	const data = {
+		case_id: caseId,
+		author: {
+			author_id: userId,
+			picture: req.user.picture,
+			name: req.user.nickname,
+			email: req.user.emails[0].value,
+			uni: '',
+		},
+		categories: [],
+		subcategories: [],
+		problems: [],
+		cases: {
+			title: uploadTitle,
+			sachverhalt,
+			aufgabe,
+			musterloesung,
+			fussnoten: '',
+		},
+		meta: {
+			votes: 0,
+			favs: 0,
+			recommended: 0,
+			public: true,
+			draft: true,
+			uploadDate: '',
+		},
+		selfWriteConfirm: false,
+	}
+	console.log(data)
+	Cases.create(data, async (err, data: any) => {
+		if (err) throw err
+		const { author, case_id } = data
+		const { author_id } = author
+		res.render('uploadStep3', { author_id, case_id })
+	})
 })
 
 export default router
