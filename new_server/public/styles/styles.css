@@ -571,19 +571,22 @@ li a {
 	display: flex;
 }
 
-.upload-box form input {
-	margin-top: 15px;
-	margin-left: 37vw;
+.upload-box a {
+	margin-top: 10px;
+	margin-left: 38vw;
 	font-weight: 600;
 	border: none;
 	background-color: var(--juriverse-gold);
-	padding: 15px 20px;
 	color: white;
-	font-size: 14px;
 	cursor: pointer;
+	text-decoration: none;
+	height: 34px;
+	padding-top: 15px;
+	width: 139px;
+	text-align: center;
 }
 
-.upload-box form input:hover {
+.upload-box a:hover {
 	border: 1px solid white;
 }
 
