@@ -16,13 +16,13 @@ router.get('/', (req: any, res) => {
 })
 
 router.get('/:userid/faelle', (req, res) => {
-	const userId = req.params.userid
-	Users.findOne({ id: userId }, async (err, data: any) => {
+	const user_id = req.params.userid
+	Users.findOne({ user_id }, async (err, data: any) => {
 		const { cases } = data
 		const { drafts } = cases
 		const draftCases = await Cases.find({ $and: [{ key: drafts }, { draft: true }] }).exec()
-		const ownedCases = await Cases.find({ owner: userId }).exec()
-		res.render('uploadStep1', { userId, draftCases, ownedCases })
+		const ownedCases = await Cases.find({ owner: user_id }).exec()
+		res.render('uploadStep1', { user_id, draftCases, ownedCases })
 	})
 })
 
