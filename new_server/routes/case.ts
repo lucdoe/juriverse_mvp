@@ -19,10 +19,11 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
 // marks case as done, renders home
 router.post('/done', async (req: any, res: Response) => {
 	const key = req.query.key
-	const userId = req.user.id
-	Users.updateOne({ id: userId }, { $push: { 'cases.finished': key } }).exec()
-	const result = await Case.find({})
-	res.render('index', { result })
+	const user_id = req.user.id
+	Users.updateOne({ user_id }, { $push: { 'cases.finished': key } }, async (err, data) => {
+		const result = await Case.find({})
+		res.render('index', { result })
+	})
 })
 
 // gets strafrecht cases

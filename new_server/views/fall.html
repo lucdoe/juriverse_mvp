@@ -29,7 +29,7 @@
 	<article id="case-solution">
 		<h2 class="sub-header">Musterloesung</h2>
 		<p class="case-text"> <span style="white-space: pre-wrap;">{{ data.case.musterloesung }}</span></p>
-		<form action="/faelle/done?key={{key}}" method="post">
+		<form action="/faelle/done?key={{data.case_id}}" method="post">
 			<h5 class="done-header">Fertig bearbeitet?</h5>
 			<input id="showSolutionButton" class="rob-font" type="submit" value="Abschließen">
 		</form>

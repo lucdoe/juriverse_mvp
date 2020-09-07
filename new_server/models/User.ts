@@ -11,7 +11,7 @@ const userSchema = new Schema({
 		drafts: [ObjectID],
 		owns: [ObjectID],
 		open: [ObjectID],
-		finished: [ObjectID],
+		finished: [String],
 		notes: [
 			{
 				caseId: ObjectID,
