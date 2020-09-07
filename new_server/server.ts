@@ -1,5 +1,7 @@
 import app from './app'
 import { connectDB } from './middlewares/db'
+import chalk from 'chalk'
+const ctx = new chalk.Instance({ level: 3 });
 
 connectDB()
 
@@ -17,8 +19,8 @@ app.use((err, req, res, next) => {
 const port = process.env.port || 3000
 
 const server = app.listen(port, () => {
-	console.log('	' + '> Juriverse App live on http://localhost:%d in %s mode.', port, app.get('env'))
-	console.log('	> Press CTRL-C to stop the application.\n')
+	console.log(chalk.bold('	' + '>>>', chalk.hex('#cca768')('Juriverse App'), 'live on', chalk.underline.blue('http://localhost:' + port), 'in', app.get('env'), 'mode. <<<'))
+	console.log(chalk.bold('	>>> Press', chalk.red('CTRL-C to stop'), 'the application. <<<\n'))
 })
 
 export default server
