@@ -1,20 +1,20 @@
 <section class="top-box">
-	<form action="/users/{{userId}}/faelle" method="patch">
+	<form action="/" method="patch">
 		<input type="hidden" name="case_id" value="{{case_id}}">
 		<div class="upload-subheader-wrapper">
 			<h1 id="choose-title" class="slab-font">Wähle aus...</h1>
 		<div class="upload-subheader-wrapper">
 			<label for="rechtsgebiet" class="upload-subheader">Rechtsgebiet</label>
 		</div>
-		<textarea id="sachverhalt" class="slab-font upload-input">z.B. Strafrecht</textarea>
+		<textarea id="sachverhalt" name="categories" class="slab-font upload-input">z.B. Strafrecht</textarea>
 		<div class="upload-subheader-wrapper">
 			<label for="teilgebiete" class="upload-subheader">Teilgebiete</label>
 		</div>
-		<textarea id="aufgabe" class="slab-font upload-input">z.B. Strafrecht AT</textarea>
+		<textarea id="aufgabe" name="subcategories" class="slab-font upload-input">z.B. Strafrecht AT</textarea>
 		<div class="upload-subheader-wrapper">
 			<label for="probleme" class="upload-subheader">Probleme</label>
 		</div>
-		<textarea id="musterloesung" class="slab-font upload-input">z.B. Mittäterschaft</textarea>
+		<textarea id="musterloesung" name="problems" class="slab-font upload-input">z.B. Mittäterschaft</textarea>
 		<div class="upload-checkbox">
 			<div class="checkbox">
 				<input type="checkbox" id="vehicle1" class="selfWriteConfirm" name="selfWriteConfirm" value="selfWriteConfirm">

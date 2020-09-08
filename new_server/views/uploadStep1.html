@@ -13,7 +13,7 @@
 		{{# each draftCases}}
 		<article class="card-wrapper">
 			<div class="title-flex">
-				<div class="card-title-holder"><a class="card-title" href="/faelle/?key={{this._id}}"">{{ this.name }}</a></div>
+				<div class="card-title-holder"><a class="card-title" href="/faelle/?key={{this.case_id}}"">{{ this.case.title }}</a></div>
 				<div class="bookmark">
 					<div class="tooltip"><i class="material-icons md-24 md-gold">edit</i><span class="tooltiptext">Bearbeiten</span></div>
 					<div class="tooltip"><i class="material-icons md-24 md-gold">public_on</i><span class="tooltiptext" id="align-left">Veröffentlichen</span></div>
@@ -36,7 +36,7 @@
 		{{# each ownedCases}}
 		<article class="card-wrapper">
 			<div class="title-flex">
-				<div class="card-title-holder"><a class="card-title" href="/faelle/?key={{this._id}}"">{{ this.name }}</a></div>
+				<div class="card-title-holder"><a class="card-title" href="/faelle/?key={{this.case_id}}"">{{ this.author.name }}</a></div>
 				<div class="bookmark">
 					<div class="tooltip"><i class="material-icons md-24 md-gold">edit</i><span class="tooltiptext">Bearbeiten</span></div>
 					<div class="tooltip"><i class="material-icons md-24 md-gold">public_off</i><span class="tooltiptext" id="align-left">Unpublish</span></div>

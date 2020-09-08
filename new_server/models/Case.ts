@@ -35,3 +35,4 @@ const caseSchema = new Schema({
 const Cases = mongoose.model('Cases', caseSchema)
 
 export default Cases
+

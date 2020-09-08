@@ -16,30 +16,29 @@ router.get('/', (req: any, res: Response) => {
 })
 
 router.get('/:userid/faelle', (req, res) => {
-	const user_id = req.params.userid
+	const id = req.params.userid
+	const user_id = id.substring(6, 30)
 	Users.findOne({ user_id }, async (err, data: any) => {
-		const { cases } = data
-		const { drafts } = cases
-		const draftCases = await Cases.find({ $and: [{ key: drafts }, { draft: true }] }).exec()
-		const ownedCases = await Cases.find({ owner: user_id }).exec()
+		const draftCases = await Cases.find({ $and: [{ 'author.author_id': user_id }, { 'meta.draft': true }] }).exec()
+		const ownedCases = await Cases.find({ $and: [{ 'author.author_id': user_id }, { 'meta.draft': false }, { 'meta.public': true }] }).exec()
 		res.render('uploadStep1', { user_id, draftCases, ownedCases })
 	})
 })
 
 router.get('/:userid/faelle/upload', (req, res) => {
-	const userId = req.params.userid
-	res.render('uploadStep2', { userId })
+	const user_id = req.params.userid
+	res.render('uploadStep2', { user_id })
 })
 
 // saving case content
 router.post('/:userid/faelle', (req: any, res) => {
-	const userId = req.params.userid
-	const caseId = uuidv4()
-	const { uploadTitle, sachverhalt, aufgabe, musterloesung, fussnoten } = req.body
+	const user_id = req.params.userid
+	const case_id = uuidv4()
+	const { uploadTitle, sachverhalt, aufgabe, musterloesung } = req.body
 	const data = {
-		case_id: caseId,
+		case_id,
 		author: {
-			author_id: userId,
+			author_id: user_id,
 			picture: req.user.picture,
 			name: req.user.nickname,
 			email: req.user.emails[0].value,
@@ -71,6 +70,31 @@ router.post('/:userid/faelle', (req: any, res) => {
 		const { author, case_id } = data
 		const { author_id } = author
 		res.render('uploadStep3', { author_id, case_id })
+	})
+})
+
+router.post('/:userid/faelle', (req: any, res) => {
+	const case_id = req.body.case_id
+	const { categories, subcategories, problems } = req.body
+	const data = {
+		categories: [categories],
+		subcategories: [subcategories],
+		problems: [problems],
+		meta: {
+			uploadDate: Date.now(),
+			public: true,
+			draft: false
+		},
+		selfWriteConfirm: true,
+	}
+	Cases.updateOne(case_id, data, async (err, data: any) => {
+		const id = req.params.userid
+		const user_id = id.substring(6, 30)
+		Users.findOne({ user_id }, async (err, data: any) => {
+			const draftCases = await Cases.find({ $and: [{ 'author.author_id': user_id }, { 'meta.draft': true }] }).exec()
+			const ownedCases = await Cases.find({ $and: [{ 'author.author_id': user_id }, { 'meta.draft': false }, { 'meta.public': true }] }).exec()
+			res.render('uploadStep1', { user_id, draftCases, ownedCases })
+		})
 	})
 })
 
