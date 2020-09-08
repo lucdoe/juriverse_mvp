@@ -657,6 +657,9 @@ li a {
 	margin-left: 40vw;
 }
 
+.upload-icons:hover {
+	background-color: #fafafa;
+}
 #save-draft {
 	background-color: white;
 	color: var(--juriverse-gold);

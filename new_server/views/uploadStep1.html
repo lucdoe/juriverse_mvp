@@ -16,7 +16,15 @@
 				<div class="card-title-holder"><a class="card-title" href="/faelle/?key={{this.case_id}}"">{{ this.case.title }}</a></div>
 				<div class="bookmark">
 					<div class="tooltip"><a href="/users/{{this.author.author_id}}/faelle/{{this.case_id}}"><i class="material-icons md-24 md-gold">edit</i><span class="tooltiptext">Bearbeiten</span></a></div>
-					<div class="tooltip"><i class="material-icons md-24 md-gold">public_on</i><span class="tooltiptext" id="align-left">Veröffentlichen</span></div>
+					<div class="tooltip">
+						<form method="post" action="/users/{{this.author.author_id}}/faelle/modify">
+							<input type="hidden" name="_public" value=true>
+							<input type="hidden" name="draft" value=false>
+							<input type="hidden" name="case_id" value="{{this.case_id}}">
+							<button style="background-color: white; border: none;" class="upload-icons" type="submit"><i class="material-icons md-24 md-gold">public_on</i></button>
+							<span class="tooltiptext" id="align-left">Veröffentlichen</span>
+						</form>
+					</div>
 				</div>
 			</div>
 			<p class="card-author">von <span><a href="/author/{{this.author.email}}">{{ this.author.name }}</a></span>
@@ -40,7 +48,15 @@
 				<div class="bookmark">
 					<div class="tooltip"><a href="/users/{{this.author.author_id}}/faelle/{{this.case_id}}"><i class="material-icons md-24 md-gold">edit</i><span
 							class="tooltiptext">Bearbeiten</span></a></div>
-					<div class="tooltip"><i class="material-icons md-24 md-gold">public_off</i><span class="tooltiptext" id="align-left">Unpublish</span></div>
+					<div class="tooltip">
+						<form method="post" action="/users/{{this.author.author_id}}/faelle/modify">
+							<input type="hidden" name="_public" value=false>
+							<input type="hidden" name="draft" value=true>
+							<input type="hidden" name="user_id" value="{{user_id}}">
+							<button style="background-color: white; border: none;" class="upload-icons" type="submit"><i class="material-icons md-24 md-gold">public_off</i></button>
+							<span class="tooltiptext" id="align-left">Unpublish</span>
+						</form>
+					</div>
 				</div>
 			</div>
 			<p class="card-author">von <span><a href="/author/{{this.author.email}}">{{ this.author.name }}</a></span>

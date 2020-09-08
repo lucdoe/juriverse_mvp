@@ -33,8 +33,8 @@ router.get('/:userid/faelle/upload', (req, res) => {
 	res.render('uploadStep2', { user_id })
 })
 
-router.get('/:userid/faelle/:caseid', async (req: any, res) => {
-	const case_id = req.params.caseid
+router.get('/:userid/faelle', async (req: any, res) => {
+	const case_id = req.query.caseid
 	await Cases.findOne({ case_id }, (err, data: any) => {
 		res.render('uploadStep2', { data })
 	})
@@ -44,7 +44,7 @@ router.get('/:userid/faelle/:caseid', async (req: any, res) => {
 router.post('/:userid/faelle', (req: any, res) => {
 	const user_id = req.params.userid
 
-	let { case_id, uploadTitle, sachverhalt, aufgabe, musterloesung } = req.body
+	let { case_id, uploadTitle, sachverhalt, aufgabe, musterloesung, _public, draft } = req.body
 
 	if (!case_id) {
 		case_id = uuidv4()
@@ -86,7 +86,7 @@ router.post('/:userid/faelle', (req: any, res) => {
 			res.render('uploadStep3', { author_id, case_id })
 		})
 
-	} else {
+	} else if (case_id && sachverhalt || aufgabe || musterloesung) {
 
 		const data = {
 			case: {
@@ -105,6 +105,24 @@ router.post('/:userid/faelle', (req: any, res) => {
 		})
 	}
 })
+
+router.post('/:userid/faelle/modify', async (req: any, res) => {
+	const { draft, _public, case_id } = req.body
+	const user_id = req.params.userid
+	const data = {
+		meta: {
+			draft, public: _public
+		}
+	}
+	await Cases.updateOne({ case_id }, data, async (err, data) => {
+		await Users.findOne({ user_id }, async (err, data: any) => {
+			const draftCases = await Cases.find({ $and: [{ 'author.author_id': user_id }, { 'meta.draft': true }] }).exec()
+			const ownedCases = await Cases.find({ $and: [{ 'author.author_id': user_id }, { 'meta.draft': false }, { 'meta.public': true }] }).exec()
+			res.render('uploadStep1', { user_id, draftCases, ownedCases })
+		})
+	})
+})
+
 
 router.post('/:userid/faelle/last', async (req: any, res) => {
 	const { case_id, categories, subcategories, problems } = req.body
