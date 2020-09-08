@@ -18,20 +18,21 @@ router.get('/', async (req: Request, res: Response) => {
 					{ 'author.name': regex },
 				],
 			},
-			(err, result) => {
+			(err, data) => {
 				if (err) {
 					console.log(err)
 				} else {
-					if (result.length < 1) {
+					if (data.length < 1) {
 						const noMatch = 'No campgrounds match that query, please try again.'
-						res.render('index', { result, noMatch })
+						res.render('index', { data, noMatch })
 					}
+					res.render('index', { data })
 				}
 			}
 		)
 	} else {
-		let result = await Case.find({})
-		res.render('index', { result })
+		let data = await Case.find({})
+		res.render('index', { data })
 	}
 })
 
