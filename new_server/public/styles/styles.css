@@ -258,6 +258,19 @@ li a {
 	color: var(--juriverse-grey);
 	text-transform: uppercase;
 	margin-left: 8vw;
+	margin-bottom: -1vw;
+}
+
+.recommended {
+	color: var(--juriverse-gold);
+}
+
+.recommended-card:hover {
+	background-color: rgba(204, 167, 104, 0.1);
+}
+
+.all-cases {
+	margin-top: 4vw;
 }
 
 .title-flex {

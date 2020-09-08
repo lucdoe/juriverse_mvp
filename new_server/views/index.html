@@ -13,8 +13,30 @@
 </section>
 <div class="divider"></div>
 <section class="bottom-box">
-	<h3 class="content-header">ALLE FÄLLE</h2>
-		{{# each data}}
+	<h3 class="content-header recommended">Empfohlen</h2>
+		{{# each data.recommended }}
+		<article class="card-wrapper recommended-card">
+			<div class="title-flex">
+				<div class="card-title-holder"><a class="card-title" href="/faelle/?key={{this.case_id}}"">{{ this.case.title }}</a></div>
+									<div class=" bookmark"><i class="material-icons md-24 md-gold">check_circle</i></div>
+			</div>
+			<p class="card-author">von <span><a href="/author/{{this.author.email}}">{{ this.author.name }}</a></span>
+			</p>
+			<p class="card-tags">
+	
+	
+				<span>
+					<span id="categorie-link">{{#each this.categories}}<a
+							href="/faelle/{{this}}">{{this}}</a>{{/each}}</span>
+					<span>{{#each this.subcategories}}<a href="#">{{ this }}</a>{{/each}}</span>
+					{{#each this.problems}}<a href="#">{{ this }}</a>{{/each}}
+				</span>
+	
+			</p>
+		</article>
+		{{/each}}
+	<h3 class="content-header all-cases">ALLE FÄLLE</h2>
+		{{# each data.all }}
 		<article class="card-wrapper">
 			<div class="title-flex">
 				<div class="card-title-holder"><a class="card-title" href="/faelle/?key={{this.case_id}}"">{{ this.case.title }}</a></div>

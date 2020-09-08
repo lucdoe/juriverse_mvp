@@ -31,7 +31,12 @@ router.get('/', async (req: Request, res: Response) => {
 			}
 		)
 	} else {
-		let data = await Case.find({})
+		const recommended = await Case.find({ 'meta.recommended': { $gt: 980 } })
+		const all = await Case.find({})
+		const data = {
+			recommended,
+			all
+		}
 		res.render('index', { data })
 	}
 })
