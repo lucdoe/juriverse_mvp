@@ -3,7 +3,7 @@ import Case from '../models/Case'
 
 const router = Router()
 
-// gett all cases
+// get all cases
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
 	const key = req.query.key
 	try {
