@@ -8,16 +8,15 @@ router.get('/', async (req: Request, res: Response) => {
 	const searchInput = req.query.searchInput
 	if (searchInput) {
 		const regex = new RegExp(escapeRegex(searchInput), 'gi')
-		Case.find(
-			{
-				$or: [
-					{ 'case.title': regex },
-					{ categories: regex },
-					{ subcategories: regex },
-					{ problems: regex },
-					{ 'author.name': regex },
-				],
-			},
+		Case.find({
+			$or: [
+				{ 'case.title': regex },
+				{ categories: regex },
+				{ subcategories: regex },
+				{ problems: regex },
+				{ 'author.name': regex },]
+		},
+
 			(err, data) => {
 				if (err) {
 					console.log(err)
@@ -31,8 +30,8 @@ router.get('/', async (req: Request, res: Response) => {
 			}
 		)
 	} else {
-		const recommended = await Case.find({ 'meta.recommended': { $gt: 980 } })
-		const all = await Case.find({})
+		const recommended = await Case.find({ $and: [{ 'meta.recommended': { $gt: 980 } }, { $or: [{ 'meta.public': true }, { 'meta.draft': false }] }] })
+		const all = await Case.find({ $or: [{ 'meta.public': true }, { 'meta.draft': false }] })
 		const data = {
 			recommended,
 			all
