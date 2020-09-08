@@ -14,6 +14,12 @@ app.use((err, req, res, next) => {
 	res.render('error')
 })
 
+app.use((req, res, next) => {
+	const message = "Seite wurde nicht gefunden, wir bitte dies zu entschuldigen."
+	const error = "404 Not Found"
+	res.status(404).render('error', { message, error })
+})
+
 const port = process.env.port || 3000
 
 const server = app.listen(port, () => {
