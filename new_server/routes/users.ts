@@ -7,7 +7,6 @@ const router = Router()
 /* GET user profile. */
 router.get('/', (req: any, res: Response) => {
 	const data = req.user
-	console.log(data)
 	res.render('user', { data })
 })
 
@@ -68,7 +67,6 @@ router.post('/:userid/faelle', (req: any, res) => {
 		},
 		selfWriteConfirm: false,
 	}
-	console.log(data)
 	Cases.create(data, async (err, data: any) => {
 		if (err) throw err
 		const { author, case_id } = data
@@ -94,7 +92,6 @@ router.post('/:userid/faelle/last', async (req: any, res) => {
 		},
 		selfWriteConfirm: true,
 	}
-	console.log(data)
 	await Cases.updateOne(search, data)
 	res.redirect('http://localhost:3000/users/' + user_id + '/faelle')
 })

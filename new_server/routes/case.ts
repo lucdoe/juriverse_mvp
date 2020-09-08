@@ -9,7 +9,6 @@ router.get('/', async (req: any, res: Response) => {
 	const case_id = req.query.key
 	try {
 		await Cases.findOne({ case_id }, (err, data) => {
-			console.log(data)
 			res.render('fall', { data })
 		})
 	} catch (err) {
