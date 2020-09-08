@@ -21,26 +21,46 @@ router.post('/done', async (req: any, res: Response) => {
 	const key = req.query.key
 	const user_id = req.user.id
 	Users.updateOne({ user_id }, { $push: { 'cases.finished': key } }, async (err, result) => {
-		const data = await Cases.find({})
+		const recommended = await Cases.find({ 'meta.recommended': { $gt: 980 } })
+		const all = await Cases.find({})
+		const data = {
+			recommended,
+			all
+		}
 		res.render('index', { data })
 	})
 })
 
 // gets strafrecht cases
 router.get('/strafrecht', async (req: Request, res: Response) => {
-	let data = await Cases.find({ categories: 'Strafrecht' })
+	const recommended = await Cases.find({ $and: [{ 'meta.recommended': { $gt: 980 } }, { categories: 'Strafrecht' }] })
+	const all = await Cases.find({ categories: 'Strafrecht' })
+	const data = {
+		recommended,
+		all
+	}
 	res.render('strafrecht', { data })
 })
 
 // gets zivilrecht cases
 router.get('/zivilrecht', async (req: Request, res: Response) => {
-	let data = await Cases.find({ categories: 'Zivilrecht' })
+	const recommended = await Cases.find({ $and: [{ 'meta.recommended': { $gt: 980 } }, { categories: 'Zivilrecht' }] })
+	const all = await Cases.find({ categories: 'Zivilrecht' })
+	const data = {
+		recommended,
+		all
+	}
 	res.render('zivilrecht', { data })
 })
 
 // gets öffentliches recht cases
 router.get('/oefrecht', async (req: Request, res: Response) => {
-	let data = await Cases.find({ categories: 'Öffentliches Recht' })
+	const recommended = await Cases.find({ $and: [{ 'meta.recommended': { $gt: 980 } }, { categories: 'Öffentliches Recht' }] })
+	const all = await Cases.find({ categories: 'Öffentliches Recht' })
+	const data = {
+		recommended,
+		all
+	}
 	res.render('oefrecht', { data })
 })
 

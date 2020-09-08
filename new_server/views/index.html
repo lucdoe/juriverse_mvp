@@ -13,6 +13,7 @@
 </section>
 <div class="divider"></div>
 <section class="bottom-box">
+	{{# if data.recommended }}
 	<h3 class="content-header recommended">Empfohlen</h2>
 		{{# each data.recommended }}
 		<article class="card-wrapper recommended-card">
@@ -35,6 +36,7 @@
 			</p>
 		</article>
 		{{/each}}
+	{{/if}}
 	<h3 class="content-header all-cases">ALLE FÄLLE</h2>
 		{{# each data.all }}
 		<article class="card-wrapper">

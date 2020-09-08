@@ -261,6 +261,12 @@ li a {
 	margin-bottom: -1vw;
 }
 
+.tab-header {
+	font-size: 14px;
+	color: var(--juriverse-grey);
+	text-transform: uppercase;
+	margin-left: 8vw;
+}
 .recommended {
 	color: var(--juriverse-gold);
 }
