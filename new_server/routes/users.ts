@@ -33,46 +33,77 @@ router.get('/:userid/faelle/upload', (req, res) => {
 	res.render('uploadStep2', { user_id })
 })
 
+router.get('/:userid/faelle/:caseid', async (req: any, res) => {
+	const case_id = req.params.caseid
+	await Cases.findOne({ case_id }, (err, data: any) => {
+		res.render('uploadStep2', { data })
+	})
+})
+
 // saving case content
 router.post('/:userid/faelle', (req: any, res) => {
 	const user_id = req.params.userid
-	const case_id = uuidv4()
-	const { uploadTitle, sachverhalt, aufgabe, musterloesung } = req.body
-	const data = {
-		case_id,
-		author: {
-			author_id: user_id,
-			picture: req.user.picture,
-			name: req.user.nickname,
-			email: req.user.emails[0].value,
-			uni: '',
-		},
-		categories: [],
-		subcategories: [],
-		problems: [],
-		case: {
-			title: uploadTitle,
-			sachverhalt,
-			aufgabe,
-			musterloesung,
-			fussnoten: '',
-		},
-		meta: {
-			votes: 0,
-			favs: 0,
-			recommended: 0,
-			public: true,
-			draft: true,
-			uploadDate: '',
-		},
-		selfWriteConfirm: false,
+
+	let { case_id, uploadTitle, sachverhalt, aufgabe, musterloesung } = req.body
+
+	if (!case_id) {
+		case_id = uuidv4()
+
+		const data = {
+			case_id,
+			author: {
+				author_id: user_id,
+				picture: req.user.picture,
+				name: req.user.nickname,
+				email: req.user.emails[0].value,
+				uni: '',
+			},
+			categories: [],
+			subcategories: [],
+			problems: [],
+			case: {
+				title: uploadTitle,
+				sachverhalt,
+				aufgabe,
+				musterloesung,
+				fussnoten: '',
+			},
+			meta: {
+				votes: 0,
+				favs: 0,
+				recommended: 0,
+				public: true,
+				draft: true,
+				uploadDate: '',
+			},
+			selfWriteConfirm: false,
+		}
+
+		Cases.create(data, async (err, data: any) => {
+			if (err) throw err
+			const { author, case_id } = data
+			const { author_id } = author
+			res.render('uploadStep3', { author_id, case_id })
+		})
+
+	} else {
+
+		const data = {
+			case: {
+				title: uploadTitle,
+				sachverhalt,
+				aufgabe,
+				musterloesung,
+				fussnoten: '',
+			},
+		}
+
+		Cases.findOneAndUpdate({ case_id }, data, async (err, data: any) => {
+			if (err) throw err
+			console.log(data)
+			res.render('uploadStep3', { data })
+		})
 	}
-	Cases.create(data, async (err, data: any) => {
-		if (err) throw err
-		const { author, case_id } = data
-		const { author_id } = author
-		res.render('uploadStep3', { author_id, case_id })
-	})
 })
 
 router.post('/:userid/faelle/last', async (req: any, res) => {
