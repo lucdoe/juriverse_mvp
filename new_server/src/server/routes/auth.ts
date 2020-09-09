@@ -15,7 +15,7 @@ router.get(
 		scope: 'openid email profile',
 	}),
 	(req, res) => {
-		res.redirect('/auth')
+		res.redirect('/')
 	}
 )
 

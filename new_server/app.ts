@@ -1,3 +1,4 @@
+// import dependencys/ modules
 import express, { json } from 'express'
 import path from 'path'
 import hbs from 'hbs'
@@ -10,6 +11,7 @@ import Auth0Strategy from 'passport-auth0'
 
 dotenv.config()
 
+// importing router
 import indexRouter from './src/server/routes/index'
 import caseRouter from './src/server/routes/cases/case_old'
 import authRouter from './src/server/routes/auth'
@@ -18,6 +20,8 @@ import strafrechtRouter from './src/server/routes/cases/strafrecht'
 import zivilrechtRouter from './src/server/routes/cases/zivilrecht'
 import { userInViews } from './src/server/middlewares/userInViews'
 import usersRouter from './src/server/routes/users'
+
+// importing middleware
 import { secured } from './src/server/middlewares/secured'
 
 const app = express()
@@ -28,7 +32,7 @@ const strategy = new Auth0Strategy(
 		domain: process.env.AUTH0_DOMAIN,
 		clientID: process.env.AUTH0_CLIENT_ID,
 		clientSecret: process.env.AUTH0_CLIENT_SECRET,
-		callbackURL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/callback',
+		callbackURL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:3000/auth/callback',
 	},
 	(accessToken, refreshToken, extraParams, profile, done) => {
 		// accessToken is the token to call Auth0 API (not needed in the most cases)
@@ -67,21 +71,28 @@ passport.deserializeUser((user, done) => {
 	done(null, user)
 })
 
+// auth0 related
 app.use(session(sess))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(userInViews())
 
+// sets view engine and the path to the views
 app.set('view engine', 'html')
 app.engine('html', hbs.__express)
 app.set('views', path.join(__dirname + '/src', 'views'))
 
+// sets security related http headers
 app.use(helmet())
+// set so app can parse json
 app.use(json())
+// where the static files are
 app.use(express.static(path.join(__dirname + '/src', 'public')))
+// set so can parse html body
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(userInViews())
 
-app.use('/', secured, indexRouter) // /help, /contact
+// registers routes plus their middleware handler
+app.use('/', secured, indexRouter)
 app.use('/auth', authRouter)
 app.use('/users', secured, usersRouter)
 app.use('/cases', secured, caseRouter)
