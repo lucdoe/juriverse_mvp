@@ -23,6 +23,7 @@ app.use(json())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
-app.use('/fall', caseRouter)
+app.use('/cases', caseRouter)
+app.use('/cases/zivilrecht')
 
 export default app
