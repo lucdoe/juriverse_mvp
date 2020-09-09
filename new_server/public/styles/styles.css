@@ -72,6 +72,9 @@ li a {
 .listBox:hover:not(.firstItem) {
 	background-color: white;
 	color: var(--juriverse-dark);
+	border-right-color: var(--juriverse-gold);
+	border-right-width: 5pt;
+	border-right-style: inset;
 }
 
 .listBox:hover a {
@@ -91,6 +94,8 @@ li a {
 	align-items: center;
 	cursor: pointer;
 }
+
+/* .listBox:hover .dropdown-content {display: block;} */
 
 .categories {
 	margin-top: 1.5vw;
@@ -491,8 +496,16 @@ li a {
 	justify-self: center;
 }
 
+.dropdown-content {
+	display: none;
+	background-color: #fafafa;
+	text-transform: uppercase;
+	color: var(--juriverse-grey);
+	position: sticky;
+}
 /* upload */
 /* Style the tab */
+
 .tab {
 	overflow: hidden;
 	margin-left: 8vw;
