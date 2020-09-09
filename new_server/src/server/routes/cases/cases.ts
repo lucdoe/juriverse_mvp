@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express'
-import Cases from '../models/Case'
-import Users from '../models/User'
+import Cases from '../../models/Case'
+import Users from '../../models/User'
 
 const router = Router()
 

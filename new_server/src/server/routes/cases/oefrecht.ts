@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express'
-import Cases from '../models/Case'
+import Cases from '../../models/Case'
 
 const router = Router()
 
