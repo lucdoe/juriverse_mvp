@@ -80,14 +80,14 @@ app.use(userInViews())
 // sets view engine and the path to the views
 app.set('view engine', 'html')
 app.engine('html', hbs.__express)
-app.set('views', path.join(__dirname + '/src', 'views'))
+app.set('views', path.join(__dirname + '/src/client', 'views'))
 
 // sets security related http headers
 app.use(helmet())
 // set so app can parse json
 app.use(json())
 // where the static files are
-app.use(express.static(path.join(__dirname + '/src', 'public')))
+app.use(express.static(path.join(__dirname + '/src/client', 'public')))
 // set so can parse html body
 app.use(bodyParser.urlencoded({ extended: false }))
 
