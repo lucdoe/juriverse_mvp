@@ -1,7 +1,7 @@
 // import dependencys/ modules
 import express, { json } from 'express'
 import path from 'path'
-import hbs from 'express-handlebars'
+import exphbs from 'express-handlebars'
 import helmet from 'helmet'
 import dotenv from 'dotenv'
 import bodyParser from 'body-parser'
@@ -78,13 +78,8 @@ app.use(passport.session())
 app.use(userInViews())
 
 // sets view engine and the path to the views
-app.set('view engine', 'hbs')
-app.engine('html', hbs.__express)
-app.engine('hbs', hbs({
-	extname: 'hbs',
-	defaultView: 'layout',
-	layoutsDir: __dirname + 'src/client/views/',
-}));
+app.engine('handlebars', exphbs({ extname: '.hbs' }));
+app.set('view engine', 'handlebars');
 
 // sets security related http headers
 app.use(helmet())
