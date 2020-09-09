@@ -14,7 +14,7 @@ router.get('/', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('strafrecht', { result })
+	res.render('listCases', { result })
 })
 
 // gets oefrecht-staatsorganisationsrecht
@@ -25,7 +25,7 @@ router.get('/staatsorganisationsrecht', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('oefrecht-staatsorganisationsrecht', { result })
+	res.render('listCases', { result })
 })
 
 // gets oefrecht-grundrechte
@@ -36,7 +36,7 @@ router.get('/grundrechte', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('oefrecht-grundrechte', { result })
+	res.render('listCases', { result })
 })
 
 // gets oefrecht-europarecht
@@ -47,7 +47,7 @@ router.get('/europarecht', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('oefrecht-europarecht', { result })
+	res.render('listCases', { result })
 })
 
 // gets oefrecht-verwaltungsrechtat
@@ -58,7 +58,7 @@ router.get('/verwaltungsrechtat', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('oefrecht-verwaltungsrechtat', { result })
+	res.render('listCases', { result })
 })
 
 // gets oefrecht-verwaltungsprozessrecht
@@ -69,7 +69,7 @@ router.get('/verwaltungsprozessrecht', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('oefrecht-verwaltungsprozessrecht', { result })
+	res.render('listCases', { result })
 })
 
 // gets oefrecht-por
@@ -80,7 +80,7 @@ router.get('/por', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('oefrecht-por', { result })
+	res.render('listCases', { result })
 })
 
 // gets oefrecht-baurecht
@@ -91,7 +91,7 @@ router.get('/baurecht', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('oefrecht-baurecht', { result })
+	res.render('listCases', { result })
 })
 
 // gets oefrecht-staatshaftungsrecht
@@ -102,7 +102,7 @@ router.get('/staatshaftungsrecht', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('oefrecht-staatshaftungsrecht', { result })
+	res.render('listCases', { result })
 })
 
 export default router

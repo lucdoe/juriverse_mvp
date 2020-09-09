@@ -14,7 +14,7 @@ router.get('/', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('zivilrecht', { result })
+	res.render('listCases', { result })
 })
 
 // gets zivilrecht-bgbat
@@ -25,7 +25,7 @@ router.get('/bgbat', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('zivilrecht-bgbat', { result })
+	res.render('listCases', { result })
 })
 
 // gets zivilrecht-schuldrechtat
@@ -36,7 +36,7 @@ router.get('/schuldrechtat', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('zivilrecht-schuldrechtat', { result })
+	res.render('listCases', { result })
 })
 
 // gets zivilrecht-schuldrechtbt
@@ -47,7 +47,7 @@ router.get('/schuldrechtbt', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('zivilrecht-schuldrechtbt', { result })
+	res.render('listCases', { result })
 })
 
 // gets zivilrecht-sachenrecht
@@ -58,7 +58,7 @@ router.get('/sachenrecht', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('zivilrecht-sachenrecht', { result })
+	res.render('listCases', { result })
 })
 
 // gets zivilrecht-deliktsrecht
@@ -69,7 +69,7 @@ router.get('/deliktsrecht', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('zivilrecht-deliktsrecht', { result })
+	res.render('listCases', { result })
 })
 
 // gets zivilrecht-bereicherungsrecht
@@ -80,7 +80,7 @@ router.get('/bereicherungsrecht', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('zivilrecht-bereicherungsrecht', { result })
+	res.render('listCases', { result })
 })
 
 export default router

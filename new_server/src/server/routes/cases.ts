@@ -24,20 +24,20 @@ router.get('/', async (req: Request, res: Response) => {
 				} else {
 					if (result.length < 1) {
 						const noMatch = 'No campgrounds match that query, please try again.'
-						res.render('index', { result, noMatch })
+						res.render('listCases', { result, noMatch })
 					}
-					res.render('index', { result })
+					res.render('listCases', { result })
 				}
 			}
 		)
 	} else {
-		const recommended = await Cases.find({ $and: [{ 'meta.recommended': { $gt: 980 } }, { $or: [{ 'meta.public': true }, { 'meta.draft': false }] }] })
-		const all = await Cases.find({ $or: [{ 'meta.public': true }, { 'meta.draft': false }] })
-		const data = {
-			recommended,
-			all
+		const recommendedCases = await Cases.find({ $and: [{ 'meta.recommended': { $gt: 980 } }, { $or: [{ 'meta.public': true }, { 'meta.draft': false }] }] })
+		const allCases = await Cases.find({ $or: [{ 'meta.public': true }, { 'meta.draft': false }] })
+		const result = {
+			recommendedCases,
+			allCases
 		}
-		res.render('index', { data })
+		res.render('listCases', { result })
 	}
 })
 
@@ -45,14 +45,14 @@ router.get('/', async (req: Request, res: Response) => {
 router.post('/done', async (req: any, res: Response) => {
 	const key = req.query.key
 	const user_id = req.user.id
-	Users.updateOne({ user_id }, { $push: { 'cases.finished': key } }, async (err, result) => {
-		const recommended = await Cases.find({ 'meta.recommended': { $gt: 980 } })
-		const all = await Cases.find({})
-		const data = {
-			recommended,
-			all
+	Users.updateOne({ user_id }, { $push: { 'cases.finished': key } }, async (err, data) => {
+		const recommendedCases = await Cases.find({ 'meta.recommended': { $gt: 980 } })
+		const allCases = await Cases.find({})
+		const result = {
+			recommendedCases,
+			allCases
 		}
-		res.render('index', { data })
+		res.render('listCases', { result })
 	})
 })
 

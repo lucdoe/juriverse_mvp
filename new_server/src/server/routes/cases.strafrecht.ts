@@ -14,7 +14,7 @@ router.get('/', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('strafrecht', { result })
+	res.render('listCases', { result })
 })
 
 // gets strafrecht-AT
@@ -25,7 +25,7 @@ router.get('/strafrechtat', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('strafrecht-straftatat', { result })
+	res.render('listCases', { result })
 })
 
 // gets strafrecht-BT
@@ -36,7 +36,7 @@ router.get('/strafrechtbt', async (req: Request, res: Response) => {
 		recommendedCases,
 		allCases
 	}
-	res.render('strafrecht-straftatbt', { result })
+	res.render('listCases', { result })
 })
 
 export default router
