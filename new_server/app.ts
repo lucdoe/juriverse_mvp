@@ -7,6 +7,7 @@ import bodyParser from 'body-parser'
 import session from 'express-session'
 import passport from 'passport'
 import Auth0Strategy from 'passport-auth0'
+
 dotenv.config()
 
 import indexRouter from './src/server/routes/index'
