@@ -1,17 +1,41 @@
 import { Router, Request, Response } from 'express'
-import Case from '../models/Case'
+import Cases from '../models/Case'
 
 const router = Router()
 
-// gets strafrecht-straftatat
+const categories = { categories: 'Strafrecht' }
+const rating = 980
+
+// gets all strafrecht
+router.get('/', async (req: Request, res: Response) => {
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.recommended': { $gt: rating } }, categories] })
+	const allCases = await Cases.find(categories)
+	const result = {
+		recommendedCases,
+		allCases
+	}
+	res.render('strafrecht', { result })
+})
+
+// gets strafrecht-AT
 router.get('/strafrechtat', async (req: Request, res: Response) => {
-	let result = await Case.find({ categories: 'Strafrecht' }, { subcategories: 'Strafrecht AT' })
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.recommended': { $gt: rating } }, categories, { subcategories: 'Strafrecht AT' }] })
+	const allCases = await Cases.find(categories)
+	const result = {
+		recommendedCases,
+		allCases
+	}
 	res.render('strafrecht-straftatat', { result })
 })
 
-// gets strafrecht-straftatbt
+// gets strafrecht-BT
 router.get('/strafrechtbt', async (req: Request, res: Response) => {
-	let result = await Case.find({ categories: 'Strafrecht' }, { subcategories: 'Strafrecht BT' })
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.recommended': { $gt: rating } }, categories, { subcategories: 'Strafrecht BT' }] })
+	const allCases = await Cases.find(categories)
+	const result = {
+		recommendedCases,
+		allCases
+	}
 	res.render('strafrecht-straftatbt', { result })
 })
 

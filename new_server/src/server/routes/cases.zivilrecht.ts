@@ -1,47 +1,86 @@
 import { Router, Request, Response } from 'express'
-import Case from '../models/Case'
+import Cases from '../models/Case'
 
 const router = Router()
 
+const categories = { categories: 'Zivilrecht' }
+const rating = 980
+
 // gets zivilrecht cases
 router.get('/', async (req: Request, res: Response) => {
-	let result = await Case.find({ categories: 'Zivilrecht' })
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.recommended': { $gt: rating } }, categories] })
+	const allCases = await Cases.find(categories)
+	const result = {
+		recommendedCases,
+		allCases
+	}
 	res.render('zivilrecht', { result })
 })
 
 // gets zivilrecht-bgbat
 router.get('/bgbat', async (req: Request, res: Response) => {
-	let result = await Case.find({ categories: 'Zivilrecht' }, { subcategories: 'BGB AT' })
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.recommended': { $gt: rating } }, categories, { subcategories: 'BGB AT' }] })
+	const allCases = await Cases.find(categories)
+	const result = {
+		recommendedCases,
+		allCases
+	}
 	res.render('zivilrecht-bgbat', { result })
 })
 
 // gets zivilrecht-schuldrechtat
 router.get('/schuldrechtat', async (req: Request, res: Response) => {
-	let result = await Case.find({ categories: 'Zivilrecht' }, { subcategories: 'Schuldrecht AT' })
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.recommended': { $gt: rating } }, categories, { subcategories: 'Schuldrecht AT' }] })
+	const allCases = await Cases.find(categories)
+	const result = {
+		recommendedCases,
+		allCases
+	}
 	res.render('zivilrecht-schuldrechtat', { result })
 })
 
 // gets zivilrecht-schuldrechtbt
 router.get('/schuldrechtbt', async (req: Request, res: Response) => {
-	let result = await Case.find({ categories: 'Zivilrecht' }, { subcategories: 'Schuldrecht BT' })
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.recommended': { $gt: rating } }, categories, { subcategories: 'Schuldrecht BT' }] })
+	const allCases = await Cases.find(categories)
+	const result = {
+		recommendedCases,
+		allCases
+	}
 	res.render('zivilrecht-schuldrechtbt', { result })
 })
 
 // gets zivilrecht-sachenrecht
 router.get('/sachenrecht', async (req: Request, res: Response) => {
-	let result = await Case.find({ categories: 'Zivilrecht' }, { subcategories: 'Sachenrecht' })
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.recommended': { $gt: rating } }, categories, { subcategories: 'Sachenrecht' }] })
+	const allCases = await Cases.find(categories)
+	const result = {
+		recommendedCases,
+		allCases
+	}
 	res.render('zivilrecht-sachenrecht', { result })
 })
 
 // gets zivilrecht-deliktsrecht
 router.get('/deliktsrecht', async (req: Request, res: Response) => {
-	let result = await Case.find({ categories: 'Zivilrecht' }, { subcategories: 'Deliktsrecht' })
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.recommended': { $gt: rating } }, categories, { subcategories: 'Deliktsrecht' }] })
+	const allCases = await Cases.find(categories)
+	const result = {
+		recommendedCases,
+		allCases
+	}
 	res.render('zivilrecht-deliktsrecht', { result })
 })
 
 // gets zivilrecht-bereicherungsrecht
 router.get('/bereicherungsrecht', async (req: Request, res: Response) => {
-	let result = await Case.find({ categories: 'Zivilrecht' }, { subcategories: 'Bereicherungsrecht' })
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.recommended': { $gt: rating } }, categories, { subcategories: 'Bereicherungsrecht' }] })
+	const allCases = await Cases.find(categories)
+	const result = {
+		recommendedCases,
+		allCases
+	}
 	res.render('zivilrecht-bereicherungsrecht', { result })
 })
+
 export default router
