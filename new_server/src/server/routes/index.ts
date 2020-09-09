@@ -13,3 +13,5 @@ router.get('/help', (req, res) => {
 router.get('/contact', (req, res) => {
     res.render('contact')
 })
+
+export default router
