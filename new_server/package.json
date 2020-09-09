@@ -7,7 +7,8 @@
 		"start": "nodemon server.ts",
 		"debug": "set DEBUG=express:* DEBUG_DEPTH & nodemon server.ts",
 		"test": "jest --watch",
-		"coverage": "jest --coverage"
+		"coverage": "jest --coverage",
+		"build": "tsc"
 	},
 	"dependencies": {
 		"assert": "^2.0.0",
@@ -41,6 +42,7 @@
 		"@types/jest": "^26.0.13",
 		"@types/mongoose": "^5.7.36",
 		"@types/node": "^14.6.4",
+		"@types/passport": "^1.0.4",
 		"jest": "^26.4.2",
 		"nodemon": "^2.0.3",
 		"ts-jest": "^26.3.0",

@@ -9,12 +9,12 @@ import passport from 'passport'
 import Auth0Strategy from 'passport-auth0'
 dotenv.config()
 
-import indexRouter from './routes/index'
-import caseRouter from './routes/case'
-import authRouter from './routes/auth'
-import { userInViews } from './middlewares/userInViews'
-import usersRouter from './routes/users'
-import { secured } from './middlewares/secured'
+import indexRouter from './src/server/routes/index'
+import caseRouter from './src/server/routes/case'
+import authRouter from './src/server/routes/auth'
+import { userInViews } from './src/server/middlewares/userInViews'
+import usersRouter from './src/server/routes/users'
+import { secured } from './src/server/middlewares/secured'
 
 const app = express()
 
@@ -69,17 +69,18 @@ app.use(passport.session())
 
 app.set('view engine', 'html')
 app.engine('html', hbs.__express)
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname + '/src', 'views'))
 
 app.use(helmet())
 app.use(json())
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname + '/src', 'public')))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(userInViews())
 
-app.use('/', authRouter)
-app.use('/users', secured, usersRouter)
+
 app.use('/', secured, indexRouter)
-app.use('/faelle', secured, caseRouter)
+app.use('/auth', authRouter)
+app.use('/users', secured, usersRouter)
+app.use('/cases', secured, caseRouter)
 
 export default app

@@ -1,5 +1,5 @@
 import app from './app'
-import { connectDB } from './middlewares/db'
+import { connectDB } from './src/server/middlewares/db'
 import chalk from 'chalk'
 const ctx = new chalk.Instance({ level: 3 });
 

@@ -29,6 +29,13 @@ const caseSchema = new Schema({
 		draft: Boolean,
 		uploadDate: Date,
 	},
+	report: [
+		{
+			user_id: String,
+			case_id: String,
+			report_text: String
+		}
+	],
 	selfWriteConfirm: Boolean,
 })
 
