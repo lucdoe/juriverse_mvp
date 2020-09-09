@@ -78,8 +78,9 @@ app.use(passport.session())
 app.use(userInViews())
 
 // sets view engine and the path to the views
-app.engine('handlebars', exphbs({ extname: '.hbs' }));
-app.set('view engine', 'handlebars');
+app.engine('.hbs', exphbs({ extname: '.hbs', layoutsDir: `${__dirname}/src/client/views` }));
+app.set('view engine', '.hbs');
+app.set('views', (path.join(__dirname + '/src/client/views')))
 
 // sets security related http headers
 app.use(helmet())
@@ -91,7 +92,7 @@ app.use(express.static(path.join(__dirname + '/src/client', 'public')))
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // registers routes plus their middleware handler
-app.use('/', secured, indexRouter)
+app.use('/', indexRouter)
 app.use('/', authRouter)
 app.use('/users', secured, usersRouter)
 app.use('/cases', secured, caseRouter)
