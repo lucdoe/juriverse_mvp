@@ -53,7 +53,7 @@ ul {
 
 li a {
 	display: block;
-	padding: 8px 16px;
+	padding: 8px 10px;
 	text-decoration: none;
 }
 
@@ -81,7 +81,7 @@ li a {
 	color: var(--juriverse-dark);
 }
 
-.logout .listLink a:hover {
+.listLink a:hover {
 	color: var(--juriverse-dark);
 }
 
@@ -116,6 +116,10 @@ li a {
 
 .material-icons.md-grey {
 	color: var(--juriverse-grey);
+}
+
+.material-icons.md-dark {
+	color: var(--juriverse-dark);
 }
 
 .material-icons.md-gold {
@@ -160,9 +164,16 @@ li a {
 }
 
 .logout a {
-	font-size: 14px;
+	color: var(--juriverse-grey);
+	font-weight: 600;
+	font-size: 12px;
+	padding: 8px;
+	margin-left: 2vw;
 }
 
+.logout a:hover {
+	color: var(--juriverse-dark);
+}
 .avatar {
 	vertical-align: middle;
 	width: 40px;
@@ -172,7 +183,7 @@ li a {
 
 .settings {
 	padding: 1.5vw;
-	margin-left: -10%;
+	margin-left: -14%;
 }
 
 .main {
@@ -207,15 +218,16 @@ li a {
 	font-weight: 400;
 }
 
-.search-suggestion span {
+.search-suggestion span a {
 	text-transform: uppercase;
 	font-weight: 600;
 	font-size: 12px;
 	padding: 10px;
 	color: var(--juriverse-grey);
+	text-decoration: none;
 }
 
-.search-suggestion span:hover {
+.search-suggestion span a:hover {
 	color: #414145;
 	cursor: pointer;
 }
@@ -251,6 +263,25 @@ li a {
 	color: var(--juriverse-grey);
 	text-transform: uppercase;
 	margin-left: 8vw;
+	margin-bottom: -1vw;
+}
+
+.tab-header {
+	font-size: 14px;
+	color: var(--juriverse-grey);
+	text-transform: uppercase;
+	margin-left: 8vw;
+}
+.recommended {
+	color: var(--juriverse-gold);
+}
+
+.recommended-card:hover {
+	background-color: rgba(204, 167, 104, 0.1);
+}
+
+.all-cases {
+	margin-top: 4vw;
 }
 
 .title-flex {
@@ -258,8 +289,8 @@ li a {
 	justify-content: space-between;
 }
 
-.bookmark {
-	align-self: flex-end;
+.bookmark i {
+	padding-right: 2vw;
 }
 
 .card-title {
@@ -471,4 +502,229 @@ li a {
 	text-transform: uppercase;
 	color: var(--juriverse-grey);
 	position: sticky;
+}
+/* upload */
+/* Style the tab */
+
+.tab {
+	overflow: hidden;
+	margin-left: 8vw;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding-bottom: 10px;
+	transition: 0.3s;
+	font-weight: 600;
+	font-size: 12px;
+	color: var(--juriverse-grey);
+	padding-left: 3px;
+	margin-left: 0vw;
+	margin-right: 1.5vw;
+	margin-top: 1vw;
+	border-bottom: 2px solid var(--juriverse-grey);
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+	border-bottom: 2px solid var(--juriverse-gold);
+	color: var(--juriverse-gold);
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+	border-bottom: 2px solid var(--juriverse-gold);
+	color: var(--juriverse-gold);
+}
+
+.public-hide {
+	display: none;
+}
+
+/* Tooltip container */
+.tooltip {
+	position: relative;
+	display: inline-block;
+}
+
+.tooltip #align-left {
+	margin-left: -8.5vw;
+}
+/* Tooltip text */
+.tooltip .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: #555;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 6px 0px;
+
+	/* Position the tooltip text */
+	position: absolute;
+	z-index: 1;
+	top: 150%;
+	left: 50%;
+	margin-left: -60px;
+
+	/* Fade in tooltip */
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+	position: absolute;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+	opacity: 1;
+}
+
+.upload-header {
+	font-size: 24px;
+	font-weight: 600;
+	color: #414145;
+	margin-bottom: 2.5vw;
+}
+
+.upload-box {
+	display: flex;
+}
+
+.upload-box a {
+	margin-top: 10px;
+	margin-left: 38vw;
+	font-weight: 600;
+	border: none;
+	background-color: var(--juriverse-gold);
+	color: white;
+	cursor: pointer;
+	text-decoration: none;
+	height: 34px;
+	padding-top: 15px;
+	width: 139px;
+	text-align: center;
+}
+
+.upload-box a:hover {
+	border: 1px solid white;
+}
+
+.upload-subheader {
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 17px;
+	text-transform: uppercase;
+	color: var(--juriverse-dark);
+}
+
+.upload-subheader-wrapper {
+	margin: 2vw 0vw 1vw 0vw;
+}
+
+.upload-input {
+	letter-spacing: 0.2px;
+	font-size: 16px;
+	color: #a3a3a8;
+	width: 80%;
+	border: none;
+	background-color: white;
+	background-image: url('../images/add_circle.svg');
+	background-position: 0px 0px;
+	background-size: 22px;
+	background-repeat: no-repeat;
+	padding-left: 40px;
+	padding-top: 2px;
+}
+
+#uploadTitle {
+	letter-spacing: 0.2px;
+	color: #a3a3a8;
+	width: 80%;
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 30px;
+	border: none;
+}
+
+.continue-upload {
+	width: 175px;
+	height: 40px;
+	color: white;
+	border: none;
+	background-color: var(--juriverse-gold);
+	margin-top: 7vw;
+	cursor: pointer;
+	margin-left: 40vw;
+}
+
+.upload-icons:hover {
+	background-color: #fafafa;
+}
+#save-draft {
+	background-color: white;
+	color: var(--juriverse-gold);
+	border: 2px solid var(--juriverse-gold);
+	margin-top: 1vw;
+	cursor: pointer;
+}
+
+.continue-upload:hover {
+	font-weight: bold;
+	letter-spacing: 0.2px;
+}
+
+#choose-title {
+	letter-spacing: 0.2px;
+	color: var(--juriverse-dark);
+	width: 80%;
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 30px;
+	border: none;
+}
+
+#publish-upload {
+	background-color: #d1d1d3;
+	color: white;
+	font-family: 'Roboto', sans-serif;
+}
+
+.upload-checkbox {
+	display: flex;
+	margin-top: 1.5vw;
+	width: 70%;
+}
+
+.checkbox {
+	margin: 20px;
+	padding-top: 6px;
+}
+
+input[type='checkbox'] {
+	/* Double-sized Checkboxes */
+	-ms-transform: scale(2); /* IE */
+	-moz-transform: scale(2); /* FF */
+	-webkit-transform: scale(2); /* Safari and Chrome */
+	-o-transform: scale(2); /* Opera */
+	transform: scale(2);
+	padding: 10px;
+	align-self: center;
+	color: var(--juriverse-gold);
+}
+
+.confirmedColor {
+	background-color: var(--juriverse-gold);
 }

@@ -1,7 +1,7 @@
 import app from './app'
 import { connectDB } from './middlewares/db'
-
-connectDB()
+import chalk from 'chalk'
+const ctx = new chalk.Instance({ level: 3 });
 
 // error handler
 app.use((err, req, res, next) => {
@@ -14,9 +14,18 @@ app.use((err, req, res, next) => {
 	res.render('error')
 })
 
-const server = app.listen('3000', () => {
-	console.log('  App is running at http://localhost:%d in %s mode.', '3000', app.get('env'))
-	console.log('  Press CTRL-C to stop the server.\n')
+app.use((req, res, next) => {
+	const message = "Seite wurde nicht gefunden, wir bitte dies zu entschuldigen."
+	const error = "404 Not Found"
+	res.status(404).render('error', { message, error })
+})
+
+const port = process.env.port || 3000
+
+const server = app.listen(port, () => {
+	connectDB()
+	console.log(chalk.bold('	' + '>>>', chalk.hex('#cca768')('Juriverse App'), 'live on', chalk.underline.blue('http://localhost:' + port), 'in', app.get('env'), 'mode. <<<'))
+	console.log(chalk.bold('	>>> Press', chalk.red('CTRL-C to stop'), 'the application. <<<\n'))
 })
 
 export default server

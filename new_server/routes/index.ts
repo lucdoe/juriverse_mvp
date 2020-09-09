@@ -1,5 +1,5 @@
 import Case from '../models/Case'
-import { Router, Request, Response, NextFunction } from 'express'
+import { Router, Request, Response } from 'express'
 
 const router = Router()
 
@@ -11,27 +11,33 @@ router.get('/', async (req: Request, res: Response) => {
 		Case.find(
 			{
 				$or: [
-					{ name: regex },
+					{ 'case.title': regex },
 					{ categories: regex },
 					{ subcategories: regex },
 					{ problems: regex },
 					{ 'author.name': regex },
 				],
 			},
-			(err, result) => {
+			(err, data) => {
 				if (err) {
 					console.log(err)
 				} else {
-					if (result.length < 1) {
+					if (data.length < 1) {
 						const noMatch = 'No campgrounds match that query, please try again.'
+						res.render('index', { data, noMatch })
 					}
-					res.render('index', { result })
+					res.render('index', { data })
 				}
 			}
 		)
 	} else {
-		let result = await Case.find({})
-		res.render('index', { result })
+		const recommended = await Case.find({ 'meta.recommended': { $gt: 980 } })
+		const all = await Case.find({})
+		const data = {
+			recommended,
+			all
+		}
+		res.render('index', { data })
 	}
 })
 

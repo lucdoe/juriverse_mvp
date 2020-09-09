@@ -1,12 +1,12 @@
 import mongoose from 'mongoose'
-import { ObjectID } from 'mongodb'
 
 const Schema = mongoose.Schema
 
 const caseSchema = new Schema({
-	name: String,
-	key: String,
+	case_id: String,
 	author: {
+		author_id: String,
+		picture: String,
 		name: String,
 		email: String,
 		uni: String,
@@ -15,22 +15,24 @@ const caseSchema = new Schema({
 	subcategories: [String],
 	problems: [String],
 	case: {
-		question: String,
-		intro: String,
-		solution: String,
+		title: String,
+		aufgabe: String,
+		sachverhalt: String,
+		musterloesung: String,
+		fussnoten: String,
 	},
 	meta: {
 		votes: Number,
 		favs: Number,
+		recommended: Number,
+		public: Boolean,
 		draft: Boolean,
-		private: Boolean,
+		uploadDate: Date,
 	},
-	uploadDate: Date,
-	sharedWith: [String],
 	selfWriteConfirm: Boolean,
-	recommended: Number,
 })
 
-const Blog = mongoose.model('Case', caseSchema)
+const Cases = mongoose.model('Cases', caseSchema)
 
-export default Blog
+export default Cases
+

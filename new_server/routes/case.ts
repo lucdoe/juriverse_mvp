@@ -1,26 +1,34 @@
-import { Router, Request, Response, NextFunction } from 'express'
-import Case from '../models/Case'
+import { Router, Request, Response } from 'express'
+import Cases from '../models/Case'
+import Users from '../models/User'
 
 const router = Router()
 
-// get all cases
-router.get('/', async (req: Request, res: Response, next: NextFunction) => {
-	const key = req.query.key
+// get case
+router.get('/', async (req: any, res: Response) => {
+	const case_id = req.query.key
 	try {
-		const result = await Case.findOne({ key })
-		res.render('fall', { result })
+		await Cases.findOne({ case_id }, (err, data) => {
+			res.render('fall', { data })
+		})
 	} catch (err) {
 		return 1
 	}
 })
 
 // marks case as done, renders home
-router.post('/done', async (req: Request, res: Response, next: NextFunction) => {
-	// TODO:
-	// - mark case as done
-	// - authentification
-	let result = await Case.find({})
-	res.render('index', { result })
+router.post('/done', async (req: any, res: Response) => {
+	const key = req.query.key
+	const user_id = req.user.id
+	Users.updateOne({ user_id }, { $push: { 'cases.finished': key } }, async (err, result) => {
+		const recommended = await Cases.find({ 'meta.recommended': { $gt: 980 } })
+		const all = await Cases.find({})
+		const data = {
+			recommended,
+			all
+		}
+		res.render('index', { data })
+	})
 })
 
 // // gets strafrecht cases
