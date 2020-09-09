@@ -22,11 +22,11 @@ const caseSchema = new Schema({
 		fussnoten: String,
 	},
 	meta: {
-		votes: Number,
+		likes: Number,
 		favs: Number,
-		recommended: Number,
-		public: Boolean,
-		draft: Boolean,
+		rating: Number,
+		isPublished: Boolean,
+		isDraft: Boolean,
 		uploadDate: Date,
 	},
 	report: [

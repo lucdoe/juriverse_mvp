@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import { ObjectID } from 'mongodb'
 
 const Schema = mongoose.Schema
 
@@ -7,14 +6,12 @@ const userSchema = new Schema({
 	id: String,
 	uni: String,
 	cases: {
-		saved: [ObjectID],
-		drafts: [ObjectID],
-		owns: [ObjectID],
-		open: [ObjectID],
+		saved: [String],
+		open: [String],
 		finished: [String],
 		notes: [
 			{
-				caseId: ObjectID,
+				caseId: String,
 				positionIndex: Number,
 				note: String,
 				solution: String,
