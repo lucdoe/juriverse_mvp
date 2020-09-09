@@ -68,13 +68,7 @@ router.get('/oefrecht', async (req: Request, res: Response) => {
 
 
 
-report = [
-	{
-		user_id,
-		case_id,
-		report_text
-	}
-]
+
 
 
 
@@ -84,5 +78,8 @@ report = [
 
 // /cases/:categories/:subcategories/?problems=''
 
-// /cases/:id/update /delete (-POST) - reports
+// /cases/:id/update /delete (-POST) - update/delete case
+
+// /cases/details /text (-POST) - create case
+
 export default router

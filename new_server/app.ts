@@ -10,7 +10,7 @@ import Auth0Strategy from 'passport-auth0'
 dotenv.config()
 
 import indexRouter from './src/server/routes/index'
-import caseRouter from './src/server/routes/case'
+import caseRouter from './src/server/routes/case_old'
 import authRouter from './src/server/routes/auth'
 import { userInViews } from './src/server/middlewares/userInViews'
 import usersRouter from './src/server/routes/users'
@@ -77,10 +77,10 @@ app.use(express.static(path.join(__dirname + '/src', 'public')))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(userInViews())
 
-
-app.use('/', secured, indexRouter)
+app.use('/', secured, indexRouter) // /help, /contact
 app.use('/auth', authRouter)
 app.use('/users', secured, usersRouter)
 app.use('/cases', secured, caseRouter)
+
 
 export default app
