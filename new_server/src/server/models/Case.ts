@@ -33,9 +33,10 @@ const caseSchema = new Schema({
 		{
 			user_id: String,
 			case_id: String,
-			report_text: String
+			reportText: String
 		}
 	],
+	isDeleted: Boolean,
 	selfWriteConfirm: Boolean,
 })
 

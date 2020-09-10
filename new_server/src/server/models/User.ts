@@ -18,6 +18,7 @@ const userSchema = new Schema({
 			},
 		],
 	},
+	isDeleted: Boolean,
 })
 
 const Users = mongoose.model('Users', userSchema)

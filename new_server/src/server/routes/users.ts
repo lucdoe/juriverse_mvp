@@ -10,7 +10,7 @@ router.get('/', (req: any, res: Response) => {
 	res.render('user', { data })
 })
 
-router.get('/:userid/faelle', (req, res) => {
+router.get('/:userid/cases', (req, res) => {
 	const id = req.params.userid
 	if (id.length > 24) {
 		const user_id = id.substring(6, 30)
@@ -28,12 +28,12 @@ router.get('/:userid/faelle', (req, res) => {
 })
 
 
-router.get('/:userid/faelle/upload', (req, res) => {
+router.get('/:userid/cases/upload', (req, res) => {
 	const user_id = req.params.userid
 	res.render('uploadStep2', { user_id })
 })
 
-router.get('/:userid/faelle', async (req: any, res) => {
+router.get('/:userid/cases', async (req: any, res) => {
 	const case_id = req.query.caseid
 	await Cases.findOne({ case_id }, (err, data: any) => {
 		res.render('uploadStep2', { data })
@@ -41,7 +41,7 @@ router.get('/:userid/faelle', async (req: any, res) => {
 })
 
 // saving case content
-router.post('/:userid/faelle', (req: any, res) => {
+router.post('/:userid/cases', (req: any, res) => {
 	const user_id = req.params.userid
 
 	let { case_id, uploadTitle, sachverhalt, aufgabe, musterloesung, _public, draft } = req.body
@@ -106,7 +106,7 @@ router.post('/:userid/faelle', (req: any, res) => {
 	}
 })
 
-router.post('/:userid/faelle/modify', async (req: any, res) => {
+router.post('/:userid/cases/modify', async (req: any, res) => {
 	const { draft, _public, case_id } = req.body
 	const user_id = req.params.userid
 	const data = {
@@ -124,7 +124,7 @@ router.post('/:userid/faelle/modify', async (req: any, res) => {
 })
 
 
-router.post('/:userid/faelle/last', async (req: any, res) => {
+router.post('/:userid/cases/last', async (req: any, res) => {
 	const { case_id, categories, subcategories, problems } = req.body
 	const user_id = req.params.userid
 	const search = {
@@ -142,8 +142,43 @@ router.post('/:userid/faelle/last', async (req: any, res) => {
 		selfWriteConfirm: true,
 	}
 	await Cases.updateOne(search, data)
-	res.redirect('http://localhost:3000/users/' + user_id + '/faelle')
+	res.redirect('http://localhost:3000/users/' + user_id + '/cases')
 })
 
+// NEW FROM HERE ON //
+
+// get one user
+router.get('/:id', async (req, res) => {
+	const { user_id } = req.params
+	const result = await Users.findOne({ user_id })
+	res.render('profile', { result })
+})
+
+// get all cases for one user
+router.get('/:id/cases', async (req, res) => {
+	const { user_id } = req.params
+	const user = await Users.findOne({ user_id })
+	const allCases = await Cases.find({ 'author.author_id': user_id })
+	const result = {
+		allCases,
+		user
+	}
+	res.render('profile', { result })
+})
+
+// marks user as deleted
+router.post('/:id/delete', async (req: any, res) => {
+	const { user_id } = req.user
+	const result = await Users.update({ id: user_id }, { isDeleted: true })
+	res.render('profile', { result })
+})
+
+// update user
+router.post('/:id/update', async (req: any, res) => {
+	const { user_id } = req.user
+	const data = req.body
+	const result = await Users.update({ id: user_id }, { data })
+	res.render('profile', { result })
+})
 
 export default router
