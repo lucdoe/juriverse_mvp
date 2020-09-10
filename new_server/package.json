@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"scripts": {
 		"start": "nodemon server.ts",
-		"debug": "set DEBUG=express:* DEBUG_DEPTH & nodemon server.ts",
+		"debug": "set DEBUG=express:* DEBUG_DEPTH & nodemon --ext css,js,ts,json,hbs server.ts",
 		"test": "jest --watch",
 		"coverage": "jest --coverage",
 		"build": "tsc"

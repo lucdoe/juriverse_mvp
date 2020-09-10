@@ -27,37 +27,42 @@
 					</p>
 				</div>
 			</div>
-			<input id="publish-upload" class="continue-upload continue-upload-btn" value="Veröffentlichen" type="submit"><br>
+			<input id="publish-upload" class="continue-upload continue-upload-btn" value="Veröffentlichen"
+				type="submit"><br>
 			<input id="save-draft" class="continue-upload" value="Als Entwurf speichern" type="submit">
-		{{ else }}
-		<input type="hidden" name="case_id" value="{{case_id}}">
-		<div class="upload-subheader-wrapper">
-			<h1 id="choose-title" class="slab-font">Wähle aus...</h1>
-		<div class="upload-subheader-wrapper">
-			<label for="rechtsgebiet" class="upload-subheader">Rechtsgebiet</label>
-		</div>
-		<textarea id="sachverhalt" name="categories" class="slab-font upload-input">z.B. Strafrecht</textarea>
-		<div class="upload-subheader-wrapper">
-			<label for="teilgebiete" class="upload-subheader">Teilgebiete</label>
-		</div>
-		<textarea id="aufgabe" name="subcategories" class="slab-font upload-input">z.B. Strafrecht AT</textarea>
-		<div class="upload-subheader-wrapper">
-			<label for="probleme" class="upload-subheader">Probleme</label>
-		</div>
-		<textarea id="musterloesung" name="problems" class="slab-font upload-input">z.B. Mittäterschaft</textarea>
-		<div class="upload-checkbox">
-			<div class="checkbox">
-				<input type="checkbox" id="selfWriteConfirm" class="selfWriteConfirm" name="selfWriteConfirm" value="selfWriteConfirm">
-			</div>
-			<div class="checkbox-text">
-				<p>Für die Verifizierung und Empfehlung an NutzerInnen von Juriverse freigeben.
-					Fälle, die von Juriverse verifiziert werden, sind Teil der von Juriverse vorgegebenen paywall.
-				</p>
-			</div>
-		</div>
-		<input id="publish-upload" class="continue-upload continue-upload-btn" value="Veröffentlichen" type="submit"><br>
-		<input id="save-draft" class="continue-upload" value="Als Entwurf speichern" type="submit">
-		{{/if}}
+			{{ else }}
+			<input type="hidden" name="case_id" value="{{case_id}}">
+			<div class="upload-subheader-wrapper">
+				<h1 id="choose-title" class="slab-font">Wähle aus...</h1>
+				<div class="upload-subheader-wrapper">
+					<label for="rechtsgebiet" class="upload-subheader">Rechtsgebiet</label>
+				</div>
+				<textarea id="sachverhalt" name="categories" class="slab-font upload-input">z.B. Strafrecht</textarea>
+				<div class="upload-subheader-wrapper">
+					<label for="teilgebiete" class="upload-subheader">Teilgebiete</label>
+				</div>
+				<textarea id="aufgabe" name="subcategories" class="slab-font upload-input">z.B. Strafrecht AT</textarea>
+				<div class="upload-subheader-wrapper">
+					<label for="probleme" class="upload-subheader">Probleme</label>
+				</div>
+				<textarea id="musterloesung" name="problems"
+					class="slab-font upload-input">z.B. Mittäterschaft</textarea>
+				<div class="upload-checkbox">
+					<div class="checkbox">
+						<input type="checkbox" id="selfWriteConfirm" class="selfWriteConfirm" name="selfWriteConfirm"
+							value="selfWriteConfirm">
+					</div>
+					<div class="checkbox-text">
+						<p>Für die Verifizierung und Empfehlung an NutzerInnen von Juriverse freigeben.
+							Fälle, die von Juriverse verifiziert werden, sind Teil der von Juriverse vorgegebenen
+							paywall.
+						</p>
+					</div>
+				</div>
+				<input id="publish-upload" class="continue-upload continue-upload-btn" value="Veröffentlichen"
+					type="submit"><br>
+				<input id="save-draft" class="continue-upload" value="Als Entwurf speichern" type="submit">
+				{{/if}}
 	</form>
 </section>
 <!-- <script>
