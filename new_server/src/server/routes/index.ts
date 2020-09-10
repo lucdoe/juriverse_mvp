@@ -1,47 +1,17 @@
-import Case from '../models/Case'
 import { Router, Request, Response } from 'express'
 
 const router = Router()
 
-// GET home page.
-router.get('/', async (req: Request, res: Response) => {
-	const searchInput = req.query.searchInput
-	if (searchInput) {
-		const regex = new RegExp(escapeRegex(searchInput), 'gi')
-		Case.find({
-			$or: [
-				{ 'case.title': regex },
-				{ categories: regex },
-				{ subcategories: regex },
-				{ problems: regex },
-				{ 'author.name': regex },]
-		},
-
-			(err, data) => {
-				if (err) {
-					console.log(err)
-				} else {
-					if (data.length < 1) {
-						const noMatch = 'No campgrounds match that query, please try again.'
-						res.render('index', { data, noMatch })
-					}
-					res.render('index', { data })
-				}
-			}
-		)
-	} else {
-		const recommended = await Case.find({ $and: [{ 'meta.recommended': { $gt: 980 } }, { $or: [{ 'meta.public': true }, { 'meta.draft': false }] }] })
-		const all = await Case.find({ $or: [{ 'meta.public': true }, { 'meta.draft': false }] })
-		const data = {
-			recommended,
-			all
-		}
-		res.render('index', { data })
-	}
+router.get('/', (req, res) => {
+    res.render('index')
 })
 
-const escapeRegex = (text) => {
-	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
-}
+router.get('/help', (req, res) => {
+    res.render('help')
+})
+
+router.get('/contact', (req, res) => {
+    res.render('contact')
+})
 
 export default router

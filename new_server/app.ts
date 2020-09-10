@@ -1,22 +1,27 @@
+// import dependencys/ modules
 import express, { json } from 'express'
 import path from 'path'
-import hbs from 'hbs'
+import exphbs from 'express-handlebars'
 import helmet from 'helmet'
 import dotenv from 'dotenv'
 import bodyParser from 'body-parser'
 import session from 'express-session'
 import passport from 'passport'
 import Auth0Strategy from 'passport-auth0'
+
 dotenv.config()
 
+// importing router
 import indexRouter from './src/server/routes/index'
-import caseRouter from './src/server/routes/case'
+import caseRouter from './src/server/routes/cases/case_old'
 import authRouter from './src/server/routes/auth'
-import oefrechtRouter from './src/server/routes/cases.oefrecht'
-import strafrechtRouter from './src/server/routes/cases.strafrecht'
-import zivilrechtRouter from './src/server/routes/cases.zivilrecht'
+import oefrechtRouter from './src/server/routes/cases/oefrecht'
+import strafrechtRouter from './src/server/routes/cases/strafrecht'
+import zivilrechtRouter from './src/server/routes/cases/zivilrecht'
 import { userInViews } from './src/server/middlewares/userInViews'
 import usersRouter from './src/server/routes/users'
+
+// importing middleware
 import { secured } from './src/server/middlewares/secured'
 
 const app = express()
@@ -66,27 +71,34 @@ passport.deserializeUser((user, done) => {
 	done(null, user)
 })
 
+// auth0 related
 app.use(session(sess))
 app.use(passport.initialize())
 app.use(passport.session())
-
-app.set('view engine', 'html')
-app.engine('html', hbs.__express)
-app.set('views', path.join(__dirname + '/src', 'views'))
-
-app.use(helmet())
-app.use(json())
-app.use(express.static(path.join(__dirname + '/src', 'public')))
-app.use(bodyParser.urlencoded({ extended: false }))
 app.use(userInViews())
 
+// sets view engine and the path to the views
+app.engine('.hbs', exphbs({ extname: '.hbs', layoutsDir: `${__dirname}/src/client/views` }));
+app.set('view engine', '.hbs');
+app.set('views', (path.join(__dirname + '/src/client/views')))
 
-app.use('/', secured, indexRouter)
-app.use('/auth', authRouter)
+// sets security related http headers
+app.use(helmet())
+// set so app can parse json
+app.use(json())
+// where the static files are
+app.use(express.static(path.join(__dirname + '/src/client', 'public')))
+// set so can parse html body
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// registers routes plus their middleware handler
+app.use('/', indexRouter)
+app.use('/', authRouter)
 app.use('/users', secured, usersRouter)
 app.use('/cases', secured, caseRouter)
 app.use('/cases/oefrecht', secured, oefrechtRouter)
 app.use('/cases/strafrecht', secured, strafrechtRouter)
 app.use('/cases/zivilrecht', secured, zivilrechtRouter)
+
 
 export default app

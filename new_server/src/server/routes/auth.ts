@@ -15,7 +15,7 @@ router.get(
 		scope: 'openid email profile',
 	}),
 	(req, res) => {
-		res.redirect('/auth')
+		res.redirect('/')
 	}
 )
 
@@ -34,7 +34,7 @@ router.get('/callback', (req: any, res, next) => {
 			}
 			const returnTo = req.session.returnTo
 			delete req.session.returnTo
-			res.redirect(returnTo || '/')
+			res.redirect(returnTo || '/cases')
 		})
 	})(req, res, next)
 })

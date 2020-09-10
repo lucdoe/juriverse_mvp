@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express'
-import Cases from '../models/Case'
-import Users from '../models/User'
+import Cases from '../../models/Case'
+import Users from '../../models/User'
 
 const router = Router()
 
@@ -30,5 +30,23 @@ router.post('/done', async (req: any, res: Response) => {
 		res.render('index', { data })
 	})
 })
+
+
+
+
+
+
+
+
+
+// /cases (-GET) - all cases
+
+// /cases/:id (-GET) - one case
+
+// /cases/:categories/:subcategories/?problems=''
+
+// /cases/:id/update /delete (-POST) - update/delete case
+
+// /cases/details /text (-POST) - create case
 
 export default router

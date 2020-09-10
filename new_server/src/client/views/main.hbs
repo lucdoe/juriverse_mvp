@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Juriverse App</title>
+	<link rel="stylesheet" href="styles/styles.css" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+</head>
+
+<body>
+	<nav>
+		<ul>
+			<li>
+				<div class="listBox firstItem">
+					<span id="logo"><a href="/cases">JURIVERSE</a></span>
+				</div>
+			</li>
+			<li>
+				<div class="listBox">
+					<div class="listIcon">
+						<i class="material-icons md-24 md-grey">dashboard</i>
+					</div>
+					<div class="listLink"><a href="/cases">Dashboard</a></div>
+				</div>
+			</li>
+			<li>
+				<div class="listBox categories">
+					<div class="listIcon">
+						<i class="material-icons md-24 md-grey">account_circle</i>
+					</div>
+					<div class="listLink">
+						<a href="/cases/zivilrecht">Zivilrecht
+							<i class="fa fa-caret-down"></i>
+						</a>
+					</div>
+					<div class="dropdown-content">
+						<a href="/cases/zivilrecht/bgbat">BGB AT</a>
+						<a href="/cases/zivilrecht/schuldrechtat">Schuldrecht AT</a>
+						<a href="/cases/zivilrecht/schuldrechtbt">Schuldrecht BT</a>
+						<a href="/cases/zivilrecht/sachenrecht">Sachenrecht</a>
+						<a href="/cases/zivilrecht/deliktsrecht">Deliktsrecht</a>
+						<a href="/cases/zivilrecht/bereicherungsrecht">Bereicherungsrecht</a>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="listBox">
+					<div class="listIcon">
+						<i class="material-icons md-24 md-grey">public</i>
+					</div>
+					<div class="listLink"><a href="/cases/oefrecht">Öffentliches Recht</a></div>
+					<div class="dropdown-content">
+						<a href="/cases/oefrecht/staatsorganisationsrecht">Staatsorganisationsrecht</a>
+						<a href="/cases/oefrecht/grundrechte">Grundrechte</a>
+						<a href="/cases/oefrecht/europarecht">Europarecht</a>
+						<a href="/cases/oefrecht/verwaltungsrechtat">Verwaltungsrecht AT</a>
+						<a href="/cases/oefrecht/verwaltungsprozessrecht">Verwaltungsprozessrecht</a>
+						<a href="/cases/oefrecht/por">POR</a>
+						<a href="/cases/oefrecht/baurecht">Baurecht</a>
+						<a href="/cases/oefrecht/staatshaftungsrecht">Staatshaftungsrecht</a>
+					</div>
+				</div>
+				</div>
+			</li>
+			<li>
+				<div class="listBox">
+					<div class="listIcon">
+						<i class="material-icons md-24 md-grey">security</i>
+					</div>
+					<div class="listLink"><a href="/cases/strafrecht">Strafrecht</a></div>
+					<div class="dropdown-content">
+						<a href="/cases/strafrecht/straftatat">Strafrecht AT</a>
+						<a href="/cases/strafrecht/straftatbt">Strafrecht BT</a>
+					</div>
+				</div>
+				</div>
+			</li>
+			<li>
+				<div class="listBox upload">
+					<div class="listIcon">
+						<i class="material-icons md-24 md-grey">publish</i>
+					</div>
+					<div class="listLink">
+						<a href="/cases/{{user.user_id}}">Fall hochladen</a>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="listBox profile">
+					<div class="listIcon">
+						<img src="{{user.picture}}" alt="Avatar" class="avatar" />
+					</div>
+					<div class="listLink">
+						<a href="/users">Profil <br />
+							<span class="username" nowrap>{{user.nickname}}</span></a>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="logout">
+					<div><a href="/help">Hilfe</a></div>
+					<div><a href="#">Einstellungen</a></div>
+					<div><a href="/logout">Ausloggen</a></div>
+				</div>
+			</li>
+		</ul>
+	</nav>
+	<section class="main">{{{ body }}}</section>
+	<script src="/javascripts/scripts.js"></script>
+</body>
+
+</html>
