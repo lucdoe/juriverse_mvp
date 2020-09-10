@@ -21,13 +21,13 @@
         <article class="card-wrapper recommended-card">
             <div class="title-flex">
                 <div class="card-title-holder">
-                    <a class="card-title" href="/cases/{{this.case_id}}"">{{ this.case.title }}</a>
+                    <a class="card-title" href="/cases/{{this.case_id}}">{{ this.case.title }}</a>
                 </div>
-			    <div class=" bookmark">
+                <div class=" bookmark">
                     <i class="material-icons md-24 md-gold">check_circle</i>
                 </div>
             </div>
-            <p class="card-author">von 
+            <p class="card-author">von
                 <span><a href="/users/{{this.author.author_id}}">{{ this.author.name }}</a></span>
             </p>
             <p class="card-tags">
@@ -55,8 +55,9 @@
             {{# each result.allCases }}
             <article class="card-wrapper">
                 <div class="title-flex">
-                    <div class="card-title-holder"><a class="card-title" href="/users/{{this.author.author_id}}"">{{ this.case.title }}</a></div>
-									<!-- <div class=" bookmark"><i class="material-icons md-24 md-gold">turned_in_not</i></div> -->
+                    <div class="card-title-holder"><a class="card-title"
+                            href="/users/{{this.author.author_id}}">{{ this.case.title }}</a></div>
+                    <!-- <div class=" bookmark"><i class="material-icons md-24 md-gold">turned_in_not</i></div> -->
                 </div>
                 <p class="card-author">von <span><a
                             href="/users/{{this.author.author_id}}">{{ this.author.name }}</a></span>

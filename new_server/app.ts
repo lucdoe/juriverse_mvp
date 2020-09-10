@@ -81,6 +81,7 @@ app.use(userInViews())
 app.engine('.hbs', exphbs({ extname: '.hbs', layoutsDir: `${__dirname}/src/client/views` }));
 app.set('view engine', '.hbs');
 app.set('views', (path.join(__dirname + '/src/client/views')))
+app.set('public', path.join(__dirname, '../public'));
 
 // sets security related http headers
 app.use(helmet())
