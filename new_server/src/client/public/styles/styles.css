@@ -8,7 +8,8 @@
 
 @font-face {
 	font-family: Gilroy;
-	src: url(Gilroy-ExtraBold.otf);
+	src: url(Gilroy.otf);
+	font-weight: bold;
 }
 
 .rob-font {
@@ -24,16 +25,12 @@ body {
 	font-family: 'Roboto', sans-serif;
 }
 
-#logo {
-	margin: 2vw;
-
-	font-size: 2.5vw;
-	font-family: Gilroy;
-}
-
 #logo a {
 	text-decoration: none;
 	color: var(--juriverse-gold);
+	margin: 2vw;
+	font-size: 2.5vw;
+	font-family: Gilroy;
 }
 
 #logo a:hover {
