@@ -3,9 +3,9 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const caseSchema = new Schema({
-	case_id: String,
+	caseId: String,
 	author: {
-		author_id: String,
+		authorId: String,
 		picture: String,
 		name: String,
 		email: String,
@@ -16,18 +16,22 @@ const caseSchema = new Schema({
 	problems: [String],
 	case: {
 		title: String,
-		aufgabe: String,
-		sachverhalt: String,
-		musterloesung: String,
-		fussnoten: String,
+		task: String,
+		issue: String,
+		solution: String,
+		footnotes: String,
 	},
 	meta: {
-		likes: Number,
-		favs: Number,
-		rating: Number,
+		likeCount: Number,
+		ratingCount: Number,
+		viewCount: Number,
+		editorChoice: [String],
 		isPublished: Boolean,
 		isDraft: Boolean,
+		isDeleted: Boolean,
 		uploadDate: Date,
+		length: String,
+		intro: String,
 	},
 	report: [
 		{
@@ -36,7 +40,6 @@ const caseSchema = new Schema({
 			reportText: String
 		}
 	],
-	isDeleted: Boolean,
 	selfWriteConfirm: Boolean,
 })
 

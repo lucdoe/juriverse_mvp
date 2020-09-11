@@ -3,22 +3,45 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
-	id: String,
-	uni: String,
+
+	userId: String,
+	screenname: String,
+	university: String,
 	cases: {
-		saved: [String],
-		open: [String],
-		finished: [String],
+		saved: [{
+			caseId: String,
+			savedTimestamp: Date,
+		}],
+		opened: [{
+			caseId: String,
+			openTimestamp: Date,
+			closedTimestamp: Date,
+		}],
+		finished: [{
+			caseId: String,
+			finishedTimestamp: Date,
+		}],
+		likes: [{
+			caseId: String,
+			likedTimestamp: Date,
+		}],
 		notes: [
 			{
 				caseId: String,
 				positionIndex: Number,
 				note: String,
 				solution: String,
+				notedTimestamp: Date,
 			},
 		],
 	},
-	isDeleted: Boolean,
+	meta: {
+		visitedAuthors: [{
+			authorId: String,
+			visitedTimestamp: Date,
+		}],
+		isDeleted: Boolean,
+	},
 })
 
 const Users = mongoose.model('Users', userSchema)
