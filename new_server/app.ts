@@ -13,16 +13,16 @@ dotenv.config()
 
 // importing router
 import indexRouter from './src/server/routes/index'
-import caseRouter from './src/server/routes/cases/case_old'
+import casesRouter from './src/server/routes/cases/case_old'
 import authRouter from './src/server/routes/auth'
+import usersRouter from './src/server/routes/users'
 import publiclawRouter from './src/server/routes/cases/publiclaw'
 import criminallawRouter from './src/server/routes/cases/criminallaw'
 import civillawRouter from './src/server/routes/cases/civillaw'
-import { userInViews } from './src/server/middlewares/userInViews'
-import usersRouter from './src/server/routes/users'
 
 // importing middleware
 import { secured } from './src/server/middlewares/secured'
+import { userInViews } from './src/server/middlewares/userInViews'
 
 const app = express()
 
@@ -96,7 +96,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/', indexRouter)
 app.use('/', authRouter)
 app.use('/users', secured, usersRouter)
-app.use('/cases', secured, caseRouter)
+app.use('/cases', secured, casesRouter)
 app.use('/cases/publiclaw', secured, publiclawRouter)
 app.use('/cases/criminallaw', secured, criminallawRouter)
 app.use('/cases/civillaw', secured, civillawRouter)
