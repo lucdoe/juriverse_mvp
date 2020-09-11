@@ -13,7 +13,7 @@ dotenv.config()
 
 // importing router
 import indexRouter from './src/server/routes/index'
-import casesRouter from './src/server/routes/cases/case_old'
+import casesRouter from './src/server/routes/cases/cases'
 import authRouter from './src/server/routes/auth'
 import usersRouter from './src/server/routes/users'
 import publiclawRouter from './src/server/routes/cases/publiclaw'
