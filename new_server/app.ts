@@ -15,9 +15,9 @@ dotenv.config()
 import indexRouter from './src/server/routes/index'
 import caseRouter from './src/server/routes/cases/case_old'
 import authRouter from './src/server/routes/auth'
-import oefrechtRouter from './src/server/routes/cases/oefrecht'
-import strafrechtRouter from './src/server/routes/cases/strafrecht'
-import zivilrechtRouter from './src/server/routes/cases/zivilrecht'
+import publiclawRouter from './src/server/routes/cases/publiclaw'
+import criminallawRouter from './src/server/routes/cases/criminallaw'
+import civillawRouter from './src/server/routes/cases/civillaw'
 import { userInViews } from './src/server/middlewares/userInViews'
 import usersRouter from './src/server/routes/users'
 
@@ -97,9 +97,9 @@ app.use('/', indexRouter)
 app.use('/', authRouter)
 app.use('/users', secured, usersRouter)
 app.use('/cases', secured, caseRouter)
-app.use('/cases/oefrecht', secured, oefrechtRouter)
-app.use('/cases/strafrecht', secured, strafrechtRouter)
-app.use('/cases/zivilrecht', secured, zivilrechtRouter)
+app.use('/cases/publiclaw', secured, publiclawRouter)
+app.use('/cases/criminallaw', secured, criminallawRouter)
+app.use('/cases/civillaw', secured, civillawRouter)
 
 
 export default app
