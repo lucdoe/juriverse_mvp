@@ -84,14 +84,14 @@ app.use(userInViews())
 app.engine('.hbs', exphbs({ extname: '.hbs', handlebars: allowInsecurePrototypeAccess(Handlebars), layoutsDir: `${__dirname}/src/client/views` }))
 app.set('view engine', '.hbs');
 app.set('views', (path.join(__dirname + '/src/client/views')))
-app.set('public', (path.join(__dirname + '/src/client/public')))
+app.use(express.static(path.join(__dirname + '/src/client/', 'public')))
 
 // sets security related http headers
 app.use(helmet())
 // set so app can parse json
 app.use(json())
 // where the static files are
-app.use(express.static(path.join(__dirname + '/src/client/public')))
+
 // set so can parse html body
 app.use(bodyParser.urlencoded({ extended: false }))
 
