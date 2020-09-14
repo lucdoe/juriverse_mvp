@@ -31,42 +31,38 @@ router.get('/', async (req: Request, res: Response) => {
 			}
 		)
 	} else {
-		const recommendedCases = await Cases.find({ $and: [{ 'meta.recommended': { $gt: 980 } }, { $or: [{ 'meta.public': true }, { 'meta.draft': false }] }] })
-		const allCases = await Cases.find({ $or: [{ 'meta.public': true }, { 'meta.draft': false }] })
+		const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: 917 } }, { $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }] })
+		const allCases: any = await Cases.find({ $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] })
 		const result = {
 			recommendedCases,
-			allCases
+			allCases,
+			category: 'Dashboard'
 		}
 		res.render('listCases', { result })
 	}
 })
 
-// get one case
-router.get('/:id', async (req: Request, res: Response) => {
+
+// get text edit page
+router.get('/:id/text', async (req: Request, res: Response) => {
 	const id = req.params.id
-	const result = await Cases.findOne({ id })
-	res.render('listCases', { result })
+	const result = await Cases.findOne({ caseId: id })
+	res.render('uploadCaseText', { result })
 })
 
-// get case by cats/subcats/problems
-router.get('/:categories/:subcategories/?problems=', async (req: Request, res: Response) => {
-	const { categories, subcategories } = req.params
-	const { problems } = req.query
-	const recommendedCases = await Cases.find({ $and: [{ categories }, { subcategories }, { problems }, { 'meta.rating': { $gt: 980 } }] })
-	const allCases = await Cases.find({ $and: [{ categories }, { subcategories }, { problems }] })
-	const result = {
-		recommendedCases,
-		allCases
-	}
-	res.render('listCases', { result })
+// get one case
+router.get('/:id/view', async (req: Request, res: Response) => {
+	const id = req.params.id
+	const result = await Cases.findOne({ caseId: id })
+	res.render('case', { result })
 })
 
 // marks case as done
 router.post('/:id/done', async (req: any, res: Response) => {
 	const { user_id } = req.user
 	const { id } = req.params
-	const user = Users.updateOne({ user_id }, { $push: { 'cases.finished': id } })
-	const allCases = Cases.find({ 'author.author_id': user_id })
+	const user = Users.updateOne({ userId: user_id }, { $push: { 'cases.finished': id } })
+	const allCases = Cases.find({ 'author.authorId': user_id })
 	const result = {
 		user,
 		allCases
@@ -74,12 +70,34 @@ router.post('/:id/done', async (req: any, res: Response) => {
 	res.render('profile', { result })
 })
 
-// update case
-router.post('/:id/update', async (req: Request, res: Response) => {
+// publish case
+router.post('/:id/publish', async (req: any, res: Response) => {
 	const { id } = req.params
-	const data = req.body
-	const result = await Cases.updateOne({ case_id: id }, { data })
-	res.render('case', { result })
+	const { user_id } = req.user
+	const update = await Cases.updateOne({ caseId: id }, { 'meta.isPublished': true }, { 'meta.isDraft': false })
+	const publicCases = await Cases.find({ $and: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }, { 'author.authorId': user_id }] })
+	const draftCases = await Cases.find({ $and: [{ 'meta.isPublished': false }, { 'meta.isDraft': true }, { 'author.authorId': user_id }] })
+	const result = {
+		update,
+		publicCases,
+		draftCases
+	}
+	res.render('yourCases', { result })
+})
+
+// publish case
+router.post('/:id/unpublish', async (req: any, res: Response) => {
+	const { id } = req.params
+	const { user_id } = req.user
+	const update = await Cases.updateOne({ caseId: id }, { 'meta.isPublished': false }, { 'meta.isDraft': true })
+	const publicCases = await Cases.find({ $and: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }, { 'author.authorId': user_id }] })
+	const draftCases = await Cases.find({ $and: [{ 'meta.isPublished': false }, { 'meta.isDraft': true }, { 'author.authorId': user_id }] })
+	const result = {
+		update,
+		publicCases,
+		draftCases
+	}
+	res.render('yourCases', { result })
 })
 
 // report case
@@ -87,7 +105,7 @@ router.post('/:id/report', async (req: any, res: Response) => {
 	const { user_id } = req.user
 	const { id } = req.params
 	const { reportText } = req.body
-	const report = await Cases.updateOne({ case_id: id }, { $push: { report: { user_id, case_id: id, reportText } } })
+	const report = await Cases.updateOne({ caseId: id }, { $push: { report: { userId: user_id, caseId: id, reportText } } })
 	const result = {
 		report
 	}
@@ -97,16 +115,20 @@ router.post('/:id/report', async (req: any, res: Response) => {
 // delete case
 router.post('/:id/delete', async (req: Request, res: Response) => {
 	const { id } = req.params
-	const deleted = await Cases.updateOne({ case_id: id }, { isDeleted: true })
-	const result = await Cases.find({})
-	res.render('caseList', { result, deleted })
+	const deleted = await Cases.updateOne({ caseId: id }, { isDeleted: true })
+	const allCases: any = await Cases.find({ $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] })
+	const result = {
+		deleted,
+		allCases
+	}
+	res.render('caseList', { result })
 })
 
 // /cases/text - creates case
 router.post('/:id/text', async (req: Request, res: Response) => {
 	const { id } = req.params
-	const { title, sachverhalt, aufgabe, musterloesung, fussnoten } = req.body
-	const result = await Cases.updateOne({ case_id: id }, { title, sachverhalt, aufgabe, musterloesung, fussnoten })
+	const { title, issue, task, solution, footnotes } = req.body
+	const result = await Cases.updateOne({ caseId: id }, { title, issue, task, solution, footnotes })
 	res.render('case', { result })
 })
 
@@ -114,7 +136,7 @@ router.post('/:id/text', async (req: Request, res: Response) => {
 router.post('/:id/details', async (req: Request, res: Response) => {
 	const { id } = req.params
 	const { categories, subcategories, problems } = req.body
-	const result = await Cases.updateOne({ case_id: id }, { categories, subcategories, problems })
+	const result = await Cases.updateOne({ caseId: id }, { categories, subcategories, problems })
 	res.render('case', { result })
 })
 
