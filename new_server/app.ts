@@ -1,6 +1,7 @@
 // import dependencys/ modules
 import express, { json } from 'express'
 import path from 'path'
+import Handlebars from 'handlebars'
 import exphbs from 'express-handlebars'
 import helmet from 'helmet'
 import dotenv from 'dotenv'
@@ -8,6 +9,7 @@ import bodyParser from 'body-parser'
 import session from 'express-session'
 import passport from 'passport'
 import Auth0Strategy from 'passport-auth0'
+import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access'
 
 dotenv.config()
 
@@ -19,6 +21,7 @@ import usersRouter from './src/server/routes/users'
 import publiclawRouter from './src/server/routes/cases/publiclaw'
 import criminallawRouter from './src/server/routes/cases/criminallaw'
 import civillawRouter from './src/server/routes/cases/civillaw'
+import uploadRouter from './src/server/routes/upload'
 
 // importing middleware
 import { secured } from './src/server/middlewares/secured'
@@ -78,17 +81,17 @@ app.use(passport.session())
 app.use(userInViews())
 
 // sets view engine and the path to the views
-app.engine('.hbs', exphbs({ extname: '.hbs', layoutsDir: `${__dirname}/src/client/views` }))
+app.engine('.hbs', exphbs({ extname: '.hbs', handlebars: allowInsecurePrototypeAccess(Handlebars), layoutsDir: `${__dirname}/src/client/views` }))
 app.set('view engine', '.hbs');
 app.set('views', (path.join(__dirname + '/src/client/views')))
-app.set('public', path.join(__dirname, '../public'))
+app.set('public', (path.join(__dirname + '/src/client/public')))
 
 // sets security related http headers
 app.use(helmet())
 // set so app can parse json
 app.use(json())
 // where the static files are
-app.use(express.static(path.join(__dirname + '/src/client', 'public')))
+app.use(express.static(path.join(__dirname + '/src/client/public')))
 // set so can parse html body
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -100,6 +103,7 @@ app.use('/cases', secured, casesRouter)
 app.use('/cases/publiclaw', secured, publiclawRouter)
 app.use('/cases/criminallaw', secured, criminallawRouter)
 app.use('/cases/civillaw', secured, civillawRouter)
+app.use('/upload', secured, uploadRouter)
 
 
 export default app
