@@ -1,45 +1,25 @@
 <section class="top-box">
-	{{# if data }}
-	<form action="/users/{{data.author.author_id}}/faelle" method="post">
-		<input type="hidden" name="case_id" value="{{data.case_id}}">
+	<form action="/cases/text" method="post">
 		<div class="upload-subheader-wrapper">
-		<input id="uploadTitle" name="uploadTitle" class="slab-font" type="text" value="{{data.case.title}}" />
-		<div class="upload-subheader-wrapper">
-			<label for="sachverhalt" class="upload-subheader">Sachverhalt</label>
-		</div>
-		<textarea id="sachverhalt" name="sachverhalt" class="slab-font upload-input">{{data.case.sachverhalt}}</textarea>
-		<div class="upload-subheader-wrapper">
-			<label for="aufgabe" class="upload-subheader">Aufgaben</label>
-		</div>
-		<textarea id="aufgabe" name="aufgabe" class="slab-font upload-input">{{data.case.aufgabe}}</textarea>
-		<div class="upload-subheader-wrapper">
-			<label for="musterloesung" class="upload-subheader">MusterLösung</label>
-		</div>
-		<textarea id="musterloesung" name="musterloesung" class="slab-font upload-input">{{data.case.musterloesung}}</textarea>
-		<input id="upload-continue" name="upload-continue" class="continue-upload" value="Weiter" type="submit"><br>
-		<input id="upload-save" name="upload-save" class="continue-upload" value="Als Entwurf speichern" type="submit">
-	</form>
-	{{ else }}
-	<form action="/users/{{user_id}}/faelle" method="post">
-		<div class="upload-subheader-wrapper">
-			<input id="uploadTitle" name="uploadTitle" class="slab-font" type="text" placeholder="Titel" />
+			<input id="uploadTitle" name="uploadTitle" class="slab-font" type="text" placeholder="Titel"
+				value="{{result.case.title}}" />
 			<div class="upload-subheader-wrapper">
 				<label for="sachverhalt" class="upload-subheader">Sachverhalt</label>
 			</div>
 			<textarea id="sachverhalt" name="sachverhalt" class="slab-font upload-input"
-				placeholder="Beschreibe den Sachverhalt..."></textarea>
+				placeholder="Beschreibe den Sachverhalt...">{{result.case.issue}}</textarea>
 			<div class="upload-subheader-wrapper">
 				<label for="aufgabe" class="upload-subheader">Aufgaben</label>
 			</div>
 			<textarea id="aufgabe" name="aufgabe" class="slab-font upload-input"
-				placeholder="Formuliere die Aufgaben..."></textarea>
+				placeholder="Formuliere die Aufgaben...">{{result.case.task}}</textarea>
 			<div class="upload-subheader-wrapper">
 				<label for="musterloesung" class="upload-subheader">MusterLösung</label>
 			</div>
 			<textarea id="musterloesung" name="musterloesung" class="slab-font upload-input"
-				placeholder="Beschreibe die Lösung..."></textarea>
+				placeholder="Beschreibe die Lösung...">{{result.case.solution}}</textarea>
 			<input id="upload-continue" name="upload-continue" class="continue-upload" value="Weiter" type="submit"><br>
-			<input id="upload-save" name="upload-save" class="continue-upload" value="Als Entwurf speichern" type="submit">
+			<input id="upload-save" name="upload-save" class="continue-upload" value="Als Entwurf speichern"
+				type="submit">
 	</form>
-	{{/if}}
 </section>

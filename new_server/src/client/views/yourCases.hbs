@@ -1,29 +1,26 @@
 <section class="top-box upload-box">
 	<h2 class="upload-header">Deine Fälle</h2>
-	<a class="rob-font" href="/users/{{user_id}}/faelle/upload" type="submit">Fall schreiben</a>
+	<a class="rob-font" href="/cases/0/text" type="submit">Fall schreiben</a>
 </section>
 <section class="bottom-box">
 	<div class="tab">
-		<button class="tablinks tab-header gold-header active" onclick="uploadTabs(event, 'drafts')">Entwürfe
-			{{draftCases.length}}</button>
-		<button class="tablinks tab-header gold-header" onclick="uploadTabs(event, 'owns')">Veröffentlicht
-			{{ownedCases.length}}</button>
+		<button class="tablinks tab-header gold-header active" onclick=`uploadTabs(event, 'drafts' )`>Entwürfe
+			{{result.draftCases.length}}</button>
+		<button class="tablinks tab-header gold-header" onclick=`uploadTabs(event, 'owns' )`>Veröffentlicht
+			{{result.publicCases.length}}</button>
 	</div>
 	<div id="drafts" class="tabcontent">
-		{{# each draftCases}}
+		{{# each result.draftCases}}
 		<article class="card-wrapper">
 			<div class="title-flex">
 				<div class="card-title-holder"><a class="card-title"
-						href="/faelle/?key={{this.case_id}}">{{ this.case.title }}</a></div>
+						href="/cases/{{this.caseId}}">{{ this.case.title }}</a></div>
 				<div class="bookmark">
-					<div class="tooltip"><a href="/users/{{this.author.author_id}}/faelle/{{this.case_id}}"><i
+					<div class="tooltip"><a href="/cases/{{this.caseId}}/text"><i
 								class="material-icons md-24 md-gold">edit</i><span
 								class="tooltiptext">Bearbeiten</span></a></div>
 					<div class="tooltip">
-						<form method="post" action="/users/{{this.author.author_id}}/faelle/modify">
-							<input type="hidden" name="_public" value=true>
-							<input type="hidden" name="draft" value=false>
-							<input type="hidden" name="case_id" value="{{this.case_id}}">
+						<form method="post" action="/cases/{{this.caseId}}/publish">
 							<button style="background-color: white; border: none;" class="upload-icons" type="submit"><i
 									class="material-icons md-24 md-gold">public_on</i></button>
 							<span class="tooltiptext" id="align-left">Veröffentlichen</span>
@@ -45,20 +42,17 @@
 		{{/each}}
 	</div>
 	<div id="owns" class="tabcontent public-hide">
-		{{# each ownedCases}}
+		{{# each result.publicCases}}
 		<article class="card-wrapper">
 			<div class="title-flex">
 				<div class="card-title-holder"><a class="card-title"
-						href="/faelle/?key={{this.case_id}}">{{ this.case.title }}</a></div>
+						href="/faelle/?key={{this.caseId}}">{{ this.case.title }}</a></div>
 				<div class=" bookmark">
-					<div class="tooltip"><a href="/users/{{this.author.author_id}}/faelle/{{this.case_id}}"><i
+					<div class="tooltip"><a href="/users/{{this.author.authorId}}/faelle/{{this.caseId}}"><i
 								class="material-icons md-24 md-gold">edit</i><span
 								class="tooltiptext">Bearbeiten</span></a></div>
 					<div class="tooltip">
-						<form method="post" action="/users/{{this.author.author_id}}/faelle/modify">
-							<input type="hidden" name="_public" value=false>
-							<input type="hidden" name="draft" value=true>
-							<input type="hidden" name="user_id" value="{{user_id}}">
+						<form method="post" action="/cases/{{this.caseId}}/unpublish">
 							<button style="background-color: white; border: none;" class="upload-icons" type="submit"><i
 									class="material-icons md-24 md-gold">public_off</i></button>
 							<span class="tooltiptext" id="align-left">Unpublish</span>
@@ -66,12 +60,12 @@
 					</div>
 				</div>
 			</div>
-			<p class="card-author">von <span><a href="/author/{{this.author.email}}">{{ this.author.name }}</a></span>
+			<p class="card-author">von <span><a href="/users/{{this.author.authorId}}">{{ this.author.name }}</a></span>
 			</p>
 			<p class="card-tags">
 				<span>
 					<span id="categorie-link">{{#each this.categories}}<a
-							href="/faelle/{{this}}">{{this}}</a>{{/each}}</span>
+							href="/cases/{{this}}">{{this}}</a>{{/each}}</span>
 					<span>{{#each this.subcategories}}<a href="#">{{ this }}</a>{{/each}}</span>
 					{{#each this.problems}}<a href="#">{{ this }}</a>{{/each}}
 				</span>

@@ -8,3 +8,31 @@
 <h1>Nickname: {{data.nickname}}<br /><br />Full Name: {{data.displayName}}</h1>
 <h2>{{data._json.eamil}}</h2>
 <p>Is email verified: {{data._json.email_verified}}</p>
+
+<h3 class="content-header all-cases">ALLE FÄLLE</h2>
+	{{# each allCases }}
+	<article class="card-wrapper">
+		<div class="title-flex">
+			<div class="card-title-holder"><a class="card-title"
+					href="/users/{{this.author.authorId}}">{{ this.case.title }}</a></div>
+			<!-- <div class=" bookmark"><i class="material-icons md-24 md-gold">turned_in_not</i></div> -->
+		</div>
+		<p class="card-author">von <span><a href="/users/{{this.author.authorId}}">{{ this.author.name }}</a></span>
+		</p>
+		<p class="card-tags">
+			<span>
+				<span id="categorie-link">
+					{{#each this.categories}}
+					<a href="/cases/{{this}}">{{this}}</a>
+					{{/each}}
+				</span>
+				<span>
+					{{#each this.subcategories}}
+					<a href="/cases/{{result.categories}}/{{this}}">{{ this }}</a>
+					{{/each}}
+				</span>
+				{{#each this.problems}}<a href="#">{{ this }}</a>{{/each}}
+			</span>
+		</p>
+	</article>
+	{{/each}}
