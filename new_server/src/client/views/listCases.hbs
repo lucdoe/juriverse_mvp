@@ -1,7 +1,7 @@
 <section class="top-box">
     <h2 class="page-header">{{result.category }}</h2>
     <form action="/cases" method="get">
-        <input class="search-bar" ntype="search" name="searchInput" id="searchInput"
+        <input class="search-bar" ntype="search" name="si" id="searchInput"
             placeholder="Suche nach Titel, Autor, Kategorie, etc." />
     </form>
     <p class="search-suggestion">
@@ -15,6 +15,39 @@
 <div class="divider"></div>
 
 <section class="bottom-box">
+    {{# if result.search }}
+    <h3 class="content-header recommended">Deine Suche ergab...</h2>
+        {{# each result.search }}
+        <article class="card-wrapper recommended-card">
+            <div class="title-flex">
+                <div class="card-title-holder">
+                    <a class="card-title" href="/cases/{{this.caseId}}/view">{{ this.case.title }}</a>
+                </div>
+            </div>
+            <p class="card-author">von
+                <span><a href="/users/{{this.author.authorId}}">{{ this.author.name }}</a></span>
+            </p>
+            <p class="card-tags">
+                <span>
+                    <span id="categorie-link">
+                        {{#each this.categories}}
+                        <a href="/cases/{{this}}">{{this}}</a>
+                        {{/each}}
+                    </span>
+                    <span>
+                        {{#each this.subcategories}}
+                        <a href="/cases/{{result.categories}}/{{this}}">{{ this }}</a>
+                        {{/each}}
+                    </span>
+                    {{#each this.problems}}
+                    <a href="#">{{ this }}</a>
+                    {{/each}}
+                </span>
+            </p>
+        </article>
+        {{/each}}
+        {{/if}}
+
     {{# if result.recommendedCases }}
     <h3 class="content-header recommended">Empfohlen</h2>
         {{# each result.recommendedCases }}
