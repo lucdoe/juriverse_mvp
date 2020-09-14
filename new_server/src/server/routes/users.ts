@@ -7,38 +7,15 @@ const router = Router()
 /* GET user profile. */
 router.get('/', (req: any, res: Response) => {
 	const data = req.user
-	res.render('user', { data })
+	res.render('profile', { data })
 })
 
-router.get('/:userid/cases', (req, res) => {
+router.get('/:userid/cases', async (req: any, res: Response) => {
 	const id = req.params.userid
-	if (id.length > 24) {
-		const user_id = id.substring(6, 30)
-		Users.findOne({ user_id }, async (err, data: any) => {
-			const draftCases = await Cases.find({ $and: [{ 'author.author_id': user_id }, { 'meta.draft': true }] }).exec()
-			const ownedCases = await Cases.find({ $and: [{ 'author.author_id': user_id }, { 'meta.draft': false }, { 'meta.public': true }] }).exec()
-			res.render('uploadStep1', { user_id, draftCases, ownedCases })
-		})
-	}
-	Users.findOne({ user_id: id }, async (err, data: any) => {
-		const draftCases = await Cases.find({ $and: [{ 'author.author_id': id }, { 'meta.draft': true }] }).exec()
-		const ownedCases = await Cases.find({ $and: [{ 'author.author_id': id }, { 'meta.draft': false }, { 'meta.public': true }] }).exec()
-		res.render('uploadStep1', { user_id: id, draftCases, ownedCases })
-	})
+	const allCases = await Cases.find({ $and: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }, { 'author.authorId': id }] })
+	res.render('profile', { allCases })
 })
 
-
-router.get('/:userid/cases/upload', (req, res) => {
-	const user_id = req.params.userid
-	res.render('uploadStep2', { user_id })
-})
-
-router.get('/:userid/cases', async (req: any, res) => {
-	const case_id = req.query.caseid
-	await Cases.findOne({ case_id }, (err, data: any) => {
-		res.render('uploadStep2', { data })
-	})
-})
 
 // saving case content
 router.post('/:userid/cases', (req: any, res) => {
