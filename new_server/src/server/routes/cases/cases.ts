@@ -6,7 +6,7 @@ const router = Router()
 
 // get all cases
 router.get('/', async (req: Request, res: Response) => {
-	const search = req.query.searchInput
+	const search = req.query.si
 	if (search) {
 		const regex = new RegExp(escapeRegex(search), 'gi')
 		Cases.find({
@@ -18,13 +18,17 @@ router.get('/', async (req: Request, res: Response) => {
 				{ 'author.name': regex },]
 		},
 
-			(err, result) => {
+			(err, data) => {
 				if (err) {
 					console.log(err)
 				} else {
-					if (result.length < 1) {
+					if (data.length < 1) {
 						const noMatch = 'Kein Fall nach deinen Suchkriterien gefunden.'
-						res.render('listCases', { result, noMatch })
+						res.render('listCases', { noMatch })
+					}
+					const result = {
+						search: data,
+						category: 'Suche'
 					}
 					res.render('listCases', { result })
 				}
