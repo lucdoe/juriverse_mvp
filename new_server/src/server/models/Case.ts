@@ -9,7 +9,7 @@ const caseSchema = new Schema({
 		picture: String,
 		name: String,
 		email: String,
-		uni: String,
+		university: String,
 	},
 	categories: [String],
 	subcategories: [String],
@@ -35,8 +35,8 @@ const caseSchema = new Schema({
 	},
 	report: [
 		{
-			user_id: String,
-			case_id: String,
+			userId: String,
+			caseId: String,
 			reportText: String
 		}
 	],
