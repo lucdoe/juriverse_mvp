@@ -42,14 +42,14 @@ router.get('/', async (req: Request, res: Response) => {
 })
 
 // get one case
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req: Request, res: Response) => {
 	const id = req.params.id
 	const result = await Cases.findOne({ id })
 	res.render('listCases', { result })
 })
 
 // get case by cats/subcats/problems
-router.get('/:categories/:subcategories/?problems=', async (req, res) => {
+router.get('/:categories/:subcategories/?problems=', async (req: Request, res: Response) => {
 	const { categories, subcategories } = req.params
 	const { problems } = req.query
 	const recommendedCases = await Cases.find({ $and: [{ categories }, { subcategories }, { problems }, { 'meta.rating': { $gt: 980 } }] })
@@ -75,7 +75,7 @@ router.post('/:id/done', async (req: any, res: Response) => {
 })
 
 // update case
-router.post('/:id/update', async (req: any, res) => {
+router.post('/:id/update', async (req: Request, res: Response) => {
 	const { id } = req.params
 	const data = req.body
 	const result = await Cases.updateOne({ case_id: id }, { data })
@@ -83,7 +83,7 @@ router.post('/:id/update', async (req: any, res) => {
 })
 
 // report case
-router.post('/:id/report', async (req: any, res) => {
+router.post('/:id/report', async (req: any, res: Response) => {
 	const { user_id } = req.user
 	const { id } = req.params
 	const { reportText } = req.body
@@ -95,15 +95,15 @@ router.post('/:id/report', async (req: any, res) => {
 })
 
 // delete case
-router.post('/:id/delete', async (req: any, res) => {
+router.post('/:id/delete', async (req: Request, res: Response) => {
 	const { id } = req.params
-	const report = await Cases.updateOne({ case_id: id }, { isDeleted: true })
+	const deleted = await Cases.updateOne({ case_id: id }, { isDeleted: true })
 	const result = await Cases.find({})
-	res.render('caseList', { result })
+	res.render('caseList', { result, deleted })
 })
 
 // /cases/text - creates case
-router.post('/:id/text', async (req: any, res) => {
+router.post('/:id/text', async (req: Request, res: Response) => {
 	const { id } = req.params
 	const { title, sachverhalt, aufgabe, musterloesung, fussnoten } = req.body
 	const result = await Cases.updateOne({ case_id: id }, { title, sachverhalt, aufgabe, musterloesung, fussnoten })
@@ -111,7 +111,7 @@ router.post('/:id/text', async (req: any, res) => {
 })
 
 // update case details
-router.post('/:id/details', async (req: any, res) => {
+router.post('/:id/details', async (req: Request, res: Response) => {
 	const { id } = req.params
 	const { categories, subcategories, problems } = req.body
 	const result = await Cases.updateOne({ case_id: id }, { categories, subcategories, problems })
