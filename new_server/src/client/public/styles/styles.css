@@ -662,9 +662,13 @@ li a {
 	color: white;
 	border: none;
 	background-color: var(--juriverse-gold);
-	margin-top: 7vw;
+	margin-top: 1vw;
 	cursor: pointer;
 	margin-left: 40vw;
+}
+
+#upload-continue {
+	margin-top: 7vw;
 }
 
 .upload-icons:hover {
