@@ -87,7 +87,7 @@ app.set('views', (path.join(__dirname + '/src/client/views')))
 app.use(express.static(path.join(__dirname + '/src/client/', 'public')))
 
 // sets security related http headers
-app.use(helmet())
+app.use(helmet({ contentSecurityPolicy: false, }))
 // set so app can parse json
 app.use(json())
 // where the static files are
