@@ -789,3 +789,63 @@ input[type='checkbox'] {
 	color: var(--juriverse-dark);
 	font-size: 18px;
 }
+
+.profile-top-container {
+	width: 70vw;
+	height: auto;
+	padding-left: 8vw;
+	margin-top: 0;
+	display: flex;
+}
+
+.profile-left {
+	width: 40vw;
+}
+
+.profile-right {
+	width: 30vw;
+}
+
+.profile-right div img {
+	border-radius: 50%;
+	justify-self: center;
+	margin-left: 8vw;
+	margin-top: 6vw;
+	width: 112px;
+	height: 112px;
+}
+
+.intro-text {
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 20px;
+	color: #A3A3A8;
+	margin-bottom: 20px;
+}
+
+.upc {
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 17px;
+	text-transform: uppercase;
+	color: #A3A3A8;
+	margin-right: 10px;
+}
+
+#upc1 {
+	margin-right: 5px;
+}
+#upc2 {
+	margin-right: 4px;
+}
+
+.profile-left p:not(.intro-text) {
+	color: var(--juriverse-dark);
+	font-weight: 600;
+font-size: 16px;
+} 
+
+.profile-name {
+	margin-top: 4vw;
+	margin-bottom: 16px;
+}

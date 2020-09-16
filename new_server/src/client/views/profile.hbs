@@ -1,13 +1,24 @@
-<section class="top-box">
-	<h1 class="page-header">{{result.authorName}}</h1>
+<section class="profile-top-container">
+	<div class="profile-left">
+		<h1 class="case-title profile-name">{{ result.authorName }}</h1>
+		<p class="intro-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et scelerisque orci,
+			non gravida velit.
+			Cras
+			id
+			erat at ipsum molestie maximus. Aenean sagittis iaculis metus at fringilla. Pellentesque suscipit vehicula
+			mi eu
+			consequat. Ut malesuada diam ut sapien tincidunt, scelerisque faucibus metus cursus. Phasellus laoreet
+			congue
+			mollis. In
+			ac nisi fermentum, efficitur arcu quis, vestibulum lectus.</p>
+		<p><span id="upc1" class="upc">Mitglied seit:</span> 09. September 2020</p>
+		<p><span class="upc">Universität:</span> {{result.user.university}}</p>
+		<p><span id="upc2" class="upc upc2">Fortschritt:</span> Vor dem ersten Staatsexamen</p>
+	</div>
+	<div class="profile-right">
+		<div><img src="{{data.picture}}"></div>
+	</div>
 </section>
-
-<a target="_blank" href="#">
-	<img src="{{data.picture}}" class="hoverZoomLink" />
-</a>
-<h1>Nickname: {{data.nickname}}<br /><br />Full Name: {{data.displayName}}</h1>
-<p>Is email verified: {{data._json.email_verified}}</p>
-
 <section>
 	<h3 class="content-header all-cases">Fälle von {{data.displayName}}</h2>
 		{{# each result.allCases }}
