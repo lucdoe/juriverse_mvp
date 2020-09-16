@@ -1,23 +1,29 @@
 <section class="top-box">
-	<form action="/cases/text" method="post">
+	<form action="/cases/{{result.id}}/text" method="post">
 		<div class="upload-subheader-wrapper">
-			<input id="uploadTitle" name="uploadTitle" class="slab-font" type="text" placeholder="Titel"
-				value="{{result.case.title}}" />
+			<input id="title" name="title" class="slab-font" type="text" placeholder="Titel"
+				value="{{result.oneCase.case.title}}" />
 			<div class="upload-subheader-wrapper">
-				<label for="sachverhalt" class="upload-subheader">Sachverhalt</label>
+				<label for="issue" class="upload-subheader">Sachverhalt</label>
 			</div>
-			<textarea id="sachverhalt" name="sachverhalt" class="slab-font upload-input"
-				placeholder="Beschreibe den Sachverhalt...">{{result.case.issue}}</textarea>
+			<textarea id="issue" name="issue" class="slab-font upload-input"
+				placeholder="Beschreibe den Sachverhalt...">{{result.oneCase.case.issue}}</textarea>
 			<div class="upload-subheader-wrapper">
-				<label for="aufgabe" class="upload-subheader">Aufgaben</label>
+				<label for="task" class="upload-subheader">Aufgaben</label>
 			</div>
-			<textarea id="aufgabe" name="aufgabe" class="slab-font upload-input"
-				placeholder="Formuliere die Aufgaben...">{{result.case.task}}</textarea>
+			<textarea id="task" name="task" class="slab-font upload-input"
+				placeholder="Formuliere die Aufgaben...">{{result.oneCase.case.task}}</textarea>
 			<div class="upload-subheader-wrapper">
-				<label for="musterloesung" class="upload-subheader">MusterLösung</label>
+				<label for="solution" class="upload-subheader">MusterLösung</label>
 			</div>
-			<textarea id="musterloesung" name="musterloesung" class="slab-font upload-input"
-				placeholder="Beschreibe die Lösung...">{{result.case.solution}}</textarea>
+			<textarea id="solution" name="solution" class="slab-font upload-input"
+				placeholder="Beschreibe die Lösung...">{{result.oneCase.case.solution}}</textarea>
+
+				<div class="upload-subheader-wrapper">
+					<label for="footnotes" class="upload-subheader">Fussnoten</label>
+				</div>
+			<textarea id="footnotes" name="footnotes" class="slab-font upload-input"
+				placeholder="Fuege deine Fussnoten hier ein...">{{result.oneCase.footnotes}}</textarea>
 			<input id="upload-continue" name="upload-continue" class="continue-upload" value="Weiter" type="submit"><br>
 			<input id="upload-save" name="upload-save" class="continue-upload" value="Als Entwurf speichern"
 				type="submit">

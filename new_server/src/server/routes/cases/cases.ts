@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express'
 import Cases from '../../models/Case'
 import Users from '../../models/User'
+import { v4 as uuidv4 } from 'uuid'
 
 const router = Router()
 
@@ -48,10 +49,33 @@ router.get('/', async (req: Request, res: Response) => {
 
 
 // get text edit page
-router.get('/:id/text', async (req: Request, res: Response) => {
+router.get('/:id/text', async (req: any, res: Response) => {
 	const id = req.params.id
-	const result = await Cases.findOne({ caseId: id })
+	const oneCase = await Cases.findOne({ caseId: id })
+	const result = {
+		oneCase,
+		id
+	}
 	res.render('uploadCaseText', { result })
+})
+
+// get text edit page
+router.get('/:id/report', async (req: any, res: Response) => {
+	const id = req.params.id
+	const oneCase = await Cases.findOne({ caseId: id })
+	const result = {
+		oneCase,
+		id
+	}
+	res.render('report', { result })
+})
+
+// comes from caseDetails, creates case renders case page
+router.post('/:id/view', async (req: Request, res: Response) => {
+	const { caseId, categories, subcategories, problems } = req.body
+	await Cases.update({ caseId }, { categories, subcategories, problems, 'meta.isPublished': true, 'meta.isDraft': false })
+	const result = await Cases.findOne({ caseId })
+	res.render('case', { result })
 })
 
 // get one case
@@ -101,11 +125,9 @@ router.post('/:id/report', async (req: any, res: Response) => {
 	const { user_id } = req.user
 	const { id } = req.params
 	const { reportText } = req.body
-	const report = await Cases.updateOne({ caseId: id }, { $push: { report: { userId: user_id, caseId: id, reportText } } })
-	const result = {
-		report
-	}
-	res.render('case', { result })
+	const report = await Cases.updateOne({ caseId: id }, { $push: { report: [{ userId: user_id, caseId: id, reportText }] } })
+	const result = await Cases.findOne({ caseId: id })
+	res.render('case', { result, report })
 })
 
 // delete case
@@ -121,19 +143,67 @@ router.post('/:id/delete', async (req: Request, res: Response) => {
 })
 
 // /cases/text - creates case
-router.post('/:id/text', async (req: Request, res: Response) => {
-	const { id } = req.params
+router.post('/:id/text', async (req: any, res: Response) => {
+	const caseId = req.params.id
+	const { user_id, picture, email, nickname } = req.user
 	const { title, issue, task, solution, footnotes } = req.body
-	const result = await Cases.updateOne({ caseId: id }, { title, issue, task, solution, footnotes })
-	res.render('case', { result })
+
+	if (+caseId == 0) {
+		let caseId = uuidv4()
+		const data = {
+			caseId,
+			author: {
+				authorId: user_id,
+				picture,
+				name: nickname,
+				email,
+				university: '',
+			},
+			case: {
+				title,
+				task,
+				issue,
+				solution,
+				footnotes,
+			},
+			meta: {
+				likeCount: 0,
+				ratingCount: 0,
+				viewCount: 0,
+				editorChoice: [],
+				isPublished: false,
+				isDraft: true,
+				isDeleted: false,
+				uploadDate: '',
+				length: 0,
+				intro: '',
+			},
+			report: [
+				{
+					userId: '',
+					caseId: '',
+					reportText: ''
+				}
+			],
+			selfWriteConfirm: false,
+		}
+		const result = Cases.create(data)
+		res.render('uploadCaseDetails', { result, caseId })
+	} else {
+		const { id } = req.params
+		const { title, issue, task, solution, footnotes } = req.body
+		const result = await Cases.updateOne({ caseId: id }, { title, issue, task, solution, footnotes })
+		res.render('case', { result })
+	}
 })
 
 // update case details
 router.post('/:id/details', async (req: Request, res: Response) => {
 	const { id } = req.params
 	const { categories, subcategories, problems } = req.body
-	const result = await Cases.updateOne({ caseId: id }, { categories, subcategories, problems })
-	res.render('case', { result })
+	const result = await Cases.updateOne({ caseId: id }, { categories, subcategories, problems, 'meta.isPublished': true, 'meta.isDraft': false })
+	console.log(result)
+	res.redirect(`/cases/${result.caseId}/view`)
 })
 
 const escapeRegex = (text) => {
