@@ -8,8 +8,8 @@ const rating = 900
 
 // getsall Öffentliches Recht
 router.get('/', async (req: Request, res: Response) => {
-	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories] })
-	const allCases = await Cases.find(categories)
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
+	const allCases = await Cases.find({ $and: [categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
 	const result = {
 		recommendedCases,
 		allCases,
@@ -20,8 +20,8 @@ router.get('/', async (req: Request, res: Response) => {
 
 // gets oefrecht-staatsorganisationsrecht
 router.get('/staatsorganisationsrecht', async (req: Request, res: Response) => {
-	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Staatsorganisationsrecht' }] })
-	const allCases = await Cases.find(categories)
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Staatsorganisationsrecht' }, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
+	const allCases = await Cases.find({ $and: [categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
 	const result = {
 		recommendedCases,
 		allCases,
@@ -32,8 +32,8 @@ router.get('/staatsorganisationsrecht', async (req: Request, res: Response) => {
 
 // gets oefrecht-grundrechte
 router.get('/grundrechte', async (req: Request, res: Response) => {
-	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Grundrechte' }] })
-	const allCases = await Cases.find(categories)
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Grundrechte' }, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
+	const allCases = await Cases.find({ $and: [categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
 	const result = {
 		recommendedCases,
 		allCases,
@@ -44,8 +44,8 @@ router.get('/grundrechte', async (req: Request, res: Response) => {
 
 // gets oefrecht-europarecht
 router.get('/europarecht', async (req: Request, res: Response) => {
-	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Europarecht' }] })
-	const allCases = await Cases.find(categories)
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Europarecht' }, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
+	const allCases = await Cases.find({ $and: [categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
 	const result = {
 		recommendedCases,
 		allCases,
@@ -56,8 +56,8 @@ router.get('/europarecht', async (req: Request, res: Response) => {
 
 // gets oefrecht-verwaltungsrechtat
 router.get('/verwaltungsrechtat', async (req: Request, res: Response) => {
-	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Verwaltungsrecht AT' }] })
-	const allCases = await Cases.find(categories)
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Verwaltungsrecht AT' }, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
+	const allCases = await Cases.find({ $and: [categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
 	const result = {
 		recommendedCases,
 		allCases,
@@ -68,8 +68,8 @@ router.get('/verwaltungsrechtat', async (req: Request, res: Response) => {
 
 // gets oefrecht-verwaltungsprozessrecht
 router.get('/verwaltungsprozessrecht', async (req: Request, res: Response) => {
-	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Verwaltungsprozessrecht' }] })
-	const allCases = await Cases.find(categories)
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Verwaltungsprozessrecht' }, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
+	const allCases = await Cases.find({ $and: [categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
 	const result = {
 		recommendedCases,
 		allCases,
@@ -80,8 +80,8 @@ router.get('/verwaltungsprozessrecht', async (req: Request, res: Response) => {
 
 // gets oefrecht-por
 router.get('/por', async (req: Request, res: Response) => {
-	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'POR' }] })
-	const allCases = await Cases.find(categories)
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'POR' }, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
+	const allCases = await Cases.find({ $and: [categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
 	const result = {
 		recommendedCases,
 		allCases,
@@ -92,8 +92,8 @@ router.get('/por', async (req: Request, res: Response) => {
 
 // gets oefrecht-baurecht
 router.get('/baurecht', async (req: Request, res: Response) => {
-	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Baurecht' }] })
-	const allCases = await Cases.find(categories)
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Baurecht' }, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
+	const allCases = await Cases.find({ $and: [categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
 	const result = {
 		recommendedCases,
 		allCases,
@@ -104,8 +104,8 @@ router.get('/baurecht', async (req: Request, res: Response) => {
 
 // gets oefrecht-staatshaftungsrecht
 router.get('/staatshaftungsrecht', async (req: Request, res: Response) => {
-	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Staatshaftungsrecht' }] })
-	const allCases = await Cases.find(categories)
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Staatshaftungsrecht' }, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
+	const allCases = await Cases.find({ $and: [categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
 	const result = {
 		recommendedCases,
 		allCases,

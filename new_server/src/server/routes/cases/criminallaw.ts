@@ -8,8 +8,8 @@ const rating = 920
 
 // gets all strafrecht
 router.get('/', async (req: Request, res: Response) => {
-	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories] })
-	const allCases = await Cases.find(categories)
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
+	const allCases = await Cases.find({ $and: [categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
 	const result = {
 		recommendedCases,
 		allCases,
@@ -20,8 +20,8 @@ router.get('/', async (req: Request, res: Response) => {
 
 // gets strafrecht-AT
 router.get('/strafrechtat', async (req: Request, res: Response) => {
-	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Strafrecht AT' }] })
-	const allCases = await Cases.find(categories)
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Strafrecht AT' }, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
+	const allCases = await Cases.find({ $and: [categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
 	const result = {
 		recommendedCases,
 		allCases,
@@ -32,8 +32,8 @@ router.get('/strafrechtat', async (req: Request, res: Response) => {
 
 // gets strafrecht-BT
 router.get('/strafrechtbt', async (req: Request, res: Response) => {
-	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Strafrecht BT' }] })
-	const allCases = await Cases.find(categories)
+	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Strafrecht BT' }, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
+	const allCases = await Cases.find({ $and: [categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
 	const result = {
 		recommendedCases,
 		allCases,

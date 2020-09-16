@@ -11,12 +11,15 @@ router.get('/', async (req: Request, res: Response) => {
 	if (search) {
 		const regex = new RegExp(escapeRegex(search), 'gi')
 		Cases.find({
+			$and: [{
 			$or: [
 				{ 'case.title': regex },
 				{ categories: regex },
 				{ subcategories: regex },
 				{ problems: regex },
 				{ 'author.name': regex },]
+		},
+			{ 'meta.isPublished': true }, { 'meta.isDraft': false }]
 		},
 
 			(err, data) => {
