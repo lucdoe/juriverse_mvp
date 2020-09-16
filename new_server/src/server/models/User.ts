@@ -41,6 +41,7 @@ const userSchema = new Schema({
 			visitedTimestamp: Date,
 		}],
 		isDeleted: Boolean,
+		signupDate: Date,
 	},
 })
 
