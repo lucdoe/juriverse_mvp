@@ -89,13 +89,9 @@ router.get('/:id/view', async (req: Request, res: Response) => {
 router.post('/:id/done', async (req: any, res: Response) => {
 	const { user_id } = req.user
 	const { id } = req.params
-	const user = Users.updateOne({ userId: user_id }, { $push: { 'cases.finished': id } })
-	const allCases = Cases.find({ 'author.authorId': user_id })
-	const result = {
-		user,
-		allCases
-	}
-	res.render('profile', { result })
+	await Users.updateOne({ userId: user_id }, { $push: { 'cases.finished': { caseId: id, finishedTimestamp: Date.now() } } }, (err, data) => {
+		res.redirect('/cases')
+	})
 })
 
 // publish case
