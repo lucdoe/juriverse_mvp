@@ -7,7 +7,7 @@ const router = Router()
 // get user profile
 router.get('/', async (req: any, res: Response) => {
 	const { user_id } = req.user
-	const user = await Users.findOne({ user_id })
+	const user = await Users.findOne({ userId: user_id })
 	await Cases.find({ 'author.authorId': user_id }, (err, allCases: any) => {
 		const result = {
 			user,
