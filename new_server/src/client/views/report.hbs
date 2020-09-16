@@ -1,0 +1,20 @@
+<section class="top-container">
+    <div class="logo-container">
+        <!-- <span><a href="/">J</a></span> -->
+    </div>
+    <article class="case-container">
+        <h1 class="case-title">Fall melden</h1>
+
+        <p class="report-this"><a>{{result.oneCase.case.title}}</a> von <span>{{result.oneCase.author.name}}</span></p>
+    </article>
+</section>
+<section class="report-container">
+    <div class="report-label"><label for="reportText">Warum willst du diesen Fall melden?</label></div>
+    <div class="report-input">
+        <form method="post" action="/cases/{{result.id}}/report">
+            <textarea type="text" name="reportText"
+                placeholder="Beschreibe hier deine Bedenken (z.B. falsche Informationen)..."></textarea>
+            <button type="submit" class="send-report">Meldung abschicken</button>
+        </form>
+    </div>
+</section>

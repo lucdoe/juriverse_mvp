@@ -413,6 +413,7 @@ li a {
 	font-family: 'Roboto Slab', serif;
 	letter-spacing: 0.19px;
 	white-space: pre-wrap;
+	text-align: justify;
 }
 
 .sub-header {
@@ -728,4 +729,63 @@ input[type='checkbox'] {
 
 .confirmedColor {
 	background-color: var(--juriverse-gold);
+}
+
+.tooltip-box {
+	display: grid;
+}
+
+.tooltipflex {
+	align-self: center;
+    margin-left: 20vw;
+}
+
+.report-container {
+	display: grid;
+	width: 100%;
+	grid-template-areas: 
+	". header ."
+	". input .";
+	grid-template-columns: 12vw 55vw 8vw;
+	grid-template-rows: 5vw 20vw;
+}
+
+.report-label {
+	grid-area: header;
+	align-self: center;
+
+}
+
+.report-input {
+	grid-area: input;
+}
+
+.report-input textarea {
+	width: 45vw;
+	height: 10vw;
+	border: none;
+}
+
+.send-report {
+	width: 15vw;
+	height: 3vw;
+	color: white;
+	border: none;
+	background-color: var(--juriverse-gold);
+	margin-top: 1vw;
+	cursor: pointer;
+	align-self: center;
+	margin-left: 30vw;
+}
+
+.report-this span {
+	font-weight: 600;
+	color: var(--juriverse-grey);
+}
+
+.report-this a {
+	font-weight: 600;
+	text-decoration: none;
+	color: var(--juriverse-dark);
+	font-size: 18px;
 }
