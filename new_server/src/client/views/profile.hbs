@@ -1,20 +1,20 @@
 <section class="top-box">
-	<h1 class="page-header">Profile</h1>
+	<h1 class="page-header">{{result.authorName}}</h1>
 </section>
 
 <a target="_blank" href="#">
 	<img src="{{data.picture}}" class="hoverZoomLink" />
 </a>
 <h1>Nickname: {{data.nickname}}<br /><br />Full Name: {{data.displayName}}</h1>
-<h2>{{data._json.eamil}}</h2>
 <p>Is email verified: {{data._json.email_verified}}</p>
 
-<h3 class="content-header all-cases">ALLE FÄLLE</h2>
-	{{# each allCases }}
+<section>
+	<h3 class="content-header all-cases">Fälle von {{data.displayName}}</h2>
+		{{# each result.allCases }}
 	<article class="card-wrapper">
 		<div class="title-flex">
 			<div class="card-title-holder"><a class="card-title"
-					href="/users/{{this.author.authorId}}">{{ this.case.title }}</a></div>
+					href="/cases/{{this.caseId}}/view">{{ this.case.title }}</a></div>
 			<!-- <div class=" bookmark"><i class="material-icons md-24 md-gold">turned_in_not</i></div> -->
 		</div>
 		<p class="card-author">von <span><a href="/users/{{this.author.authorId}}">{{ this.author.name }}</a></span>
@@ -36,3 +36,4 @@
 		</p>
 	</article>
 	{{/each}}
+</section>
