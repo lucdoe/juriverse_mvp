@@ -52,8 +52,8 @@
 								class="material-icons md-24 md-gold">edit</i><span
 								class="tooltiptext">Bearbeiten</span></a></div>
 					<div class="tooltip">
-						<form id="publish-world" method="post" action="/cases/{{this.caseId}}/unpublish">
-							<button style="background-color: white; border: none;" class="upload-icons" type="submit"><i
+						<form method="post" action="/cases/{{this.caseId}}/unpublish">
+							<button id="publish-world" class="upload-icons" type="submit"><i
 									class="material-icons md-24 md-gold">public_off</i></button>
 							<span class="tooltiptext" id="align-left">Unpublish</span>
 						</form>
@@ -74,6 +74,3 @@
 		{{/each}}
 	</div>
 </section>
-<script nonce="EDNnf03nceIOfn39fn3e9h3sdfa">
-
-</script>

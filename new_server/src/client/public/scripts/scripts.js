@@ -39,6 +39,8 @@ const cbChecked = () => {
 	const btn = document.getElementById('publish-upload')
 	if (cb.checked) {
 		btn.style.backgroundColor = '#cca768'
+		btn.disabled = false
+		btn.style.cursor = 'pointer'
 	} else {
 		btn.style.backgroundColor = 'var(--juriverse-grey)'
 	}
