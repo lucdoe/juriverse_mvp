@@ -202,7 +202,7 @@ router.post('/:id/text', async (req: any, res: Response) => {
 		res.render('uploadCaseDetails', { result, caseId })
 	} else {
 		const result = await Cases.updateOne({ caseId }, { 'case.title': title, 'case.issue': issue, 'case.task': task, 'case.solution': solution, 'case.footnotes': footnotes })
-		res.render('uploadCaseDetails', { result })
+		res.render('uploadCaseDetails', { result, caseId })
 	}
 })
 
