@@ -27,8 +27,12 @@ router.get('/', async (req: Request, res: Response) => {
 					console.log(err)
 				} else {
 					if (data.length < 1) {
-						const noMatch = 'Kein Fall nach deinen Suchkriterien gefunden.'
-						res.render('listCases', { noMatch })
+						const noMatch = 'Es wurde kein Fall nach deinen Suchkriterien gefunden.'
+						const result = {
+							noMatch,
+							category: 'Suche'
+						}
+						res.render('listCases', { result })
 					}
 					const result = {
 						search: data,
@@ -73,18 +77,18 @@ router.get('/:id/report', async (req: any, res: Response) => {
 	res.render('report', { result })
 })
 
+// get one case
+router.get('/:id/view', async (req: Request, res: Response) => {
+	const id = req.params.id
+	const result = await Cases.findOne({ caseId: id })
+	res.render('case', { result })
+})
+
 // comes from caseDetails, creates case renders case page
 router.post('/:id/view', async (req: Request, res: Response) => {
 	const { caseId, categories, subcategories, problems } = req.body
 	await Cases.update({ caseId }, { categories, subcategories, problems, 'meta.isPublished': true, 'meta.isDraft': false })
 	const result = await Cases.findOne({ caseId })
-	res.render('case', { result })
-})
-
-// get one case
-router.get('/:id/view', async (req: Request, res: Response) => {
-	const id = req.params.id
-	const result = await Cases.findOne({ caseId: id })
 	res.render('case', { result })
 })
 
@@ -127,6 +131,14 @@ router.post('/:id/report', async (req: any, res: Response) => {
 	const report = await Cases.updateOne({ caseId: id }, { $push: { report: [{ userId: user_id, caseId: id, reportText }] } })
 	const result = await Cases.findOne({ caseId: id })
 	res.render('case', { result, report })
+})
+
+// report case
+router.get('/:id/like', async (req: any, res: Response) => {
+	const { id } = req.params
+	const like = await Cases.updateOne({ caseId: id }, { 'meta.likeCount': +1 })
+	const result = await Cases.findOne({ caseId: id })
+	res.render('case', { result, like })
 })
 
 // delete case
