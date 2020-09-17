@@ -33,3 +33,13 @@ const uploadTabs = (evt, cityName) => {
 	document.getElementById(cityName).style.display = 'block'
 	evt.currentTarget.className += ' active'
 }
+
+const cbChecked = () => {
+	const cb = document.getElementById('selfWriteConfirm')
+	const btn = document.getElementById('publish-upload')
+	if (cb.checked) {
+		btn.style.backgroundColor = '#cca768'
+	} else {
+		btn.style.backgroundColor = 'var(--juriverse-grey)'
+	}
+}

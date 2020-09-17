@@ -21,8 +21,8 @@
 				class="slab-font upload-input">{{# if result.problems }} {{this}} {{/if}}</textarea>
 			<div class="upload-checkbox">
 				<div class="checkbox">
-					<input type="checkbox" id="vehicle1" class="selfWriteConfirm" name="selfWriteConfirm"
-						value="selfWriteConfirm">
+					<input type="checkbox" id="selfWriteConfirm" class="selfWriteConfirm" name="selfWriteConfirm" value="selfWriteConfirm"
+						onclick="cbChecked()">
 				</div>
 				<div class="checkbox-text">
 					<p>Für die Verifizierung und Empfehlung an NutzerInnen von Juriverse freigeben.
@@ -35,14 +35,6 @@
 			<input id="save-draft" class="continue-upload" value="Als Entwurf speichern" type="submit">
 	</form>
 </section>
-<!-- <script>
-	const checkbox = document.querySelector("input[id=selfWriteConfirm]");
-
-		checkbox.addEventListener('change', () => {
-			if (this.checked) {
-				document.getElementsByClassName("continue-upload-btn").className = "confirmedColor";
-			} else {
-				// Checkbox is not checked..
-			}
-		});
-</script> -->
+<script>
+	
+</script>
