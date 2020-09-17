@@ -4,7 +4,7 @@ import Cases from '../../models/Case'
 const router = Router()
 
 const categories = { categories: 'Zivilrecht' }
-const rating = 900
+const rating = 750
 
 // gets zivilrecht cases
 router.get('/', async (req: Request, res: Response) => {

@@ -43,7 +43,7 @@ router.get('/', async (req: Request, res: Response) => {
 			}
 		)
 	} else {
-		const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: 917 } }, { $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }] })
+		const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: 980 } }, { $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }] })
 		const allCases: any = await Cases.find({ $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] })
 		const result = {
 			recommendedCases,
@@ -136,7 +136,7 @@ router.post('/:id/report', async (req: any, res: Response) => {
 // report case
 router.get('/:id/like', async (req: any, res: Response) => {
 	const { id } = req.params
-	const like = await Cases.updateOne({ caseId: id }, { 'meta.likeCount': +1 })
+	const like = await Cases.updateOne({ caseId: id }, { $inc: { 'meta.likeCount': 1 } })
 	const result = await Cases.findOne({ caseId: id })
 	res.render('case', { result, like })
 })
