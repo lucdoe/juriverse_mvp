@@ -205,7 +205,7 @@ li a {
 	background-color: #fafafa;
 	border: none;
 	padding-left: 4vw;
-	color: var(--juriverse-grey);
+	color: var(--juriverse-dark);
 	font-weight: 400;
 	background-image: url('../images/search.svg');
 	background-position: 12px 12px;
@@ -641,7 +641,7 @@ li a {
 .upload-input {
 	letter-spacing: 0.2px;
 	font-size: 16px;
-	color: #a3a3a8;
+	color: var(--juriverse-dark);
 	width: 80%;
 	border: none;
 	background-color: white;
@@ -898,6 +898,10 @@ border: none;
 }
 
 button:focus {
+	outline:0;
+}
+
+input:focus {
 	outline:0;
 }
 
