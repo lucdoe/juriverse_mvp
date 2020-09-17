@@ -643,15 +643,36 @@ li a {
 	font-size: 16px;
 	color: var(--juriverse-dark);
 	width: 80%;
+	height: 5vw;
 	border: none;
 	background-color: white;
-	background-image: url('../images/add_circle.svg');
+	/* background-image: url('../images/add_circle.svg');
 	background-position: 0px 0px;
 	background-size: 22px;
-	background-repeat: no-repeat;
-	padding-left: 40px;
+	background-repeat: no-repeat; */
 	padding-top: 2px;
 }
+textarea {
+	height: auto;
+}
+
+textarea::placeholder {
+	font-family: 'Roboto Slab';
+	font-style: unset;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 28px;
+	letter-spacing: 0.2px;
+}
+
+#title {
+	font-style: normal;
+font-weight: bold;
+font-size: 24px;
+line-height: 30px; 
+border: none;
+}
+
 
 #uploadTitle {
 	letter-spacing: 0.2px;
@@ -676,6 +697,12 @@ li a {
 
 #upload-continue {
 	margin-top: 7vw;
+}
+
+#upload-save {
+	color: var(--juriverse-gold);
+	background-color: white;
+	border: 1px solid var(--juriverse-gold);
 }
 
 .upload-icons:hover {
@@ -902,6 +929,10 @@ button:focus {
 }
 
 input:focus {
+	outline:0;
+}
+
+textarea:focus {
 	outline:0;
 }
 
