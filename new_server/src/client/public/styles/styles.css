@@ -892,6 +892,15 @@ font-size: 16px;
 	font-size: 16px;
 }
 
+.ssb1:active {
+	outline: none;
+border: none;
+}
+
+button:focus {
+	outline:0;
+}
+
 .showSolutionButton:hover {
 	background-color: white;
 	color: #cca768;
