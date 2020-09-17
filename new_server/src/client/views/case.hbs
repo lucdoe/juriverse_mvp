@@ -9,22 +9,23 @@
 		</p>
 		<p class="card-tags">
 			<span>{{# each result.categories}}<a id="first-tag" href="/cases">{{ this }}</a>{{/each}}</span>
-			•<span><a href="/cases">{{ result.subcategories }}</a></span> •<span>
-				<span><a href="/cases">{{ result.problems }}</a></span>
+			<span><a href="/cases">{{ result.subcategories }}</a></span><span><span><a
+						href="/cases">{{ result.problems }}</a></span>
 		</p>
-	</article>
-	<div class="tooltip-box">
-		<div class="tooltip tooltipflex">
-			<a href="/cases/{{result.caseId}}/like">
-				<i class="material-icons md-24 md-gold">star</i>{{result.meta.likeCount}}<span class="tooltiptext">Like</span>
-			</a>
-			</div>
-			<div class="tooltip tooltipflex">
+			<div class="tooltip-box">
+				<div class="tooltip tooltipflex">
+					<a href="/cases/{{result.caseId}}/like">
+						<i class="material-icons md-24 md-gold">star</i>{{result.meta.likeCount}}<span class="tooltiptext">Like</span>
+					</a>
+				</div>
+				<div class="tooltip tooltipflex">
 					<a href="/cases/{{result.caseId}}/report">
-				<i class="material-icons md-24 md-gold">more_horiz</i><span class="tooltiptext">Fall Melden</span>
-			</a>
-		</div>
-	</div>
+						<i class="material-icons md-24 md-gold">more_horiz</i><span class="tooltiptext">Fall Melden</span>
+					</a>
+				</div>
+			</div>
+	</article>
+
 </section>
 <div class="container-bottom">
 	<div class="left-bot-container"></div>

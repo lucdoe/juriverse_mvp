@@ -738,7 +738,8 @@ input[type='checkbox'] {
 }
 
 .tooltip-box {
-	padding-left: 17.5vw;
+	margin-top: -10.5vw;
+    margin-left: 40vw;
 	
 }
 
