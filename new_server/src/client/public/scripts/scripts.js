@@ -9,6 +9,7 @@ const showSolution = () => {
 		z.style.color = '#cca768'
 		z.style.backgroundColor = 'white'
 		z.style.border = '1px solid #cca768'
+		window.scrollBy(0, 500)
 	} else {
 		x.style.display = 'none'
 		y.style.display = 'none'

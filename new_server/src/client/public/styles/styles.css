@@ -264,7 +264,7 @@ li a {
 	color: var(--juriverse-grey);
 	text-transform: uppercase;
 	margin-left: 8vw;
-	margin-bottom: -1vw;
+	margin-bottom: -5px;
 }
 
 .tab-header {
