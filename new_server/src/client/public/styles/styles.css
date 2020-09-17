@@ -732,12 +732,20 @@ input[type='checkbox'] {
 }
 
 .tooltip-box {
-	display: grid;
+	padding-left: 17.5vw;
+	
 }
 
 .tooltipflex {
-	align-self: center;
-    margin-left: 20vw;
+	margin-left: 3vw;
+	padding-top: 5vw;
+	height: 5px;
+}
+
+.tooltipflex a {
+	text-decoration: none;
+	color: var(--juriverse-gold);
+	font-weight: 600;
 }
 
 .report-container {
@@ -752,8 +760,6 @@ input[type='checkbox'] {
 
 .report-label {
 	grid-area: header;
-	align-self: center;
-
 }
 
 .report-input {
@@ -848,4 +854,13 @@ font-size: 16px;
 .profile-name {
 	margin-top: 4vw;
 	margin-bottom: 16px;
+}
+
+.not-found {
+	text-transform: initial;
+	padding-top: 3vw;
+	font-size: 17px;
+	color: var(--juriverse-gold);
+	font-weight: 600;
+	padding-left: 20px;
 }

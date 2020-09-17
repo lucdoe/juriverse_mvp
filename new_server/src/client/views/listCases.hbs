@@ -48,9 +48,9 @@
         {{/each}}
         {{/if}}
 
-    {{# if result.recommendedCases }}
+    {{#if result.recommendedCases }}
     <h3 class="content-header recommended">Empfohlen</h2>
-        {{# each result.recommendedCases }}
+        {{#each result.recommendedCases }}
         <article class="card-wrapper recommended-card">
             <div class="title-flex">
                 <div class="card-title-holder">
@@ -84,6 +84,11 @@
         {{/each}}
         {{/if}}
 
+        {{#if result.noMatch }}
+        <h3 class="content-header recommended not-found">{{result.noMatch}}</h2>
+            {{/if}}
+        
+            {{#if result.allCases }}
         <h3 class="content-header all-cases">ALLE FÄLLE</h2>
             {{# each result.allCases }}
             <article class="card-wrapper">
@@ -112,5 +117,6 @@
                 </p>
             </article>
             {{/each}}
+            {{/if}}
 
 </section>
