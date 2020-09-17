@@ -204,9 +204,13 @@ li a {
 	height: 44px;
 	background-color: #fafafa;
 	border: none;
-	padding-left: 3vw;
+	padding-left: 4vw;
 	color: var(--juriverse-grey);
 	font-weight: 400;
+	background-image: url('../images/search.svg');
+	background-position: 12px 12px;
+	background-size: 24px;
+	background-repeat: no-repeat;
 }
 
 .search-suggestion {
