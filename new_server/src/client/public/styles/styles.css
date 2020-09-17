@@ -705,9 +705,15 @@ border: none;
 	border: 1px solid var(--juriverse-gold);
 }
 
-.upload-icons:hover {
+#publish-world {
+	background-color: transparent;
+	border: none;
+}
+
+#publish-world button:hover {
 	background-color: #fafafa;
 }
+
 #save-draft {
 	background-color: white;
 	color: var(--juriverse-gold);
