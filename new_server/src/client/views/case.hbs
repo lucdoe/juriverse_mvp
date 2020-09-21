@@ -32,15 +32,15 @@
 	<section class="middle-container">
 		<article class="case-content">
 			<h4 class="sub-header">Sachverhalt</h4>
-			<p class="case-text">{{ result.case.issue }}</p>
-			<p class="case-question">{{ result.case.task}}</p>
+			<p class="case-text">{{{ result.case.issue }}}</p>
+			<p class="case-question">{{{ result.case.task}}}</p>
 			<button class="showSolutionButton" id="ssb1" onclick="showSolution()">Musterlösung ansehen</button>
 		</article>
 	</section>
 	</div>
 	<article id="case-solution">
 		<h2 class="sub-header">Musterloesung</h2>
-		<p class="case-text"> <span style="white-space: pre-wrap;">{{ result.case.solution }}</span></p>
+		<p class="case-text"> <span style="white-space: pre-wrap;">{{{ result.case.solution }}}</span></p>
 		<h2 class="sub-header">Fussnoten</h2>
 		<p class="case-text" id="footnotes">{{ result.case.footnotes }}</p>
 	</article>

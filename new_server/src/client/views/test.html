@@ -1,0 +1,62 @@
+<html>
+
+<head>
+    <title>Selected Text</title>
+</head>
+
+<body>
+    <center>
+        <h1 style="color: #cca768;">
+            Juriverse select text example
+        </h1>
+        <script>
+            // Function to get the Selected Text 
+            const getSelectedText = () => {
+                let selectedText = '';
+
+                // window.getSelection 
+                if (window.getSelection) {
+                    selectedText = window.getSelection();
+                    makeTextBold(selectedText)
+                }
+                // document.getSelection 
+                else if (document.getSelection) {
+                    selectedText = document.getSelection();
+                    makeTextBold(selectedText)
+                }
+                // document.selection 
+                else if (document.selection) {
+                    selectedText =
+                        document.selection.createRange().text;
+                    makeTextBold(selectedText)
+                } else return;
+                // To write the selected text into the textarea 
+                selectedText = makeTextBold(selectedText)
+                document.testform.selectedtext.value = selectedText
+
+
+            };
+
+            const makeTextBold = (text) => {
+                let selectedText = `<strong>${text}</strong>`
+                return selectedText
+            }
+        </script>
+
+        <p>Select any part of this sentence
+            and press the button</p>
+
+        <!--Button to invoke the 
+		function to get the selected text-->
+        <input type="button" value="Get Selection" onclick="getSelectedText()">
+
+        <!--Form to show the selected text as output-->
+        <form name="testform">
+            <textarea name="selectedtext" rows="10" cols="50"></textarea>
+        </form>
+    </center>
+    <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
+    <script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
+</body>
+
+</html>
