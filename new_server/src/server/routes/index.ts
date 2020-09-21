@@ -4,7 +4,7 @@ const router = Router()
 
 router.get('/', (req, res) => {
     const user = req.user
-    res.render('listCases', { user })
+    res.redirect('/login')
 })
 
 router.get('/help', (req, res) => {
@@ -15,4 +15,7 @@ router.get('/contact', (req, res) => {
     res.render('contact')
 })
 
+router.get('/dev', (req, res) => {
+    res.render('uploadCaseDetails')
+})
 export default router
