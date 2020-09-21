@@ -965,3 +965,9 @@ textarea:focus {
 .radio-container div {
 	color: white;
 }
+
+#solution-recommended {
+	display: none;
+	margin-top: 5vw;
+	margin-bottom: 5vw;
+}

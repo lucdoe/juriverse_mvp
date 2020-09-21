@@ -80,8 +80,9 @@ router.get('/:id/report', async (req: any, res: Response) => {
 // get one case
 router.get('/:id/view', async (req: Request, res: Response) => {
 	const id = req.params.id
-	const result = await Cases.findOne({ caseId: id })
-	res.render('case', { result })
+	const result: any = await Cases.findOne({ caseId: id })
+	const recommended = await Cases.find({ $and: [{ $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }, { 'meta.ratingCount': { $gt: 750 } }, { subcategories: result.subcategories }] })
+	res.render('case', { result, recommended })
 })
 
 // comes from caseDetails, creates case renders case page

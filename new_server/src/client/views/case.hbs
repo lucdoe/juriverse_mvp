@@ -42,7 +42,7 @@
 		<h2 class="sub-header">Musterloesung</h2>
 		<p class="case-text"> <span style="white-space: pre-wrap;">{{{ result.case.solution }}}</span></p>
 		<h2 class="sub-header">Fussnoten</h2>
-		<p class="case-text" id="footnotes">{{ result.case.footnotes }}</p>
+		<p class="case-text" id="footnotes">{{{ result.case.footnotes }}}</p>
 	</article>
 	<form action="/cases/{{result.caseId}}/done" method="post">
 		<div id="solution-box">
@@ -51,4 +51,41 @@
 		</div>
 	</form>
 	<div class="right-bot-container"></div>
-
+	<div id="solution-recommended">
+		{{#if recommended }}
+		<h3 class="content-header">Ähnliche Fälle</h2>
+			{{#each recommended }}
+			<article class="card-wrapper recommended-card">
+				<div class="title-flex">
+					<div class="card-title-holder">
+						<a class="card-title" href="/cases/{{this.caseId}}/view">{{ this.case.title }}</a>
+					</div>
+					<div class=" bookmark">
+						<i class="material-icons md-24 md-gold">verified</i>
+					</div>
+				</div>
+				<p class="card-author">von
+					<span><a href="/users/{{this.author.authorId}}">{{ this.author.name }}</a></span>
+				</p>
+				<p class="card-tags">
+					<span>
+						<span id="categorie-link">
+							{{#each this.categories}}
+							<a href="/cases/{{this}}">{{this}}</a>
+							{{/each}}
+						</span>
+						<span>
+							{{#each this.subcategories}}
+							<a href="/cases/{{result.categories}}/{{this}}">{{ this }}</a>
+							{{/each}}
+						</span>
+						{{#each this.problems}}
+						<a href="#">{{ this }}</a>
+						{{/each}}
+					</span>
+				</p>
+			</article>
+			{{/each}}
+			{{/if}}
+	</div>
+	
