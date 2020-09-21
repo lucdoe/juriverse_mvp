@@ -57,7 +57,7 @@ const sess = {
 
 if (app.get('env') === 'production') {
 	// Use secure cookies in production (requires SSL/TLS)
-	sess.cookie = true
+	sess.cookie = false
 
 	// Uncomment the line below if your application is behind a proxy (like on Heroku)
 	// or if you're encountering the error message:
