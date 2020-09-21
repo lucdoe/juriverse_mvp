@@ -954,3 +954,14 @@ textarea:focus {
 	text-align: start;
 }
 
+.radio-container {
+	background-color: var(--juriverse-gold);
+	width: 207px;
+	padding: 20px;
+	margin: 10px 10px 10px 0px;
+	display: flex;
+}
+
+.radio-container div {
+	color: white;
+}

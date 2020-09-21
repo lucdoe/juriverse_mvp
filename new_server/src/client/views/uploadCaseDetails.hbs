@@ -1,40 +1,51 @@
 <section class="top-box">
-	<form action="/cases/{{caseId}}/view" method="post">
-	
-		<input type="hidden" name="caseId" value="{{caseId}}">
-		<div class="upload-subheader-wrapper">
-			<h1 id="choose-title" class="slab-font">Wähle aus...</h1>
+	<h1 class="case-title profile-name">Waehle aus...</h1>
+	{{!-- <form action="/cases/{{result.id}}/details" method="post"> --}}
+
 			<div class="upload-subheader-wrapper">
-				<label for="rechtsgebiet" class="upload-subheader">Rechtsgebiet</label>
-			</div>
-			<textarea id="sachverhalt" name="categories"
-				class="slab-font upload-input">{{# if result.categories }} {{this}} {{/if}}</textarea>
-			<div class="upload-subheader-wrapper">
-				<label for="teilgebiete" class="upload-subheader">Teilgebiete</label>
-			</div>
-			<textarea id="aufgabe" name="subcategories"
-				class="slab-font upload-input">{{# if result.subcategories }} {{this}} {{/if}}</textarea>
-			<div class="upload-subheader-wrapper">
-				<label for="probleme" class="upload-subheader">Probleme</label>
-			</div>
-			<textarea id="musterloesung" name="problems"
-				class="slab-font upload-input">{{# if result.problems }} {{this}} {{/if}}</textarea>
-			<div class="upload-checkbox">
-				<div class="checkbox">
-					<input type="checkbox" id="selfWriteConfirm" class="selfWriteConfirm" name="selfWriteConfirm" value="selfWriteConfirm"
-						onclick="cbChecked()">
+				<label for="issue" class="upload-subheader">Rechtsgebiet</label>
 				</div>
-				<div class="checkbox-text">
-					<p>Für die Verifizierung und Empfehlung an NutzerInnen von Juriverse freigeben.
-						Fälle, die von Juriverse verifiziert werden, sind Teil der von Juriverse vorgegebenen paywall.
-					</p>
-				</div>
+				<label class="radio-container">
+					<div>STRAFRECHT
+						<input type="radio" checked="checked" name="radio">
+						<span class="checkmark"></span>
+					</div>
+				</label>
+				<label class="radio-container">
+					<div>ÖFFENTLICHES RECHT
+						<input type="radio" name="radio">
+						<span class="checkmark"></span>
+					</div>
+				</label>
+				<label class="radio-container">
+					<div>
+						ZIVILRECHT
+						<input type="radio" name="radio">
+						<span class="checkmark"></span>
+					</div>
+				</label>
+			<div class="upload-subheader-wrapper">
+				<label for="issue" class="upload-subheader">Sachverhalt</label>
 			</div>
-			<input id="publish-upload" class="continue-upload continue-upload-btn" value="Veröffentlichen"
-				type="submit" disabled><br>
-			<input id="save-draft" class="continue-upload" value="Als Entwurf speichern" type="submit">
-	</form>
+			<textarea id="issue" name="issue" class="slab-font upload-input"
+				placeholder="Beschreibe den Sachverhalt...">{{result.oneCase.case.issue}}</textarea>
+			<div class="upload-subheader-wrapper">
+				<label for="task" class="upload-subheader">Aufgaben</label>
+			</div>
+			<textarea id="task" name="task" class="slab-font upload-input"
+				placeholder="Formuliere die Aufgaben...">{{result.oneCase.case.task}}</textarea>
+			<div class="upload-subheader-wrapper">
+				<label for="solution" class="upload-subheader">MusterLösung</label>
+			</div>
+			<textarea id="solution" name="solution" class="slab-font upload-input"
+				placeholder="Beschreibe die Lösung...">{{result.oneCase.case.solution}}</textarea>
+			
+			<div class="upload-subheader-wrapper">
+				<label for="footnotes" class="upload-subheader">Fussnoten</label>
+			</div>
+			<textarea id="footnotes" name="footnotes" class="slab-font upload-input"
+				placeholder="Fuege deine Fussnoten hier ein...">{{result.oneCase.footnotes}}</textarea>
+			{{!-- <input id="upload-continue" name="upload-continue" class="continue-upload" value="Weiter" type="submit"><br>
+																											<input id="upload-save" name="upload-save" class="continue-upload" value="Als Entwurf speichern" type="submit"> --}}
+			{{!-- </form> --}}
 </section>
-<script>
-	
-</script>
