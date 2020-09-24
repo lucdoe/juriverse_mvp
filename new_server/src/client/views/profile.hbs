@@ -11,16 +11,16 @@
 			congue
 			mollis. In
 			ac nisi fermentum, efficitur arcu quis, vestibulum lectus.</p>
-		<p><span id="upc1" class="upc">Mitglied seit:</span> 09. September 2020</p>
+		<p><span id="upc1" class="upc">Mitglied seit:</span> {{ result.signupDate }}</p>
 		<p><span class="upc">Universität:</span> {{result.user.university}}</p>
 		<p><span id="upc2" class="upc upc2">Fortschritt:</span> Vor dem ersten Staatsexamen</p>
 	</div>
 	<div class="profile-right">
-		<div><img src="{{data.picture}}"></div>
+		<div><img src="{{result.picture}}"></div>
 	</div>
 </section>
 <section>
-	<h3 class="content-header all-cases">Fälle von {{data.displayName}}</h2>
+	<h3 class="content-header all-cases">Fälle von {{result.authorName}}</h2>
 		{{# each result.allCases }}
 	<article class="card-wrapper">
 		<div class="title-flex">

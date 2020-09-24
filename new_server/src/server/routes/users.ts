@@ -22,15 +22,21 @@ router.get('/', async (req: any, res: Response) => {
 // get one user
 router.get('/:id', async (req: any, res) => {
 	const { id } = req.params
-	const data = req.user
-	const user = await Users.findOne({ userId: id })
-	await Cases.find({ 'author.authorId': id }, (err, allCases: any) => {
+	const user: any = await Users.findOne({ userId: id })
+	await Cases.find({ $and: [{ 'author.authorId': id }, { $or: [{ 'meta.isPublic': true }, { 'meta.isDraft': false }] }] }, (err, allCases: any) => {
+
+		const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+		const signupDate = user.meta.signupDate.toLocaleDateString('de-DE', options)
+
 		const result = {
 			user,
 			allCases,
-			authorName: allCases[0].author.name
+			authorName: allCases[0].author.name,
+			picture: allCases[0].author.picture,
+			signupDate
 		}
-		res.render('profile', { result, data })
+
+		res.render('profile', { result })
 	})
 })
 
