@@ -1,51 +1,108 @@
 <section class="top-box">
-	<h1 class="case-title profile-name">Waehle aus...</h1>
+	<h1 class="case-title profile-name">Wähle aus...</h1>
 	{{!-- <form action="/cases/{{result.id}}/details" method="post"> --}}
 
 			<div class="upload-subheader-wrapper">
 				<label for="issue" class="upload-subheader">Rechtsgebiet</label>
+			</div>
+			<group class="inline-radio">
+				<div><input type="radio" name="categorie" value="Zivilrecht" checked><label for="categorie">Zivilrecht</label></div>
+				<div><input type="radio" name="categorie" value="Strafrecht"><label for="categorie">Strafrecht</label></div>
+				<div><input type="radio" name="categorie" value="Offentliches Recht"><label for="categorie">Offentliches
+						Recht</label></div>
+			</group>
+			<div class="upload-subheader-wrapper">
+				<label for="subcategories" class="upload-subheader">Teilgebiet</label>
+			</div>
+			<group class="inline-radio" id="zivilrecht-radio">
+				<div>
+					<input type="checkbox" name="subcategories1" value="BGB AT"><label for="subcategories">BGB AT</label>
 				</div>
-				<label class="radio-container">
-					<div>STRAFRECHT
-						<input type="radio" checked="checked" name="radio">
-						<span class="checkmark"></span>
-					</div>
-				</label>
-				<label class="radio-container">
-					<div>ÖFFENTLICHES RECHT
-						<input type="radio" name="radio">
-						<span class="checkmark"></span>
-					</div>
-				</label>
-				<label class="radio-container">
-					<div>
-						ZIVILRECHT
-						<input type="radio" name="radio">
-						<span class="checkmark"></span>
-					</div>
-				</label>
+				<div>
+					<input type="checkbox" name="subcategories2" value="Schuldrecht AT">
+					<label for="subcategories">Schuldrecht AT</label>
+				</div>
+				<div>
+					<input type="checkbox" name="subcategories3" value="Schuldrecht BT">
+					<label for="subcategories">Schuldrecht BT</label>
+				</div>
+				<div>
+					<input type="checkbox" name="subcategories4" value="Sachenrecht"><label for="subcategories">Sachenrecht</label>
+				</div>
+				<div>
+					<input type="checkbox" name="subcategories5" value="Handelsrecht"><label
+						for="subcategories">Handelsrecht</label>
+				</div>
+				<div>
+					<input type="checkbox" name="subcategories6" value="Gesellschaftsrecht"><label
+						for="subcategories">Gesellschaftsrecht</label></div>
+				<div>
+					<input type="checkbox" name="subcategories7" value="Erbrecht"><label for="subcategories">Erbrecht</label>
+				</div>
+				<div>
+					<input type="checkbox" name="subcategories8" value="Arbeitsrecht"><label
+						for="subcategories">Arbeitsrecht</label>
+				</div>
+				<div>
+					<input type="checkbox" name="subcategories9" value="Familienrecht"><label
+						for="subcategories">Familienrecht</label>
+				</div>
+				<div>
+					<input type="checkbox" name="subcategories10" value="Zivilprozessrecht"><label
+						for="subcategories">Zivilprozessrecht</label>
+				</div>
+			</group>
+			<group class="inline-radio" id="strafrecht-radio">
+				<div>
+					<input type="checkbox" name="subcategories1" value="Strafrecht AT">
+					<label for="subcategories">Strafrecht AT</label>
+				</div>
+				<div>
+					<input type="checkbox" name="subcategories2" value="Strafrecht BT">
+					<label for="subcategories">Strafrecht BT</label>
+				</div>
+				<div>
+					<input type="checkbox" name="subcategories2" value="StPO">
+					<label for="subcategories">StPO</label>
+				</div>
+			</group>
+			<group class="inline-radio" id="oefrecht-radio">
+				<div>
+					<input type="checkbox" name="subcategories1" value="Grund- und Menschenrechte">
+					<label for="subcategories">Grund- und Menschenrechte</label>
+				</div>
+				<div>
+					<input type="checkbox" name="subcategories2" value="Verwaltungsrecht AT">
+					<label for="subcategories">Verwaltungsrecht AT</label>
+				</div>
+				<div>
+					<input type="checkbox" name="subcategories2" value="Verwaltungsrecht BT">
+					<label for="subcategories">Verwaltungsrecht BT</label>
+				</div>
+				<div>
+					<input type="checkbox" name="subcategories1" value="Staatsorganisationsrecht">
+					<label for="subcategories">Staatsorganisationsrecht</label>
+				</div>
+				<div>
+					<input type="checkbox" name="subcategories2" value="Europarecht">
+					<label for="subcategories">Europarecht</label>
+				</div>
+				<div>
+					<input type="checkbox" name="subcategories2" value="Völkerrecht">
+					<label for="subcategories">Völkerrecht</label>
+				</div>
+				<div>
+					<input type="checkbox" name="subcategories2" value="Staatsrecht mit Bezügen">
+					<label for="subcategories">Staatsrecht mit Bezügen</label>
+				</div>
+			</group>
 			<div class="upload-subheader-wrapper">
-				<label for="issue" class="upload-subheader">Sachverhalt</label>
+				<label for="problems" class="upload-subheader">Tags</label>
 			</div>
-			<textarea id="issue" name="issue" class="slab-font upload-input"
-				placeholder="Beschreibe den Sachverhalt...">{{result.oneCase.case.issue}}</textarea>
-			<div class="upload-subheader-wrapper">
-				<label for="task" class="upload-subheader">Aufgaben</label>
-			</div>
-			<textarea id="task" name="task" class="slab-font upload-input"
-				placeholder="Formuliere die Aufgaben...">{{result.oneCase.case.task}}</textarea>
-			<div class="upload-subheader-wrapper">
-				<label for="solution" class="upload-subheader">MusterLösung</label>
-			</div>
-			<textarea id="solution" name="solution" class="slab-font upload-input"
-				placeholder="Beschreibe die Lösung...">{{result.oneCase.case.solution}}</textarea>
+			<input class="search-bar" ntype="search" name="si" id="searchInput"
+				placeholder="Tags hinzufügen (z.B. Täterschaft)..." />
 			
-			<div class="upload-subheader-wrapper">
-				<label for="footnotes" class="upload-subheader">Fussnoten</label>
-			</div>
-			<textarea id="footnotes" name="footnotes" class="slab-font upload-input"
-				placeholder="Fuege deine Fussnoten hier ein...">{{result.oneCase.footnotes}}</textarea>
-			{{!-- <input id="upload-continue" name="upload-continue" class="continue-upload" value="Weiter" type="submit"><br>
-																											<input id="upload-save" name="upload-save" class="continue-upload" value="Als Entwurf speichern" type="submit"> --}}
+			<input id="upload-continue" name="upload-continue" class="continue-upload" value="Weiter" type="submit"><br>
+			<input id="upload-save" name="upload-save" class="continue-upload" value="Als Entwurf speichern" type="submit">
 			{{!-- </form> --}}
 </section>

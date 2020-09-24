@@ -738,7 +738,7 @@ border: none;
 	font-family: 'Roboto', sans-serif;
 }
 
-.upload-checkbox {
+/* .upload-checkbox {
 	display: flex;
 	margin-top: 1.5vw;
 	width: 70%;
@@ -751,15 +751,16 @@ border: none;
 
 input[type='checkbox'] {
 	/* Double-sized Checkboxes */
-	-ms-transform: scale(2); /* IE */
-	-moz-transform: scale(2); /* FF */
-	-webkit-transform: scale(2); /* Safari and Chrome */
-	-o-transform: scale(2); /* Opera */
+	/*
+	-ms-transform: scale(2);
+	-moz-transform: scale(2); 
+	-webkit-transform: scale(2); 
+	-o-transform: scale(2); 
 	transform: scale(2);
 	padding: 10px;
 	align-self: center;
 	color: var(--juriverse-gold);
-}
+} */
 
 .confirmedColor {
 	background-color: var(--juriverse-gold);
@@ -954,16 +955,11 @@ textarea:focus {
 	text-align: start;
 }
 
-.radio-container {
-	background-color: var(--juriverse-gold);
-	width: 207px;
-	padding: 20px;
-	margin: 10px 10px 10px 0px;
-	display: flex;
-}
-
-.radio-container div {
-	color: white;
+.inline-radio {
+  display: flex;
+  border-radius: 3px;
+  overflow: hidden;
+  flex-wrap: wrap;
 }
 
 #solution-recommended {
