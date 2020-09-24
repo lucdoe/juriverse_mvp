@@ -972,3 +972,11 @@ textarea:focus {
 	background-color: white !important;
 	border: none !important;
 }
+
+#oefrecht-radio {
+	display: none;
+}
+
+#strafrecht-radio {
+	display: none;
+}

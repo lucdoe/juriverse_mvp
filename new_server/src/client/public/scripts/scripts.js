@@ -23,6 +23,38 @@ const showSolution = () => {
 	}
 }
 
+
+const openLawTab = () => {
+	let tab1, tab2, tab3, sub1, sub2, sub3
+	tab1 = document.getElementById('civillaw')
+	tab2 = document.getElementById('criminallaw')
+	tab3 = document.getElementById('publiclaw')
+	sub1 = document.getElementById('zivilrecht-radio')
+	sub2 = document.getElementById('strafrecht-radio')
+	sub3 = document.getElementById('oefrecht-radio')
+	switch (true) {
+		case tab1.checked:
+			sub1.style.display = 'flex'
+			sub2.style.display = 'none'
+			sub3.style.display = 'none'
+			break;
+		case tab2.checked:
+			sub1.style.display = 'none'
+			sub2.style.display = 'flex'
+			sub3.style.display = 'none'
+			break;
+		case tab3.checked:
+			sub1.style.display = 'none'
+			sub2.style.display = 'none'
+			sub3.style.display = 'flex'
+			break;
+		default:
+			sub1.style.display = 'flex'
+			sub2.style.display = 'none'
+			sub3.style.display = 'none'
+	}
+}
+
 const uploadTabs = (evt, cityName) => {
 	let i, tabcontent, tablinks
 	tabcontent = document.getElementsByClassName('tabcontent')

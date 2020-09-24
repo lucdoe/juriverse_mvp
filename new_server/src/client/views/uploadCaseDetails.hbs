@@ -6,14 +6,20 @@
 				<label for="issue" class="upload-subheader">Rechtsgebiet</label>
 			</div>
 			<group class="inline-radio">
-				<div><input type="radio" name="categorie" value="Zivilrecht" checked><label for="categorie">Zivilrecht</label></div>
-				<div><input type="radio" name="categorie" value="Strafrecht"><label for="categorie">Strafrecht</label></div>
-				<div><input type="radio" name="categorie" value="Offentliches Recht"><label for="categorie">Offentliches
-						Recht</label></div>
+				<div><input type="radio" name="categorie" id="civillaw" onclick="openLawTab('civillaw', 'zivilrecht-radio')"
+						value="Zivilrecht" checked><label for="categorie">Zivilrecht</label></div>
+				<div><input type="radio" name="categorie" id="criminallaw" onclick="openLawTab('criminallaw', 'strafrecht-radio')"
+						value="Strafrecht"><label for="categorie">Strafrecht</label>
+				</div>
+				<div><input type="radio" name="categorie" id="publiclaw" onclick="openLawTab('publiclaw', 'oefrecht-radio')"
+						value="Öffentliches Recht">
+					<label for="categorie">Öffentliches Recht</label>
+				</div>
 			</group>
 			<div class="upload-subheader-wrapper">
 				<label for="subcategories" class="upload-subheader">Teilgebiet</label>
 			</div>
+
 			<group class="inline-radio" id="zivilrecht-radio">
 				<div>
 					<input type="checkbox" name="subcategories1" value="BGB AT"><label for="subcategories">BGB AT</label>
@@ -52,6 +58,7 @@
 						for="subcategories">Zivilprozessrecht</label>
 				</div>
 			</group>
+
 			<group class="inline-radio" id="strafrecht-radio">
 				<div>
 					<input type="checkbox" name="subcategories1" value="Strafrecht AT">
@@ -66,6 +73,7 @@
 					<label for="subcategories">StPO</label>
 				</div>
 			</group>
+
 			<group class="inline-radio" id="oefrecht-radio">
 				<div>
 					<input type="checkbox" name="subcategories1" value="Grund- und Menschenrechte">
@@ -96,6 +104,7 @@
 					<label for="subcategories">Staatsrecht mit Bezügen</label>
 				</div>
 			</group>
+
 			<div class="upload-subheader-wrapper">
 				<label for="problems" class="upload-subheader">Tags</label>
 			</div>
