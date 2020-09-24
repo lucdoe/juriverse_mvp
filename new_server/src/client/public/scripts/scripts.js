@@ -54,6 +54,23 @@ const openLawTab = () => {
 			sub3.style.display = 'none'
 	}
 }
+const addProblemTag = () => {
+	let input, value, tags
+	input = document.getElementById('searchInput')
+	value = input.value
+	tags = document.getElementById('problemTags')
+	input.addEventListener('keyup', (event) => {
+		if (event.keyCode === 13) {
+			if (tags.innerHTML == '') {
+				tags.innerHTML = value
+			} else {
+				tags.innerHTML = ''
+			}
+			console.log(input.value).innerHTML = value
+		}
+	})
+}
+
 
 const uploadTabs = (evt, cityName) => {
 	let i, tabcontent, tablinks
