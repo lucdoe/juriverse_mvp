@@ -8,7 +8,7 @@ const router = Router()
 router.get('/', async (req: any, res: Response) => {
 	const { user_id } = req.user
 	const user = await Users.findOne({ userId: user_id })
-	await Cases.find({ 'author.authorId': user_id }, (err, allCases: any) => {
+	await Cases.find({ 'author.authorId': user_id, $or: [{ 'meta.isDraft': false }, { 'meta.isPublic': true }] }, (err, allCases: any) => {
 		const result = {
 			user,
 			allCases,
