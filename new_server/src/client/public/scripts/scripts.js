@@ -1,3 +1,5 @@
+
+
 const showSolution = () => {
 	const x = document.getElementById('case-solution')
 	const y = document.getElementById('solution-box')
@@ -2200,41 +2202,43 @@ var nicEditorSaveButton = nicEditorButton.extend({ init: function () { if (!this
 })
 
 // The DOM element you wish to replace with Tagify
-var input = document.querySelector('input[name=tags-outside]')
+var input = document.querySelector('input[name=tags]')
 
 // init Tagify script on the above inputs
-    const tagify = new Tagify(input, {
-		whitelist: [
-			'Vorsätzliche Begehungsdelikte',
-			'Tatbestand',
-			'Rechtswidrigkeit ',
-			'Schuld',
-			'Irrtümer',
-			'Fahrlässigkeitsdelikte',
-			'Täterschaft und Teilnahme',
-			'Der Versuch',
-			'Unterlassungsdelikte',
-			'Konkurrenzen',
-			'Vermögensdelikte',
-			'Nichtvermögensdelikte',
-			'Baurecht',
-			'Kommunalrecht',
-			'Polizei- und Ordnungsrecht',
-			'Versammlungsrecht',
-		],
-		maxTags: 10,
-		dropdown: {
-			position: 'input',
-			enabled: 0, // always opens dropdown when input gets focus
-			maxItems: 20, // <- mixumum allowed rendered suggestions
-			classname: 'tags-look', // <- custom classname for this dropdown, so it could be targeted
-			closeOnSelect: true, // <- do not hide the suggestions dropdown once an item has been selected
+const tagify = new Tagify(input, {
+	whitelist: [
+		'Vorsätzliche Begehungsdelikte',
+		'Tatbestand',
+		'Rechtswidrigkeit ',
+		'Schuld',
+		'Irrtümer',
+		'Fahrlässigkeitsdelikte',
+		'Täterschaft und Teilnahme',
+		'Der Versuch',
+		'Unterlassungsdelikte',
+		'Konkurrenzen',
+		'Vermögensdelikte',
+		'Nichtvermögensdelikte',
+		'Baurecht',
+		'Kommunalrecht',
+		'Polizei- und Ordnungsrecht',
+		'Versammlungsrecht',
+	],
+	maxTags: 10,
+	dropdown: {
+		position: 'input',
+		enabled: 0, // always opens dropdown when input gets focus
+		maxItems: 20, // <- mixumum allowed rendered suggestions
+		classname: 'tags-look', // <- custom classname for this dropdown, so it could be targeted
+		closeOnSelect: true, // <- do not hide the suggestions dropdown once an item has been selected
+	},
+	templates: {
+		dropdownItemNoMatch: function (data) {
+			return `
+				<span id='search-error'> Keine Empfehlung fur "${data.value}" gefunden, fuege einen neuen Tag hinzu. </span>
+			`
 		},
-		templates: {
-			dropdownItemNoMatch: function (data) {
-				return `
-                    <span id='search-error'> Keine Empfehlung fur "${data.value}" gefunden, fuege einen neuen Tag hinzu. </span>
-                `
-			},
-		},
-	})
+	},
+})
+
+

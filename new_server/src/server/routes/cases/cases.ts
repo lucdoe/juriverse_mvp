@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express'
+import { Router, Request, Response, json } from 'express'
 import Cases from '../../models/Case'
 import Users from '../../models/User'
 import { v4 as uuidv4 } from 'uuid'
@@ -201,7 +201,7 @@ router.post('/:id/text', async (req: any, res: Response) => {
 			],
 			selfWriteConfirm: false,
 		}
-		const result = Cases.create(data)
+		const result: any = Cases.create(data)
 		res.render('uploadCaseDetails', { result, caseId })
 	} else {
 		const result = await Cases.updateOne({ caseId }, { 'case.title': title, 'case.issue': issue, 'case.task': task, 'case.solution': solution, 'case.footnotes': footnotes })
@@ -212,10 +212,14 @@ router.post('/:id/text', async (req: any, res: Response) => {
 // update case details
 router.post('/:id/details', async (req: Request, res: Response) => {
 	const { id } = req.params
-	const { categories, subcategories, problems } = req.body
-	const result = await Cases.updateOne({ caseId: id }, { categories, subcategories, problems, 'meta.isPublished': true, 'meta.isDraft': false })
-	console.log(result)
-	res.redirect(`/cases/${result.caseId}/view`)
+	const { categorie, subcategories, tags } = req.body
+	let tagsArray = []
+	const tagsPlain: any = JSON.parse(tags)
+	tagsPlain.forEach(element => {
+		tagsArray.push(element.value)
+	});
+	await Cases.updateOne({ caseId: id }, { categories: categorie, $push: { subcategories: subcategories, problems: tagsArray }, 'meta.isDraft': false, 'meta.isPublic': true })
+	res.redirect(`/cases/${id}/view`)
 })
 
 const escapeRegex = (text) => {
