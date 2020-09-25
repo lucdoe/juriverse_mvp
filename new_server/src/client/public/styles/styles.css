@@ -980,3 +980,75 @@ textarea:focus {
 #strafrecht-radio {
 	display: none;
 }
+
+/* suggestion */
+.tags-look .tagify__dropdown__item{
+	display: inline-block;
+	border-radius: 3px;
+	padding: .3em .5em;
+	border: 1px solid var(--juriverse-gold);
+	margin: .2em;
+	font-size: .85em;
+	color: var(--juriverse-gold);
+	transition: 0s;
+}
+
+.tags-look .tagify__dropdown__item--active{
+  color: var(--juriverse-dark);
+}
+
+.tags-look .tagify__dropdown__item:hover{
+  background: white;
+}
+
+.tagify {
+	
+}
+
+.tagify--outside {
+	width: 47vw;
+}
+
+/* underneath input tags */
+.tagify--outside .tagify__input{
+	order: -1;
+	flex: 100%;
+	transition: .1s;
+	padding-left: 3vw;
+	background-image: url('../images/search.svg');
+	background-position: 12px 12px;
+	background-size: 24px;
+	background-repeat: no-repeat;
+}
+
+.tagify__input {
+	height: 44px;
+	background-color: #fafafa;
+	border: none;
+	color: var(--juriverse-dark);
+	font-weight: 400;
+	padding: 14px;
+}
+
+.tagify--outside .tagify__input:hover{ 
+	border-color:var(--tags-hover-border-color); 
+}
+
+.tagify--outside.tagify--focus .tagify__input{
+  transition:0s;
+  border-color: white;
+}
+
+.tagify__tag {
+	border: 1px solid var(--juriverse-gold);
+	font-weight: 600;
+	font-size: 14px;
+	text-transform: uppercase;		
+	min-width: 100px;
+	margin: 24px 24px 12px 0px;
+}
+
+.tagify__tag:hover {
+	border: 1px solid var(--juriverse-gold);
+	background-color: white;
+}
