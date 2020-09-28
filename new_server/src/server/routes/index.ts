@@ -16,6 +16,7 @@ router.get('/contact', (req, res) => {
 })
 
 router.get('/dev', (req, res) => {
-    res.render('uploadCaseDetails')
+    res.render('editProfile')
 })
+
 export default router

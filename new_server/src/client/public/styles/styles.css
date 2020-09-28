@@ -880,6 +880,7 @@ input[type='checkbox'] {
 	text-transform: uppercase;
 	color: #A3A3A8;
 	margin-right: 10px;
+	margin-bottom: 2vw;
 }
 
 #upc1 {
@@ -1068,4 +1069,28 @@ textarea:focus {
 .tagify__tag:hover {
 	border: 1px solid var(--juriverse-gold);
 	background-color: white;
+}
+
+/* profile page edit  */
+.editHeaderProfile {
+	font-size: 24px;
+	font-weight: 600;
+	color: #414145;
+	margin-bottom: 20px;
+	border: none;
+}
+
+.editProfileText {
+	width: 40vw;
+	height: 10vw;
+}
+
+.profileNameEdit {
+	margin-top: 90px;
+}
+
+#universityProfile {
+	width: 18vw;
+	height: 2vw;
+border: none;
 }

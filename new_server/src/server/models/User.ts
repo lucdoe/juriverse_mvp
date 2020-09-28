@@ -7,6 +7,8 @@ const userSchema = new Schema({
 	userId: String,
 	screenname: String,
 	university: String,
+	profileText: String,
+	progress: String,
 	cases: {
 		saved: [{
 			caseId: String,
