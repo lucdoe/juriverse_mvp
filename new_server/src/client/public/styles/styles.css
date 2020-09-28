@@ -1112,3 +1112,7 @@ textarea:focus {
     background-color: #f8f8f8;
     margin: 2vw 0vw 2vw 0vw;
 }
+
+#categorie-link-all a {
+	cursor: context-menu;
+}

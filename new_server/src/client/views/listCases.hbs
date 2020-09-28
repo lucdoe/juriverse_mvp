@@ -29,19 +29,15 @@
             </p>
             <p class="card-tags">
                 <span>
-                    <span id="categorie-link">
+                    <span id="categorie-link categorie-link-all">
                         {{#each this.categories}}
-                        <a href="/cases/{{this}}">{{this}}</a>
+                        <a href="#">{{this}}</a>
                         {{/each}}
                     </span>
-                    <span>
-                        {{#each this.subcategories}}
-                        <a href="/cases/{{result.categories}}/{{this}}">{{ this }}</a>
-                        {{/each}}
+                    <span id="categorie-link">
+                        <a href="#">{{ this.subcategories.[0] }}</a>
                     </span>
-                    {{#each this.problems}}
-                    <a href="#">{{ this }}</a>
-                    {{/each}}
+                    <span id="categorie-link"><a href="#">{{ this.problems.[0] }}</a></span>
                 </span>
             </p>
         </article>
@@ -65,19 +61,15 @@
             </p>
             <p class="card-tags">
                 <span>
-                    <span id="categorie-link">
+                    <span id="categorie-link categorie-link-all">
                         {{#each this.categories}}
                         <a href="/cases/{{this}}">{{this}}</a>
                         {{/each}}
                     </span>
-                    <span>
-                        {{#each this.subcategories}}
-                        <a href="/cases/{{result.categories}}/{{this}}">{{ this }}</a>
-                        {{/each}}
+                    <span id="categorie-link-all">
+                        <a href="#">{{ this.subcategories.[0] }}</a>
                     </span>
-                    {{#each this.problems}}
-                    <a href="#">{{ this }}</a>
-                    {{/each}}
+                    <span id="categorie-link-all"><a href="#">{{ this.problems.[0] }}</a></span>
                 </span>
             </p>
         </article>
@@ -102,17 +94,15 @@
                 </p>
                 <p class="card-tags">
                     <span>
-                        <span id="categorie-link">
+                        <span id="categorie-link categorie-link-all">
                             {{#each this.categories}}
-                            <a href="/cases/{{this}}">{{this}}</a>
+                            <a href="#}">{{this}}</a>
                             {{/each}}
                         </span>
-                        <span>
-                            {{#each this.subcategories}}
-                            <a href="/cases/{{result.categories}}/{{this}}">{{ this }}</a>
-                            {{/each}}
+                        <span id="categorie-link-all">
+                            <a href="#">{{ this.subcategories.[0] }}</a>
                         </span>
-                        {{#each this.problems}}<a href="#">{{ this }}</a>{{/each}}
+                        <span id="categorie-link-all"><a href="#">{{ this.problems.[0] }}</a></span>
                     </span>
                 </p>
             </article>
