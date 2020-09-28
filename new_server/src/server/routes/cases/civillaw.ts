@@ -14,7 +14,7 @@ router.get('/', async (req: Request, res: Response) => {
 		const noMatch = 'Hier gibt es leider noch keinen Fall.'
 		const result = {
 			noMatch,
-			category: 'Coming soon!'
+			category: 'Zivilrecht - Coming soon!'
 		}
 		res.render('listCases', { result })
 	}
