@@ -7,15 +7,19 @@ const router = Router()
 // get user profile
 router.get('/', async (req: any, res: Response) => {
 	const { user_id } = req.user
-	const user = await Users.findOne({ userId: user_id })
+	const user: any = await Users.findOne({ userId: user_id })
+	const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+	const signupDate = user.meta.signupDate.toLocaleDateString('de-DE', options)
+
 	await Cases.find({ 'author.authorId': user_id, $or: [{ 'meta.isDraft': false }, { 'meta.isPublic': true }] }, (err, allCases: any) => {
 		const result = {
 			user,
 			allCases,
-			authorName: req.user.displayName
+			authorName: req.user.displayName,
+			picture: req.user.picture,
+			signupDate
 		}
-		const data = req.user
-		res.render('profile', { result, data })
+		res.render('profile', { result })
 	})
 })
 

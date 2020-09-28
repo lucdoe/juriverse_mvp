@@ -1,16 +1,7 @@
 <section class="profile-top-container">
 	<div class="profile-left">
 		<h1 class="case-title profile-name">{{ result.authorName }}</h1>
-		<p class="intro-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et scelerisque orci,
-			non gravida velit.
-			Cras
-			id
-			erat at ipsum molestie maximus. Aenean sagittis iaculis metus at fringilla. Pellentesque suscipit vehicula
-			mi eu
-			consequat. Ut malesuada diam ut sapien tincidunt, scelerisque faucibus metus cursus. Phasellus laoreet
-			congue
-			mollis. In
-			ac nisi fermentum, efficitur arcu quis, vestibulum lectus.</p>
+		<p class="intro-text">{{result.user.profileText}} </p>
 		<p><span id="upc1" class="upc">Mitglied seit:</span> {{ result.signupDate }}</p>
 		<p><span class="upc">Universität:</span> {{result.user.university}}</p>
 		<p><span id="upc2" class="upc upc2">Fortschritt:</span> Vor dem ersten Staatsexamen</p>
