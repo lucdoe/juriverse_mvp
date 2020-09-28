@@ -26,6 +26,13 @@
 							<span class="tooltiptext" id="align-left">Veröffentlichen</span>
 						</form>
 					</div>
+					<div class="tooltip">
+						<form method="post" action="/cases/{{this.caseId}}/delete">
+							<button id="publish-world" class="upload-icons" type="submit"><i
+									class="material-icons md-24 md-gold">delete_forever</i></button>
+							<span class="tooltiptext" id="align-left">Delete</span>
+						</form>
+					</div>
 				</div>
 			</div>
 			<p class="card-author">von <span><a href="/author/{{this.author.email}}">{{ this.author.name }}</a></span>

@@ -17,9 +17,11 @@ router.get('/', async (req: Request, res: Response) => {
 				{ categories: regex },
 				{ subcategories: regex },
 				{ problems: regex },
-				{ 'author.name': regex },]
+					{ 'author.name': regex },
+					{ 'meta.isPublished': true },
+					{ 'meta.isDraft': false }]
 		},
-			{ 'meta.isPublished': true }, { 'meta.isDraft': false }]
+				, { 'meta.isDeleted': false }]
 		},
 
 			(err, data) => {
@@ -44,8 +46,8 @@ router.get('/', async (req: Request, res: Response) => {
 			}
 		)
 	} else {
-		const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: 980 } }, { $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }] })
-		const allCases: any = await Cases.find({ $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] })
+		const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: 980 } }, { $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }, { 'meta.isDeleted': false }] })
+		const allCases: any = await Cases.find({ $and: [{ $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }, { 'meta.isDeleted': false }] })
 		const result = {
 			recommendedCases,
 			allCases,
@@ -83,7 +85,7 @@ router.get('/:id/report', async (req: any, res: Response) => {
 router.get('/:id/view', async (req: Request, res: Response) => {
 	const id = req.params.id
 	const result: any = await Cases.findOne({ caseId: id })
-	const recommended = await Cases.find({ $and: [{ $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }, { 'meta.ratingCount': { $gt: 750 } }, { subcategories: result.subcategories }] })
+	const recommended = await Cases.find({ $and: [{ $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }, { 'meta.ratingCount': { $gt: 750 } }, { 'meta.isDeleted': false }, { subcategories: result.subcategories }] })
 	res.render('case', { result, recommended })
 })
 
@@ -145,15 +147,10 @@ router.get('/:id/like', async (req: any, res: Response) => {
 })
 
 // delete case
-router.post('/:id/delete', async (req: Request, res: Response) => {
+router.post('/:id/delete', async (req: any, res: Response) => {
 	const { id } = req.params
-	const deleted = await Cases.updateOne({ caseId: id }, { isDeleted: true })
-	const allCases: any = await Cases.find({ $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] })
-	const result = {
-		deleted,
-		allCases
-	}
-	res.render('caseList', { result })
+	await Cases.updateOne({ caseId: id }, { 'meta.isDeleted': true })
+	res.redirect('/upload')
 })
 
 // /cases/text - creates case
