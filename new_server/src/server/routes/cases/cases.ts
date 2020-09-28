@@ -26,7 +26,7 @@ router.get('/', async (req: Request, res: Response) => {
 				if (err) {
 					console.log(err)
 				} else {
-					if (data.length <= 0) {
+					if (data.length == 0) {
 						const noMatch = 'Es wurde kein Fall nach deinen Suchkriterien gefunden.'
 						const result = {
 							noMatch,
@@ -38,7 +38,6 @@ router.get('/', async (req: Request, res: Response) => {
 						query: search,
 						search: data,
 						category: 'Suche',
-
 					}
 					res.render('listCases', { result })
 				}
@@ -50,7 +49,8 @@ router.get('/', async (req: Request, res: Response) => {
 		const result = {
 			recommendedCases,
 			allCases,
-			category: 'Dashboard'
+			category: 'Dashboard',
+
 		}
 		res.render('listCases', { result })
 	}
