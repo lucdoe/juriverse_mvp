@@ -1,35 +1,35 @@
 <section class="profile-top-container">
     <div class="profile-left">
+        <form action="/edit/profile" method="POST">
+            <h1 class="case-title profile-name">Profil bearbeiten</h1>
 
-        <h1 class="case-title profile-name">Profil bearbeiten</h1>
+            <p>Name: </p><label for="country" class="upc">{{ result.authorName }}</label> <br>
+            <input type="hidden" name="userId" value="{{result.user.userId}}">
+            <br>
 
-        <label for="country" class="upc">Dein Name</label> <br>
-        <input type="text" class="editHeaderProfile" placeholder="Name bearbeiten..." value="{{ result.authorName }}">
-        <br>
+            <label for="country" class="upc">Dein Bescreibungs Text</label><br>
+            <textarea name="profileText" class="editProfileText"
+                placeholder="Profil Text bearbeiten...">{{result.user.profileText}} </textarea>
 
-        <label for="country" class="upc">Dein Bescreibungs Text</label><br>
-        <textarea class="editProfileText"
-            placeholder="Profil Text bearbeiten...">{{result.user.profileText}} </textarea>
+            <p><span id="upc1" class="upc">Mitglied seit:</span>{{ result.user.meta.signupDate }}</p>
+            <p><label for="country" class="upc">Universität:</label>
+                <select id="universityProfile" name="university">
+                    <option value="australia">{{result.user.university}}</option>
+                    <option value="canada">Canada</option>
+                    <option value="usa">USA</option>
+                </select>
+            </p> <br>
 
-        <p><span id="upc1" class="upc">Mitglied seit:</span>{{ result.signupDate }}</p>
-        <p><label for="country" class="upc">Universität:</label>
-            <select id="universityProfile" name="country">
-                <option value="australia">{{result.user.university}}</option>
+            <label for="country" class="upc upc2">Fortschritt:</label>
+            <select id="universityProfile" name="progress">
+                <option value="australia">{{result.user.progress}}</option>
                 <option value="canada">Canada</option>
                 <option value="usa">USA</option>
             </select>
-        </p> <br>
-
-        <label for="country" class="upc upc2">Fortschritt:</label>
-        <select id="universityProfile" name="country">
-            <option value="australia">{{result.user.progress}}</option>
-            <option value="canada">Canada</option>
-            <option value="usa">USA</option>
-        </select>
-
-    </div>
-    <div class="profile-right">
-        <a href="/users">Zum Profil</a>
-        <div><img src="{{result.picture}}"></div>
-    </div>
+            <input class="profileSubmit" value="Speichern" type="submit">
+        </div>
+        <div class="profile-right">
+            <div><img src="{{result.picture}}"></div>
+        </div>
+        </form>
 </section>

@@ -20,4 +20,14 @@ router.get('/profile', async (req: any, res) => {
     res.render('editProfile', { result })
 })
 
+router.post('/profile', async (req: any, res) => {
+    const { userId, profileText, university, progress } = req.body
+    try {
+        await Users.updateOne({ userId }, { profileText, university, progress })
+    } catch (err) {
+        if (err) throw err
+    }
+
+    res.redirect('/users')
+})
 export default router

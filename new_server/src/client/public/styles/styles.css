@@ -1092,5 +1092,16 @@ textarea:focus {
 #universityProfile {
 	width: 18vw;
 	height: 2vw;
-border: none;
+	border: none;
+}
+
+.profileSubmit {
+	width: 175px;
+	height: 40px;
+	color: white;
+	border: none;
+	cursor: pointer;
+	background-color: var(--juriverse-gold);
+	margin-top: 5vw;
+	margin-left: 25vw;
 }
