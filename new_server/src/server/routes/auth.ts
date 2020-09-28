@@ -40,22 +40,24 @@ router.get('/callback', (req: any, res, next) => {
 })
 
 // Perform session logout and redirect to homepage
-router.get('/logout', (req: any, res) => {
-	req.logout()
+router.get('/logout', (req, res) => {
+	req.logout();
 
-	let returnTo = req.protocol + '://' + req.hostname
-	const port = req.connection.localPort
+	var returnTo = req.protocol + '://' + req.hostname;
+	var port = req.connection.localPort;
 	if (port !== undefined && port !== 80 && port !== 443) {
-		returnTo += ':' + port
+		returnTo += ':' + port;
 	}
-	const logoutURL: any = new url.URL(util.format('https://%s/v2/logout', process.env.AUTH0_DOMAIN))
-	const searchString = querystring.stringify({
+	var logoutURL: any = new url.URL(
+		util.format('https://%s/v2/logout', process.env.AUTH0_DOMAIN)
+	);
+	var searchString = querystring.stringify({
 		client_id: process.env.AUTH0_CLIENT_ID,
-		returnTo: returnTo,
-	})
-	logoutURL.search = searchString
+		returnTo: returnTo
+	});
+	logoutURL.search = searchString;
 
-	res.redirect(logoutURL)
-})
+	res.redirect(logoutURL);
+});
 
 export default router
