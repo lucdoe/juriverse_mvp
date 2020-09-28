@@ -22,6 +22,7 @@ import publiclawRouter from './src/server/routes/cases/publiclaw'
 import criminallawRouter from './src/server/routes/cases/criminallaw'
 import civillawRouter from './src/server/routes/cases/civillaw'
 import uploadRouter from './src/server/routes/upload'
+import editRouter from './src/server/routes/edit'
 
 // importing middleware
 import { secured } from './src/server/middlewares/secured'
@@ -104,6 +105,7 @@ app.use('/cases/publiclaw', secured, publiclawRouter)
 app.use('/cases/criminallaw', secured, criminallawRouter)
 app.use('/cases/civillaw', secured, civillawRouter)
 app.use('/upload', secured, uploadRouter)
+app.use('/edit', secured, editRouter)
 
 
 export default app
