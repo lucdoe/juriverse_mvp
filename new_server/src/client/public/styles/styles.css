@@ -1105,3 +1105,10 @@ textarea:focus {
 	margin-top: 5vw;
 	margin-left: 25vw;
 }
+
+.divider-faq {
+	width: 63vw;
+    height: 2px;
+    background-color: #f8f8f8;
+    margin: 2vw 0vw 2vw 0vw;
+}
