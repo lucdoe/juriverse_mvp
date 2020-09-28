@@ -215,6 +215,12 @@ router.post('/:id/text', async (req: any, res: Response) => {
 router.post('/:id/details', async (req: Request, res: Response) => {
 	const { id } = req.params
 	const { categorie, subcategories, tags } = req.body
+	if (!subcategories || !tags) {
+		let result = {
+			error: 'Wählen Sie bitte mehr als ein Teilgebiet & Problem aus.'
+		}
+		res.render('uploadCaseDetails', { result })
+	}
 	let tagsArray = []
 	const tagsPlain: any = JSON.parse(tags)
 	tagsPlain.forEach(element => {

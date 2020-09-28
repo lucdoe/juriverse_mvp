@@ -1,4 +1,9 @@
 <section class="top-box">
+	{{#if result.error }} <div class="alert">
+		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+		{{result.error}}
+	</div>
+	{{/if}}
 	<h1 class="upload-details-title">Wähle aus...</h1>
 	<form action="/cases/{{caseId}}/details" method="post">
 
@@ -110,7 +115,8 @@
 			<input name='tags' class='tagify--outside customLook' id="searchInput"
 				placeholder='Tags hinzufügen (z.B. Täterschaft)...' onmousedown="addProblemsToArray()">
 			
-			<input id="upload-continue" name="upload-continue" class="continue-upload" value="Veröffentlichen" type="submit"><br>
+			<input id="upload-continue" name="upload-continue" onmousedown="categorieChecker()" class="continue-upload"
+				value="Veröffentlichen" type="submit"><br>
 			{{!-- <input id="upload-save" name="upload-save" class="continue-upload" value="Als Entwurf speichern" type="submit"> --}}
 			</form>
 </section>
