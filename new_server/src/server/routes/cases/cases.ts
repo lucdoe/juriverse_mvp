@@ -17,18 +17,15 @@ router.get('/', async (req: Request, res: Response) => {
 				{ categories: regex },
 				{ subcategories: regex },
 				{ problems: regex },
-					{ 'author.name': regex },
-					{ 'meta.isPublished': true },
-					{ 'meta.isDraft': false }]
+				{ 'author.name': regex },
+				{ 'meta.isPublished': true },
+				{ 'meta.isDraft': false }]
+			},
+				{ 'meta.isDeleted': false }]
 		},
-				, { 'meta.isDeleted': false }]
-		},
-
 			(err, data) => {
-				if (err) {
+				if (data.length == 0) {
 					console.log(err)
-				} else {
-					if (data.length == 0) {
 						const noMatch = 'Es wurde kein Fall nach deinen Suchkriterien gefunden.'
 						const result = {
 							noMatch,
@@ -42,12 +39,20 @@ router.get('/', async (req: Request, res: Response) => {
 						category: 'Suche',
 					}
 					res.render('listCases', { result })
-				}
 			}
 		)
 	} else {
-		const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: 980 } }, { $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }, { 'meta.isDeleted': false }] })
+		const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: 980 } }, { 'meta.isDeleted': false }, { $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }] })
 		const allCases: any = await Cases.find({ $and: [{ $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }, { 'meta.isDeleted': false }] })
+
+		if (recommendedCases.length || allCases.length == 0) {
+			const noMatch = 'Hier gibt es leider noch keinen Fall.'
+			const result = {
+				noMatch,
+				category: 'Coming soon!'
+			}
+			res.render('listCases', { result })
+		}
 		const result = {
 			recommendedCases,
 			allCases,

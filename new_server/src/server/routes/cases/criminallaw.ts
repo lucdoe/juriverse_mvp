@@ -10,6 +10,14 @@ const rating = 870
 router.get('/', async (req: Request, res: Response) => {
 	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
 	const allCases = await Cases.find({ $and: [categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
+	if (recommendedCases.length || allCases.length == 0) {
+		const noMatch = 'Hier gibt es leider noch keinen Fall.'
+		const result = {
+			noMatch,
+			category: 'Coming soon!'
+		}
+		res.render('listCases', { result })
+	}
 	const result = {
 		recommendedCases,
 		allCases,
