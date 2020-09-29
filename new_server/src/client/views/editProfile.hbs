@@ -14,17 +14,69 @@
             <p><span id="upc1" class="upc">Mitglied seit:</span>{{ result.user.meta.signupDate }}</p>
             <p><label for="country" class="upc">Universität:</label>
                 <select id="universityProfile" name="university">
-                    <option value="australia">{{result.user.university}}</option>
-                    <option value="canada">Canada</option>
-                    <option value="usa">USA</option>
+                    <option label="Deine Uni" value="" disabled="">Deine Uni</option>
+                    <option label="Universität Augsburg" value="Universität Augsburg">Universität Augsburg</option>
+                    <option label="Universität Bayreuth" value="Universität Bayreuth">Universität Bayreuth</option>
+                    <option label="Freie Universität Berlin" value="Freie Universität Berlin">Freie Universität Berlin</option>
+                    <option label="Humboldt Universität zu Berlin" value="Humboldt Universität Berlin">Humboldt Universität zu Berlin
+                    </option>
+                    <option label="Universität Bielefeld" value="Universität Bielefeld">Universität Bielefeld</option>
+                    <option label="Universität Bremen" value="Universität Bremen">Universität Bremen</option>
+                    <option label="Ruhr- Universität Bochum" value="Universität Bochum">Ruhr- Universität Bochum</option>
+                    <option label="Rheinische Friedrich-Wilhelms-Universität Bonn" value="Universität Bonn">Rheinische
+                        Friedrich-Wilhelms-Universität Bonn</option>
+                    <option label="TU Dresden" value="TU Dresden">TU Dresden</option>
+                    <option label="HHU Düsseldorf" value="Universität Düsseldorf">HHU Düsseldorf</option>
+                    <option label="FAU Erlangen - Nürnberg" value="Universität Erlangen - Nürnberg">FAU Erlangen - Nürnberg</option>
+                    <option label="Goethe-Universität Frankfurt (Main)" value="Universität Frankfurt (Main)">Goethe-Universität
+                        Frankfurt (Main)</option>
+                    <option label="Europa-Universität Viadrina Frankfurt (Oder)" value="Universität Frankfurt (Oder)">Europa-Universität
+                        Viadrina Frankfurt (Oder)</option>
+                    <option label="Albert-Ludwigs-Universität Freiburg" value="Universität Freiburg">Albert-Ludwigs-Universität Freiburg
+                    </option>
+                    <option label="Universität Gießen" value="Universität Gießen">Universität Gießen</option>
+                    <option label="Georg-August-Universität Göttingen" value="Universität Göttingen">Georg-August-Universität Göttingen
+                    </option>
+                    <option label="Universität Greifswald" value="Universität Greifswald">Universität Greifswald</option>
+                    <option label="FernUniversität Hagen" value="FernUniversität Hagen">FernUniversität Hagen</option>
+                    <option label="Universität Halle - Wittenberg" value="Universität Halle - Wittenberg">Universität Halle - Wittenberg
+                    </option>
+                    <option label="Bucerius Law School Hamburg" value="Bucerius Law School">Bucerius Law School Hamburg</option>
+                    <option label="Universität Hamburg" value="Universität Hamburg">Universität Hamburg</option>
+                    <option label="Universität Hannover" value="Universität Hannover">Universität Hannover</option>
+                    <option label="Ruprecht-Karls-Universität Heidelberg" value="Universität Heidelberg">Ruprecht-Karls-Universität
+                        Heidelberg</option>
+                    <option label="Universität Jena" value="Universität Jena">Universität Jena</option>
+                    <option label="Universität Kiel" value="Universität Kiel">Universität Kiel</option>
+                    <option label="Universität zu Köln" value="Universität Köln">Universität zu Köln</option>
+                    <option label="Universität Konstanz" value="Universität Konstanz">Universität Konstanz</option>
+                    <option label="Universität Leipzig" value="Universität Leipzig">Universität Leipzig</option>
+                    <option label="Universität Mainz" value="Universität Mainz">Universität Mainz</option>
+                    <option label="Universität Mannheim" value="Universität Mannheim">Universität Mannheim</option>
+                    <option label="Universität Marburg" value="Universität Marburg">Universität Marburg</option>
+                    <option label="Universität München" value="Universität München">Universität München</option>
+                    <option label="Universität Münster" value="Universität Münster">Universität Münster</option>
+                    <option label="Universität Osnabrück" value="Universität Osnabrück">Universität Osnabrück</option>
+                    <option label="Universität Passau" value="Universität Passau">Universität Passau</option>
+                    <option label="Universität Potsdam" value="Universität Potsdam">Universität Potsdam</option>
+                    <option label="Universität Regensburg" value="Universität Regensburg">Universität Regensburg</option>
+                    <option label="Universität des Saarlandes" value="Universität Saarland">Universität des Saarlandes</option>
+                    <option label="Universität Tier" value="Universität Tier">Universität Tier</option>
+                    <option label="Universität Tübingen" value="Universität Tübingen">Universität Tübingen</option>
+                    <option label="Universität Würzburg" value="Universität Würzburg">Universität Würzburg</option>
                 </select>
             </p> <br>
 
             <label for="country" class="upc upc2">Fortschritt:</label>
             <select id="universityProfile" name="progress">
-                <option value="australia">{{result.user.progress}}</option>
-                <option value="canada">Canada</option>
-                <option value="usa">USA</option>
+                <option label="Deine Fortschritt" value="" disabled="">Dein Fortschritt</option>
+                <option value="Vor dem ersten Examen">Vor dem ersten Examen</option>
+                <option value="Repetitorium">Repetitorium</option>
+                <option value="Referendariat">Referendariat</option>
+                <option value="Master">Master</option>
+                <option value="Habilitation">Habilitation</option>
+                <option value="Promotion">Promotion</option>
+                <option value="Sonstiges">Sonstiges</option>
             </select>
             <input class="profileSubmit" value="Speichern" type="submit">
         </div>
