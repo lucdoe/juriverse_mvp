@@ -19,9 +19,12 @@ router.get('/', async (req: Request, res: Response) => {
 				{ problems: regex },
 				{ 'author.name': regex },
 				{ 'meta.isPublished': true },
-				{ 'meta.isDraft': false }]
+					{ 'meta.isDraft': false },
+				]
 			},
-				{ 'meta.isDeleted': false }]
+
+				{ 'meta.isDeleted': false }
+			]
 		},
 			(err, data) => {
 				if (data.length == 0) {
