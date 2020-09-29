@@ -106,14 +106,18 @@
 					<div><a href="/help">Hilfe</a></div>
 					<div><a href="/logout">Ausloggen</a></div>
 					<div style="margin-top: 2.5vw; color: var(--juriverse-grey); text-align: center; font-size: 13px;">Made with <span
-							style="color: #e25555;">&#9829;</span> in Berlin</div>
+							style="color: var(--juriverse-gold);">&#9829;</span> in Berlin</div>
 				</div>
 			</li>
 		</ul>
 	</nav>
 	<section class="main">{{{ body }}}</section>
 	<script src="/scripts/scripts.js"></script>
-	<script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
+	<script type="text/javascript">bkLib.onDomLoaded(function () {
+			nicEditors.allTextAreas()
+			new nicEditor({ fullPanel: false }).panelInstance('editProfile', { hasPanel: false });
+		});
+	</script>
 </body>
 
 </html>
