@@ -13,7 +13,7 @@ router.get('/', async (req: any, res: Response) => {
 	let isOwnProfile = true
 	const json = JSON.stringify(userProfile)
 
-	await Cases.find({ 'author.authorId': user_id, $or: [{ 'meta.isDraft': false }, { 'meta.isPublic': true }] }, (err, allCases: any) => {
+	await Cases.find({ 'author.authorId': user_id, 'meta.isDeleted': false, $or: [{ 'meta.isDraft': false }, { 'meta.isPublished': true }] }, (err, allCases: any) => {
 		const result = {
 			user,
 			allCases,
@@ -31,7 +31,7 @@ router.get('/', async (req: any, res: Response) => {
 router.get('/:id', async (req: any, res) => {
 	const { id } = req.params
 	const user: any = await Users.findOne({ userId: id })
-	await Cases.find({ $and: [{ 'author.authorId': id }, { $or: [{ 'meta.isPublic': true }, { 'meta.isDraft': false }] }] }, (err, allCases: any) => {
+	await Cases.find({ $and: [{ 'author.authorId': id }, { $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }] }, (err, allCases: any) => {
 
 		const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
 		const signupDate = user.meta.signupDate.toLocaleDateString('de-DE', options)
