@@ -112,22 +112,16 @@ router.post('/:id/done', async (req: any, res: Response) => {
 // publish case
 router.post('/:id/publish', async (req: any, res: Response) => {
 	const { id } = req.params
-	const update = await Cases.updateOne({ caseId: id }, { 'meta.isPublished': true, 'meta.isDraft': false })
-	const result = {
-		update,
-	}
+	await Cases.updateOne({ caseId: id }, { $set: { 'meta.isPublished': true, 'meta.isDraft': false } })
 	res.redirect('../../../upload')
 })
 
 // publish case
 router.post('/:id/unpublish', async (req: any, res: Response) => {
 	const { id } = req.params
-	const update = await Cases.updateOne({ caseId: id }, { 'meta.isPublished': false, 'meta.isDraft': true })
+	await Cases.updateOne({ caseId: id }, { $set: { 'meta.isPublished': false, 'meta.isDraft': true } })
 	// const publicCases = await Cases.find({ $and: [{ 'meta.isPublished': true }, { 'author.authorId': user_id }] })
 	// const draftCases = await Cases.find({ $and: [{ 'meta.isPublished': false }, { 'meta.isDraft': true }, { 'author.authorId': user_id }] })
-	const result = {
-		update,
-	}
 	res.redirect('../../../upload')
 })
 
@@ -224,7 +218,7 @@ router.post('/:id/details', async (req: Request, res: Response) => {
 	tagsPlain.forEach(element => {
 		tagsArray.push(element.value)
 	});
-	await Cases.updateOne({ caseId: id }, { categories: categorie, $push: { subcategories: subcategories, problems: tagsArray }, 'meta.isDraft': false, 'meta.isPublic': true })
+	await Cases.updateOne({ caseId: id }, { categories: categorie, 'meta.isDraft': false, 'meta.isPublished': true, $push: { subcategories: subcategories, problems: tagsArray } })
 	res.redirect(`/cases/${id}/view`)
 })
 
