@@ -64,7 +64,7 @@ const strategy = new Auth0Strategy(
 		domain: process.env.AUTH0_DOMAIN,
 		clientID: process.env.AUTH0_CLIENT_ID,
 		clientSecret: process.env.AUTH0_CLIENT_SECRET,
-		callbackURL: process.env.AUTH0_CALLBACK_URL /*|| 'https://app.juriverse.com/callback'*/ || 'http://localhost:2907/callback',
+		callbackURL: process.env.AUTH0_CALLBACK_URL || 'http://localhost:2907/callback',
 	},
 	(accessToken, refreshToken, extraParams, profile, done) => {
 		// accessToken is the token to call Auth0 API (not needed in the most cases)
@@ -84,14 +84,14 @@ const sess = {
 	saveUninitialized: true,
 }
 
-if (app.get('env') === 'production') {
+if (process.env.NODE_ENV === 'production') {
 	// Use secure cookies in production (requires SSL/TLS)
-	sess.cookie = false
+	sess.cookie = true
 
 	// Uncomment the line below if your application is behind a proxy (like on Heroku)
 	// or if you're encountering the error message:
 	// "Unable to verify authorization request state"
-	// app.set('trust proxy', 1);
+	app.set('trust proxy', 1);
 }
 
 // You can use this section to keep a smaller payload
