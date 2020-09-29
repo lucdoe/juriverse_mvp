@@ -9,8 +9,8 @@
 		</p>
 		<p class="card-tags">
 			<span>{{# each result.categories}}<a id="first-tag" href="/cases">{{ this }}</a>{{/each}}</span>
-			<span><a href="/cases">{{ result.subcategories }}</a></span><span><span><a
-						href="/cases">{{ result.problems }}</a></span>
+			<span>{{# each result.subcategories}}<a href="/cases">{{ this }}</a>{{/each}}</span>
+			<span>{{# each result.problems}}<a href="/cases">{{ this }}</a>{{/each}}</span>
 		</p>
 			<div class="tooltip-box">
 				<div class="tooltip tooltipflex">
