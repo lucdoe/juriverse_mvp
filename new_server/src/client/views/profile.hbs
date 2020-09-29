@@ -4,7 +4,7 @@
 		<p class="intro-text">{{{result.user.profileText}}}</p>
 		{{!-- <p><span id="upc1" class="upc">Mitglied seit:</span> {{ result.signupDate }}</p> --}}
 		<p><span class="upc">Universität:</span> {{result.user.university}}</p>
-		{{!-- <p><span id="upc2" class="upc upc2">Fortschritt:</span> {{result.user.progress}}</p> --}}
+		{{#if result.user.progress}}<p><span id="upc2" class="upc upc2">Fortschritt:</span> {{result.user.progress}}</p>{{/if}}
 	</div>
 	<div class="profile-right">
 		<div><img src="{{result.picture}}"></div>
