@@ -8,13 +8,14 @@
             <br>
 
             <label for="country" class="upc">Dein Bescreibungs Text</label><br>
-            <textarea name="profileText" class="editProfileText"
+            <textarea id="editProfile" name="profileText" class="editProfileText"
                 placeholder="Profil Text bearbeiten...">{{result.user.profileText}} </textarea>
 
-            <p><span id="upc1" class="upc">Mitglied seit:</span>{{ result.user.meta.signupDate }}</p>
+            {{!-- <p><span id="upc1" class="upc">Mitglied seit:</span>{{ result.user.meta.signupDate }}</p> --}}
             <p><label for="country" class="upc">Universität:</label>
                 <select id="universityProfile" name="university">
                     <option label="Deine Uni" value="" disabled="">Deine Uni</option>
+                    <option label="{{result.user.university}}" value="{{result.user.university}}">{{result.user.university}}</option>
                     <option label="Universität Augsburg" value="Universität Augsburg">Universität Augsburg</option>
                     <option label="Universität Bayreuth" value="Universität Bayreuth">Universität Bayreuth</option>
                     <option label="Freie Universität Berlin" value="Freie Universität Berlin">Freie Universität Berlin</option>
@@ -69,7 +70,8 @@
 
             <label for="country" class="upc upc2">Fortschritt:</label>
             <select id="universityProfile" name="progress">
-                <option label="Deine Fortschritt" value="" disabled="">Dein Fortschritt</option>
+                <option label="Dein Fortschritt" value="" disabled="">Dein Fortschritt</option>
+                <option value="{{result.user.progress}}">{{result.user.progress}}</option>
                 <option value="Vor dem ersten Examen">Vor dem ersten Examen</option>
                 <option value="Repetitorium">Repetitorium</option>
                 <option value="Referendariat">Referendariat</option>
@@ -85,3 +87,17 @@
         </div>
         </form>
 </section>
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+    function toggleArea1() {
+        area1 = new nicEditor({ fullPanel: false }).panelInstance('editProfile', { hasPanel: false });
+        area1.removeInstance('editProfile');
+        area1 = null;
+    }
+
+    bkLib.onDomLoaded(function () {
+        toggleArea1();
+        );
+  //]]>
+</script>
