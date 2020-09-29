@@ -6,11 +6,12 @@ const router = Router()
 
 // get user profile
 router.get('/', async (req: any, res: Response) => {
-	const { user_id } = req.user
+	const { user_id, ...userProfile } = req.user
 	const user: any = await Users.findOne({ userId: user_id })
-	const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-	const signupDate = user.meta.signupDate.toLocaleDateString('de-DE', options)
+	// const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+	// const signupDate = user.meta.signupDate.toLocaleDateString('de-DE', options)
 	let isOwnProfile = true
+	const json = JSON.stringify(userProfile)
 
 	await Cases.find({ 'author.authorId': user_id, $or: [{ 'meta.isDraft': false }, { 'meta.isPublic': true }] }, (err, allCases: any) => {
 		const result = {
@@ -18,8 +19,9 @@ router.get('/', async (req: any, res: Response) => {
 			allCases,
 			authorName: req.user.displayName,
 			picture: req.user.picture,
-			signupDate,
-			isOwnProfile
+			// signupDate,
+			isOwnProfile,
+			json
 		}
 		res.render('profile', { result })
 	})
