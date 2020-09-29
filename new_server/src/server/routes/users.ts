@@ -6,23 +6,86 @@ const router = Router()
 
 // get user profile
 router.get('/', async (req: any, res: Response) => {
-	const { user_id } = req.user
-	const user: any = await Users.findOne({ userId: user_id })
-	// const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-	// const signupDate = user.meta.signupDate.toLocaleDateString('de-DE', options)
-	let isOwnProfile = true
+	const auth0_user = req.user
+	const user: any = await Users.findOne({ userId: auth0_user.user_id })
 
-	await Cases.find({ 'author.authorId': user_id, 'meta.isDeleted': false, $or: [{ 'meta.isDraft': false }, { 'meta.isPublished': true }] }, (err, allCases: any) => {
-		const result = {
-			user,
-			allCases,
-			authorName: req.user.displayName,
-			picture: req.user.picture,
-			// signupDate,
-			isOwnProfile,
+	if (!user) {
+
+		const new_user = {
+			userId: auth0_user.user_id,
+			screenname: auth0_user.nickname,
+			university: "",
+			profileText: "",
+			progress: "",
+			cases: {
+				saved: [{
+					caseId: "",
+					savedTimestamp: "",
+				}],
+				opened: [{
+					caseId: "",
+					openTimestamp: "",
+					closedTimestamp: "",
+				}],
+				finished: [{
+					caseId: "",
+					finishedTimestamp: "",
+				}],
+				likes: [{
+					caseId: "",
+					likedTimestamp: "",
+				}],
+				notes: [
+					{
+						caseId: "",
+						positionIndex: "",
+						note: "",
+						solution: "",
+						notedTimestamp: "",
+					},
+				],
+			},
+			meta: {
+				visitedAuthors: [{
+					authorId: "",
+					visitedTimestamp: "",
+				}],
+				isDeleted: false,
+				signupDate: Date.now(),
+			},
 		}
-		res.render('profile', { result })
-	})
+
+		await Users.create(new_user, async (err, our_user) => {
+			let isOwnProfile = true
+
+			await Cases.find({ 'author.authorId': auth0_user.user_id, 'meta.isDeleted': false, $or: [{ 'meta.isDraft': false }, { 'meta.isPublished': true }] }, (err, allCases: any) => {
+				const result = {
+					user: our_user,
+					allCases,
+					authorName: req.user.displayName,
+					picture: req.user.picture,
+					// signupDate,
+					isOwnProfile,
+				}
+				res.render('profile', { result })
+			})
+		})
+
+	} else {
+		let isOwnProfile = true
+
+		await Cases.find({ 'author.authorId': auth0_user.user_id, 'meta.isDeleted': false, $or: [{ 'meta.isDraft': false }, { 'meta.isPublished': true }] }, (err, allCases: any) => {
+			const result = {
+				user,
+				allCases,
+				authorName: req.user.displayName,
+				picture: req.user.picture,
+				// signupDate,
+				isOwnProfile,
+			}
+			res.render('profile', { result })
+		})
+	}
 })
 
 // get one user

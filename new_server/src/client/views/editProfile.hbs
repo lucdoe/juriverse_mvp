@@ -3,7 +3,7 @@
         <form action="/edit/profile" method="POST">
             <h1 class="case-title profile-name">Profil bearbeiten</h1>
 
-            <p>Name: </p><label for="country" class="upc">{{ result.authorName }}</label> <br>
+            <p>Name: </p><label for="country" class="upc">{{ result.user.screenname }}</label> <br>
             <input type="hidden" name="userId" value="{{result.user.userId}}">
             <br>
 
