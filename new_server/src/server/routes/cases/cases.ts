@@ -11,7 +11,6 @@ router.get('/', async (req: Request, res: Response) => {
 	const search = req.query.si
 	if (search) {
 		const regex = new RegExp(escapeRegex(search), 'gi')
-
 		const query = {
 			$and: [
 				{ $or: [{ 'case.title': regex }, { categories: regex }, { subcategories: regex }, { problems: regex, }, { 'author.name': regex }] },
@@ -19,7 +18,6 @@ router.get('/', async (req: Request, res: Response) => {
 				{ 'meta.isDeleted': false }
 			]
 		}
-
 		Cases.find(query,
 			(err, data) => {
 				if (data.length == 0) {
@@ -44,21 +42,22 @@ router.get('/', async (req: Request, res: Response) => {
 		const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: 980 } }, { 'meta.isDeleted': false }, { $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }] })
 		const allCases: any = await Cases.find({ $and: [{ $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }, { 'meta.isDeleted': false }] })
 
-		if (recommendedCases.length || allCases.length == 0) {
+		if (allCases.length == 0) {
 			const noMatch = 'Hier gibt es leider noch keinen Fall.'
 			const result = {
 				noMatch,
 				category: 'Dashboard - Coming soon!'
 			}
 			res.render('listCases', { result })
-		}
-		const result = {
-			recommendedCases,
-			allCases,
-			category: 'Dashboard',
+		} else {
+			const result = {
+				recommendedCases,
+				allCases,
+				category: 'Dashboard',
 
+			}
+			res.render('listCases', { result })
 		}
-		res.render('listCases', { result })
 	}
 })
 
