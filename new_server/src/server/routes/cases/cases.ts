@@ -43,10 +43,10 @@ router.get('/', async (req: Request, res: Response) => {
 		const allCases: any = await Cases.find({ $and: [{ $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }, { 'meta.isDeleted': false }] })
 
 		if (allCases.length == 0) {
-			const noMatch = 'Hier gibt es leider noch keinen Fall.'
+			const noMatch = 'Es wurde noch kein Fall hochgeladen.'
 			const result = {
 				noMatch,
-				category: 'Dashboard - Coming soon!'
+				category: 'Dashboard'
 			}
 			res.render('listCases', { result })
 		} else {
