@@ -44,6 +44,10 @@
         {{/each}}
         {{/if}}
 
+    {{#if result.noMatch }}
+    <h3 class="content-header recommended not-found">Hier gibt es leider noch keinen Fall.</h2>
+        {{/if}}
+
     {{#if result.recommendedCases }}
     <h3 class="content-header recommended">Empfohlen</h2>
         {{#each result.recommendedCases }}
@@ -75,10 +79,6 @@
         </article>
         {{/each}}
         {{/if}}
-
-        {{#if result.noMatch }}
-        <h3 class="content-header recommended not-found">{{result.noMatch}}</h2>
-            {{/if}}
         
             {{#if result.allCases }}
         <h3 class="content-header all-cases">ALLE FÄLLE</h2>

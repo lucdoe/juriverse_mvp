@@ -7,41 +7,37 @@ const router = Router()
 
 // get all cases
 router.get('/', async (req: Request, res: Response) => {
+
 	const search = req.query.si
 	if (search) {
 		const regex = new RegExp(escapeRegex(search), 'gi')
-		Cases.find({
-			$and: [{
-			$or: [
-				{ 'case.title': regex },
-				{ categories: regex },
-				{ subcategories: regex },
-				{ problems: regex },
-				{ 'author.name': regex },
-				{ 'meta.isPublished': true },
-					{ 'meta.isDraft': false },
-				]
-			},
 
+		const query = {
+			$and: [
+				{ $or: [{ 'case.title': regex }, { categories: regex }, { subcategories: regex }, { problems: regex, }, { 'author.name': regex }] },
+				{ $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] },
 				{ 'meta.isDeleted': false }
 			]
-		},
+		}
+
+		Cases.find(query,
 			(err, data) => {
 				if (data.length == 0) {
-					console.log(err)
-						const noMatch = 'Es wurde kein Fall nach deinen Suchkriterien gefunden.'
-						const result = {
-							noMatch,
-							category: 'Suche'
-						}
-						res.render('listCases', { result })
+					const noMatch = `Es wurde kein Fall nach deinen Suchkriterien: '${search}' gefunden.`
+					const result = {
+						query: search,
+						noMatch,
+						category: 'Suche'
 					}
+					res.render('listCases', { result })
+				} else {
 					const result = {
 						query: search,
 						search: data,
 						category: 'Suche',
 					}
 					res.render('listCases', { result })
+				}
 			}
 		)
 	} else {

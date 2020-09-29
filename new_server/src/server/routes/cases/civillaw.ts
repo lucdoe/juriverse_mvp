@@ -6,24 +6,33 @@ const router = Router()
 const categories = { categories: 'Zivilrecht' }
 const rating = 750
 
+const query = {
+	$and: [
+		{ $or: [{ categories: 'Zivilrecht' }] },
+		{ $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] },
+		{ 'meta.isDeleted': false }
+	]
+}
+
 // gets zivilrecht cases
 router.get('/', async (req: Request, res: Response) => {
 	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
-	const allCases = await Cases.find({ $and: [categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
-	if (recommendedCases.length || allCases.length == 0) {
-		const noMatch = 'Hier gibt es leider noch keinen Fall.'
+	const allCases = await Cases.find(query)
+	if (allCases.length == 0) {
+		const noMatch = true
 		const result = {
 			noMatch,
 			category: 'Zivilrecht - Coming soon!'
 		}
 		res.render('listCases', { result })
+	} else {
+		const result = {
+			recommendedCases,
+			allCases,
+			category: 'Zivilrecht'
+		}
+		res.render('listCases', { result })
 	}
-	const result = {
-		recommendedCases,
-		allCases,
-		category: 'Zivilrecht'
-	}
-	res.render('listCases', { result })
 })
 
 // gets zivilrecht-bgbat
