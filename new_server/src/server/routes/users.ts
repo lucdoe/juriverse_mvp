@@ -29,10 +29,10 @@ router.get('/', async (req: any, res: Response) => {
 router.get('/:id', async (req: any, res) => {
 	const { id } = req.params
 	const user: any = await Users.findOne({ userId: id })
-	await Cases.find({ $and: [{ 'author.authorId': id }, { $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }] }, (err, allCases: any) => {
+	await Cases.find({ $and: [{ 'author.authorId': id }, { $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }] }, async (err, allCases: any) => {
 
 		const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-		const signupDate = user.meta.signupDate.toLocaleDateString('de-DE', options)
+		const signupDate = await user.meta.signupDate.toLocaleDateString('de-DE', options)
 
 		const result = {
 			user,

@@ -1,7 +1,7 @@
-export const secured = (req, res, next) => {
+export const secured = async (req, res, next) => {
 	if (req.user) {
-		return next()
+		return await next()
 	}
-	req.session.returnTo = req.originalUrl
+	req.session.returnTo = await req.originalUrl
 	res.redirect('/login')
 }

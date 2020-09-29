@@ -10,7 +10,7 @@ router.get('/', async (req: Request, res: Response) => {
 
 	const search = req.query.si
 	if (search) {
-		const regex = new RegExp(escapeRegex(search), 'gi')
+		const regex = new RegExp(await escapeRegex(search), 'gi')
 		const query = {
 			$and: [
 				{ $or: [{ 'case.title': regex }, { categories: regex }, { subcategories: regex }, { problems: regex, }, { 'author.name': regex }] },
@@ -18,8 +18,8 @@ router.get('/', async (req: Request, res: Response) => {
 				{ 'meta.isDeleted': false }
 			]
 		}
-		Cases.find(query,
-			(err, data) => {
+		await Cases.find(query,
+			async (err, data) => {
 				if (data.length == 0) {
 					const noMatch = `Es wurde kein Fall nach deinen Suchkriterien: '${search}' gefunden.`
 					const result = {
@@ -104,7 +104,7 @@ router.post('/:id/view', async (req: Request, res: Response) => {
 router.post('/:id/done', async (req: any, res: Response) => {
 	const { user_id } = req.user
 	const { id } = req.params
-	await Users.updateOne({ userId: user_id }, { $push: { 'cases.finished': { caseId: id, finishedTimestamp: Date.now() } } }, (err, data) => {
+	await Users.updateOne({ userId: user_id }, { $push: { 'cases.finished': { caseId: id, finishedTimestamp: Date.now() } } }, async (err, data) => {
 		res.redirect('/cases')
 	})
 })
@@ -120,8 +120,6 @@ router.post('/:id/publish', async (req: any, res: Response) => {
 router.post('/:id/unpublish', async (req: any, res: Response) => {
 	const { id } = req.params
 	await Cases.updateOne({ caseId: id }, { $set: { 'meta.isPublished': false, 'meta.isDraft': true } })
-	// const publicCases = await Cases.find({ $and: [{ 'meta.isPublished': true }, { 'author.authorId': user_id }] })
-	// const draftCases = await Cases.find({ $and: [{ 'meta.isPublished': false }, { 'meta.isDraft': true }, { 'author.authorId': user_id }] })
 	res.redirect('../../../upload')
 })
 
@@ -195,7 +193,7 @@ router.post('/:id/text', async (req: any, res: Response) => {
 			],
 			selfWriteConfirm: false,
 		}
-		const result: any = Cases.create(data)
+		const result: any = await Cases.create(data)
 		res.render('uploadCaseDetails', { result, caseId })
 	} else {
 		const result = await Cases.updateOne({ caseId }, { 'case.title': title, 'case.issue': issue, 'case.task': task, 'case.solution': solution, 'case.footnotes': footnotes })
@@ -214,16 +212,16 @@ router.post('/:id/details', async (req: Request, res: Response) => {
 		res.render('uploadCaseDetails', { result })
 	}
 	let tagsArray = []
-	const tagsPlain: any = JSON.parse(tags)
-	tagsPlain.forEach(element => {
+	const tagsPlain: any = await JSON.parse(tags)
+	await tagsPlain.forEach(element => {
 		tagsArray.push(element.value)
 	});
 	await Cases.updateOne({ caseId: id }, { categories: categorie, 'meta.isDraft': false, 'meta.isPublished': true, $push: { subcategories: subcategories, problems: tagsArray } })
 	res.redirect(`/cases/${id}/view`)
 })
 
-const escapeRegex = (text) => {
-	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
+const escapeRegex = async (text) => {
+	return await text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
 }
 
 export default router
