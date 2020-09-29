@@ -17,9 +17,34 @@
 		referrerpolicy="origin"></script>
 	<script type="text/javascript">
 		tinymce.init({
-			selector: '#normalArea',
+			selector: '.normalArea',
 			toolbar: 'undo redo | styleselect | bold italic | alignjustify',
-			menubar: 'file edit format'
+			menubar: 'file edit',
+			width: '1000',
+			style_formats: [
+				{
+					title: 'Headings', items: [
+						{ title: 'Heading 1', format: 'h1' },
+						{ title: 'Heading 2', format: 'h2' },
+						{ title: 'Heading 3', format: 'h3' },
+						{ title: 'Heading 4', format: 'h4' },
+						{ title: 'Heading 5', format: 'h5' },
+						{ title: 'Heading 6', format: 'h6' }
+					]
+				},
+				{
+					title: 'Inline', items: [
+						{ title: 'Bold', format: 'bold' },
+						{ title: 'Superscript', format: 'superscript' },
+						{ title: 'Subscript', format: 'subscript' },
+					]
+				},
+				{
+					title: 'Align', items: [
+						{ title: 'Justify', format: 'alignjustify' }
+					]
+				}
+			]
 		});
 	</script>
 </head>
