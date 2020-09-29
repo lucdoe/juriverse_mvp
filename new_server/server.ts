@@ -3,6 +3,14 @@ import { connectDB } from './src/server/middlewares/db'
 import chalk from 'chalk'
 new chalk.Instance({ level: 3 });
 
+if (process.env.NODE_ENV === 'production') {
+	process.on('uncaughtException', (er) => {
+		console.error(er.stack)
+		if (er) console.error(er)
+		process.exit(1)
+	})
+}
+
 // error handler
 app.use(async (err, req, res, next) => {
 	// set locals, only providing error in development
@@ -19,6 +27,7 @@ app.use((req, res, next) => {
 	const error = "404 Not Found"
 	res.status(404).render('error', { message, error })
 })
+
 
 const port = process.env.port || 2907
 
