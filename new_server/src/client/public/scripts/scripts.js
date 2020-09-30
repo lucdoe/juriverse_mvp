@@ -1,7 +1,7 @@
 
 
 const showSolution = () => {
-	const x = document.getElementById('case-solution')
+	const x = document.getElementById('case-solution');
 	const y = document.getElementById('solution-box')
 	const z = document.getElementById('ssb1')
 	const a = document.getElementById('solution-recommended')
@@ -18,7 +18,7 @@ const showSolution = () => {
 		x.style.display = 'none'
 		y.style.display = 'none'
 		a.style.display = 'none'
-		z.innerHTML = 'Musterlösung anzeigen'
+		z.innerHTML = 'Musterlösung wirklich anzeigen?'
 		z.style.color = 'white'
 		z.style.backgroundColor = '#cca768'
 		z.style.border = 'none'
