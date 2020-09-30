@@ -2,13 +2,16 @@ import { Router, Request, Response, json } from 'express'
 import Cases from '../../models/Case'
 import Users from '../../models/User'
 import { v4 as uuidv4 } from 'uuid'
+import DOMPurify from '../../middlewares/sanitizer'
 
 const router = Router()
 
 // get all cases
 router.get('/', async (req: Request, res: Response) => {
 
-	const search = req.query.si
+	const searchRaw = req.query.si
+	let search = DOMPurify.sanitize(searchRaw)
+
 	if (search) {
 		const regex = new RegExp(await escapeRegex(search), 'gi')
 		const query = {
@@ -64,7 +67,8 @@ router.get('/', async (req: Request, res: Response) => {
 
 // get text edit page
 router.get('/:id/text', async (req: any, res: Response) => {
-	const caseId = req.params.id
+	const caseIdRaw = req.params.id
+	const caseId = DOMPurify.sanitize(caseIdRaw)
 	const oneCase = await Cases.findOne({ caseId })
 	const result = {
 		oneCase,
@@ -75,7 +79,8 @@ router.get('/:id/text', async (req: any, res: Response) => {
 
 // get text edit page
 router.get('/:id/report', async (req: any, res: Response) => {
-	const id = req.params.id
+	const idRaw = req.params.id
+	const id = DOMPurify.sanitize(idRaw)
 	const oneCase = await Cases.findOne({ caseId: id })
 	const result = {
 		oneCase,
@@ -86,40 +91,63 @@ router.get('/:id/report', async (req: any, res: Response) => {
 
 // get one case
 router.get('/:id/view', async (req: Request, res: Response) => {
-	const id = req.params.id
+
+	const idRaw = req.params.id
+	const id = DOMPurify.sanitize(idRaw)
+
 	const result: any = await Cases.findOne({ caseId: id })
 	const recommended = await Cases.find({ $and: [{ $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }, { 'meta.ratingCount': { $gt: 750 } }, { 'meta.isDeleted': false }, { subcategories: result.subcategories }] })
+
 	res.render('case', { result, recommended })
 })
 
 // comes from caseDetails, creates case renders case page
 router.post('/:id/view', async (req: Request, res: Response) => {
+
 	const { caseId, categories, subcategories, problems } = req.body
-	await Cases.update({ caseId }, { categories, subcategories, problems, 'meta.isPublished': true, 'meta.isDraft': false })
+
+	const caseIdClean = DOMPurify.sanitize(caseId)
+	const categoriesIdClean = DOMPurify.sanitize(categories)
+	const subcategoriesClean = DOMPurify.sanitize(subcategories)
+	const problemsClean = DOMPurify.sanitize(problems)
+
+	await Cases.update({ caseIdClean }, { categoriesIdClean, subcategoriesClean, problemsClean, 'meta.isPublished': true, 'meta.isDraft': false })
 	const result = await Cases.findOne({ caseId })
+
 	res.render('case', { result })
 })
 
 // marks case as done
 router.post('/:id/done', async (req: any, res: Response) => {
+
 	const { user_id } = req.user
 	const { id } = req.params
-	await Users.updateOne({ userId: user_id }, { $push: { 'cases.finished': { caseId: id, finishedTimestamp: Date.now() } } }, async (err, data) => {
+
+	const userIdClean = DOMPurify.sanitize(user_id)
+	const caseIdClean = DOMPurify.sanitize(id)
+
+	await Users.updateOne({ userId: userIdClean }, { $push: { 'cases.finished': { caseId: caseIdClean, finishedTimestamp: Date.now() } } }, async (err, data) => {
 		res.redirect('/cases')
 	})
 })
 
 // publish case
 router.post('/:id/publish', async (req: any, res: Response) => {
+
 	const { id } = req.params
-	const change = await Cases.updateOne({ caseId: id }, { $set: { 'meta.isPublished': true, 'meta.isDraft': false } })
 	const { user_id } = req.user
-	const publicCases = await Cases.find({ $and: [{ 'meta.isPublished': true }, { 'meta.isDeleted': false }, { 'author.authorId': user_id }] })
-	const draftCases = await Cases.find({ $and: [{ 'meta.isDraft': true }, { 'meta.isDeleted': false }, { 'author.authorId': user_id }] })
+
+	const caseIdClean = DOMPurify.sanitize(id)
+	const userIdClean = DOMPurify.sanitize(user_id)
+
+	const change = await Cases.updateOne({ caseId: caseIdClean }, { $set: { 'meta.isPublished': true, 'meta.isDraft': false } })
+	const publicCases = await Cases.find({ $and: [{ 'meta.isPublished': true }, { 'meta.isDeleted': false }, { 'author.authorId': userIdClean }] })
+	const draftCases = await Cases.find({ $and: [{ 'meta.isDraft': true }, { 'meta.isDeleted': false }, { 'author.authorId': userIdClean }] })
+
 	const result = {
 		publicCases,
 		draftCases,
-		userId: user_id,
+		userId: userIdClean,
 		change
 	}
 	res.render('yourCases', { result })
@@ -127,15 +155,21 @@ router.post('/:id/publish', async (req: any, res: Response) => {
 
 // publish case
 router.post('/:id/unpublish', async (req: any, res: Response) => {
+
 	const { id } = req.params
-	const change = await Cases.updateOne({ caseId: id }, { $set: { 'meta.isPublished': false, 'meta.isDraft': true } })
 	const { user_id } = req.user
-	const publicCases = await Cases.find({ $and: [{ 'meta.isPublished': true }, { 'meta.isDeleted': false }, { 'author.authorId': user_id }] })
-	const draftCases = await Cases.find({ $and: [{ 'meta.isDraft': true }, { 'meta.isDeleted': false }, { 'author.authorId': user_id }] })
+
+	const caseIdClean = DOMPurify.sanitize(id)
+	const userIdClean = DOMPurify.sanitize(user_id)
+
+	const change = await Cases.updateOne({ caseId: caseIdClean }, { $set: { 'meta.isPublished': false, 'meta.isDraft': true } })
+	const publicCases = await Cases.find({ $and: [{ 'meta.isPublished': true }, { 'meta.isDeleted': false }, { 'author.authorId': userIdClean }] })
+	const draftCases = await Cases.find({ $and: [{ 'meta.isDraft': true }, { 'meta.isDeleted': false }, { 'author.authorId': userIdClean }] })
+
 	const result = {
 		publicCases,
 		draftCases,
-		userId: user_id,
+		userId: userIdClean,
 		change
 	}
 	res.render('yourCases', { result })
@@ -143,56 +177,83 @@ router.post('/:id/unpublish', async (req: any, res: Response) => {
 
 // report case
 router.post('/:id/report', async (req: any, res: Response) => {
+
 	const { user_id } = req.user
 	const { id } = req.params
 	const { reportText } = req.body
-	const report = await Cases.updateOne({ caseId: id }, { $push: { report: [{ userId: user_id, caseId: id, reportText }] } })
-	const result = await Cases.findOne({ caseId: id })
+
+	const caseIdClean = DOMPurify.sanitize(id)
+	const userIdClean = DOMPurify.sanitize(user_id)
+	const reportTextClean = DOMPurify.sanitize(reportText)
+
+	const report = await Cases.updateOne({ caseId: caseIdClean }, { $push: { report: [{ userId: userIdClean, caseId: caseIdClean, reportText: reportTextClean }] } })
+	const result = await Cases.findOne({ caseId: caseIdClean })
+
 	res.render('case', { result, report })
 })
 
 // report case
 router.get('/:id/like', async (req: any, res: Response) => {
+
 	const { id } = req.params
-	const like = await Cases.updateOne({ caseId: id }, { $inc: { 'meta.likeCount': 1 } })
-	const result = await Cases.findOne({ caseId: id })
+
+	const caseIdClean = DOMPurify.sanitize(id)
+
+	const like = await Cases.updateOne({ caseId: caseIdClean }, { $inc: { 'meta.likeCount': 1 } })
+	const result = await Cases.findOne({ caseId: caseIdClean })
+
 	res.render('case', { result, like })
 })
 
 // delete case
 router.post('/:id/delete', async (req: any, res: Response) => {
+
 	const { id } = req.params
-	await Cases.updateOne({ caseId: id }, { 'meta.isDeleted': true })
+
+	const caseIdClean = DOMPurify.sanitize(id)
+
+	await Cases.updateOne({ caseId: caseIdClean }, { 'meta.isDeleted': true })
+
 	res.redirect('/upload')
 })
 
 // /cases/text - creates case
 router.post('/:id/text', async (req: any, res: Response) => {
+
 	const caseId = req.params.id
 	const { user_id, picture, email, nickname } = req.user
 	const { title, issue, task, solution, footnotes } = req.body
 
-	if (!title) {
+	const caseIdClean = DOMPurify.sanitize(caseId)
+	const titleClean = DOMPurify.sanitize(title)
+	const user_idClean = DOMPurify.sanitize(user_id)
+	const pictureClean = DOMPurify.sanitize(picture)
+	const emailClean = DOMPurify.sanitize(email)
+	const nicknameClean = DOMPurify.sanitize(nickname)
+
+	if (!titleClean) {
+
 		let result = {
 			error: 'Wählen Sie bitte einen Titel für ihren Fall aus.',
-			caseId
+			caseId: caseIdClean
 		}
 		res.render('uploadCaseText', { result })
 	}
 
-	if (+caseId == 0) {
+	if (+caseIdClean == 0) {
+
 		let caseId = uuidv4()
 		const data = {
 			caseId,
 			author: {
-				authorId: user_id,
-				picture,
-				name: nickname,
-				email,
+				authorId: user_idClean,
+				picture: pictureClean,
+				name: nicknameClean,
+				email: emailClean,
 				university: '',
 			},
 			case: {
-				title,
+				title: titleClean,
 				task,
 				issue,
 				solution,
@@ -219,17 +280,22 @@ router.post('/:id/text', async (req: any, res: Response) => {
 			],
 			selfWriteConfirm: false,
 		}
+
 		const cases: any = await Cases.create(data)
+
 		const result = {
 			cases,
 			caseId
 		}
 		res.render('uploadCaseDetails', { result })
+
 	} else {
-		const cases = await Cases.updateOne({ caseId }, { 'case.title': title, 'case.issue': issue, 'case.task': task, 'case.solution': solution, 'case.footnotes': footnotes })
+
+		const cases = await Cases.updateOne({ caseIdClean }, { 'case.title': titleClean, 'case.issue': issue, 'case.task': task, 'case.solution': solution, 'case.footnotes': footnotes })
+
 		const result = {
 			cases,
-			caseId
+			caseId: caseIdClean
 		}
 		res.render('uploadCaseDetails', { result })
 	}
@@ -237,27 +303,34 @@ router.post('/:id/text', async (req: any, res: Response) => {
 
 // update case details
 router.post('/:id/details', async (req: Request, res: Response) => {
+
 	const { id } = req.params
 	const { categorie, subcategories, tags } = req.body
 
-	if (!subcategories || !tags) {
+	const caseIdClean = DOMPurify.sanitize(id)
+	const categorieClean = DOMPurify.sanitize(categorie)
+	const subcategoriesClean = DOMPurify.sanitize(subcategories)
+	const tagsClean = DOMPurify.sanitize(tags)
+
+	if (!subcategoriesClean || !tagsClean) {
 		let result = {
 			error: 'Wählen Sie mehr als ein Teilgebiet und oder Problem aus.',
-			caseId: id
+			caseId: caseIdClean
 		}
 		res.render('uploadCaseDetails', { result })
 	}
 
 	let tagsArray = []
-
-	const problems = safelyParseJSON(tags)
-
+	const problems = safelyParseJSON(tagsClean)
 	problems.forEach(element => {
 		tagsArray.push(element.value)
-	});
+	})
 
-	await Cases.updateOne({ caseId: id }, { categories: categorie, 'meta.isDraft': false, 'meta.isPublished': true, subcategories: subcategories, problems: tagsArray })
-	res.redirect(`/cases/${id}/view`)
+	const subcategoriesArray = subcategoriesClean.split(",");
+
+	await Cases.updateOne({ caseId: caseIdClean }, { categories: categorieClean, 'meta.isDraft': false, 'meta.isPublished': true, subcategories: subcategoriesArray, problems: tagsArray })
+
+	res.redirect(`/cases/${caseIdClean}/view`)
 })
 
 const escapeRegex = async (text) => {

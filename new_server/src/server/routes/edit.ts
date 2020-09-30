@@ -1,15 +1,18 @@
-
-import { Router, Request, Response } from 'express'
+import { Router, Response } from 'express'
 import Users from '../models/User'
 import Cases from '../models/Case'
+import DOMPurify from '../middlewares/sanitizer'
 
 const router = Router()
 
-router.get('/profile', async (req: any, res) => {
+router.get('/profile', async (req: any, res: Response) => {
+
     const { user_id } = req.user
-    const user: any = await Users.findOne({ userId: user_id })
-    // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-    // const signupDate = await user.meta.signupDate.toLocaleDateString('de-DE', options)
+
+    const userIdClean = DOMPurify.sanitize(user_id)
+
+    const user: any = await Users.findOne({ userId: userIdClean })
+
 
     const result = {
         user,
@@ -20,10 +23,17 @@ router.get('/profile', async (req: any, res) => {
     res.render('editProfile', { result })
 })
 
-router.post('/profile', async (req: any, res) => {
+router.post('/profile', async (req: any, res: Response) => {
+
     const auth0_user = req.user
     const { userId, profileText, university, progress } = req.body
-    const change = await Users.updateOne({ userId }, { profileText, university, progress })
+
+    const userIdClean = DOMPurify.sanitize(userId)
+    const profileTextClean = DOMPurify.sanitize(profileText)
+    const universityClean = DOMPurify.sanitize(university)
+    const progressClean = DOMPurify.sanitize(progress)
+
+    const change = await Users.updateOne({ userId: userIdClean }, { profileText: profileTextClean, university: universityClean, progress: progressClean })
     const user: any = await Users.findOne({ userId: auth0_user.user_id })
 
     let isOwnProfile = true
@@ -34,10 +44,10 @@ router.post('/profile', async (req: any, res) => {
             allCases,
             authorName: req.user.displayName,
             picture: req.user.picture,
-            // signupDate,
             isOwnProfile,
             change
         }
+
         res.render('profile', { result })
     })
 })

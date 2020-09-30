@@ -1,12 +1,15 @@
 import Cases from '../models/Case'
 import Users from '../models/User'
 import { Router, Response } from 'express'
+import DOMPurify from '../middlewares/sanitizer'
 
 const router = Router()
 
 // get user profile
 router.get('/', async (req: any, res: Response) => {
+
 	const auth0_user = req.user
+
 	const user: any = await Users.findOne({ userId: auth0_user.user_id })
 
 	if (!user) {
@@ -56,15 +59,16 @@ router.get('/', async (req: any, res: Response) => {
 		}
 
 		await Users.create(new_user, async (err, our_user) => {
+
 			let isOwnProfile = true
 
 			await Cases.find({ 'author.authorId': auth0_user.user_id, 'meta.isDeleted': false, $or: [{ 'meta.isDraft': false }, { 'meta.isPublished': true }] }, (err, allCases: any) => {
+
 				const result = {
 					user: our_user,
 					allCases,
 					authorName: req.user.displayName,
 					picture: req.user.picture,
-					// signupDate,
 					isOwnProfile,
 				}
 				res.render('profile', { result })
@@ -72,15 +76,16 @@ router.get('/', async (req: any, res: Response) => {
 		})
 
 	} else {
+
 		let isOwnProfile = true
 
 		await Cases.find({ 'author.authorId': auth0_user.user_id, 'meta.isDeleted': false, $or: [{ 'meta.isDraft': false }, { 'meta.isPublished': true }] }, (err, allCases: any) => {
+
 			const result = {
 				user,
 				allCases,
 				authorName: req.user.displayName,
 				picture: req.user.picture,
-				// signupDate,
 				isOwnProfile,
 			}
 			res.render('profile', { result })
@@ -90,49 +95,50 @@ router.get('/', async (req: any, res: Response) => {
 
 // get one user
 router.get('/:id', async (req: any, res) => {
+
 	const { id } = req.params
+
+	let user_idClean = DOMPurify.sanitize(id)
+
 	const user: any = await Users.findOne({ userId: id })
-	await Cases.find({ $and: [{ 'author.authorId': id }, { $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }] }, async (err, allCases: any) => {
+	await Cases.find({ $and: [{ 'author.authorId': user_idClean }, { $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }] }, async (err, allCases: any) => {
 
 		const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-		const signupDate = await user.meta.signupDate.toLocaleDateString('de-DE', options)
 
-		const result = {
-			user,
-			allCases,
-			authorName: allCases[0].author.name,
-			picture: allCases[0].author.picture,
-			signupDate
+		if (user.meta.signupDate) {
+
+			let signupDate = await user.meta.signupDate.toLocaleDateString('de-DE', options)
+
+			const result = {
+				user,
+				allCases,
+				authorName: allCases[0].author.name,
+				picture: allCases[0].author.picture,
+				signupDate
+			}
+			res.render('profile', { result })
+		} else {
+
+			const result = {
+				user,
+				allCases,
+				authorName: allCases[0].author.name,
+				picture: allCases[0].author.picture
+			}
+			res.render('profile', { result })
 		}
-
-		res.render('profile', { result })
 	})
-})
-
-// get all cases for one user
-router.get('/:id/cases', async (req, res) => {
-	const { user_id } = req.params
-	const user = await Users.findOne({ user_id })
-	const allCases = await Cases.find({ 'author.author_id': user_id })
-	const result = {
-		allCases,
-		user
-	}
-	res.render('profile', { result })
 })
 
 // marks user as deleted
 router.post('/:id/delete', async (req: any, res) => {
-	const { user_id } = req.user
-	const result = await Users.update({ id: user_id }, { isDeleted: true })
-	res.render('profile', { result })
-})
 
-// update user
-router.post('/:id/update', async (req: any, res) => {
 	const { user_id } = req.user
-	const data = req.body
-	const result = await Users.update({ id: user_id }, { data })
+
+	let user_idClean = DOMPurify.sanitize(user_id)
+
+	const result = await Users.update({ userId: user_idClean }, { isDeleted: true })
+
 	res.render('profile', { result })
 })
 
