@@ -16,16 +16,21 @@ const query = {
 
 // gets all strafrecht
 router.get('/', async (req: Request, res: Response) => {
+
 	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
 	const allCases = await Cases.find(query)
+
 	if (allCases.length == 0) {
+
 		const noMatch = true
 		const result = {
 			noMatch,
 			category: 'Strafrecht - Coming soon!'
 		}
 		res.render('listCases', { result })
+
 	} else {
+
 		const result = {
 			recommendedCases,
 			allCases,
@@ -33,30 +38,6 @@ router.get('/', async (req: Request, res: Response) => {
 		}
 		res.render('listCases', { result })
 	}
-})
-
-// gets strafrecht-AT
-router.get('/strafrechtat', async (req: Request, res: Response) => {
-	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Strafrecht AT' }, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
-	const allCases = await Cases.find({ $and: [categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
-	const result = {
-		recommendedCases,
-		allCases,
-		category: 'Strafrecht'
-	}
-	res.render('listCases', { result })
-})
-
-// gets strafrecht-BT
-router.get('/strafrechtbt', async (req: Request, res: Response) => {
-	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { subcategories: 'Strafrecht BT' }, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
-	const allCases = await Cases.find({ $and: [categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
-	const result = {
-		recommendedCases,
-		allCases,
-		category: 'Strafrecht'
-	}
-	res.render('listCases', { result })
 })
 
 export default router
