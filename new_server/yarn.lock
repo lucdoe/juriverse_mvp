@@ -575,6 +575,13 @@
   dependencies:
     "@types/express" "*"
 
+"@types/dompurify@^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@types/dompurify/-/dompurify-2.0.4.tgz#25fce15f1f4b1bc0df0ad957040cf226416ac2d7"
+  integrity sha512-y6K7NyXTQvjr8hJNsAFAD8yshCsIJ0d+OYEFzULuIqWyWOKL2hRru1I+rorI5U0K4SLAROTNuSUFXPDTu278YA==
+  dependencies:
+    "@types/trusted-types" "*"
+
 "@types/dotenv@^8.2.0":
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/@types/dotenv/-/dotenv-8.2.0.tgz#5cd64710c3c98e82d9d15844375a33bf1b45d053"
@@ -743,6 +750,11 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
+
+"@types/trusted-types@*":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-1.0.6.tgz#569b8a08121d3203398290d602d84d73c8dcf5da"
+  integrity sha512-230RC8sFeHoT6sSUlRO6a8cAnclO06eeiq1QDfiv2FGCLWFvvERWgwIQD4FWqD9A69BN7Lzee4OXwoMVnnsWDw==
 
 "@types/winston@^2.4.4":
   version "2.4.4"
@@ -1738,6 +1750,11 @@ domexception@^2.0.1:
   integrity sha512-yxJ2mFy/sibVQlu5qHjOkf9J3K6zgmCxgJ94u2EdvDOV09H+32LtRswEcUsmUWN72pVLOEnTSRaIVVzVQgS0dg==
   dependencies:
     webidl-conversions "^5.0.0"
+
+dompurify@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.1.1.tgz#b5aa988676b093a9c836d8b855680a8598af25fe"
+  integrity sha512-NijiNVkS/OL8mdQL1hUbCD6uty/cgFpmNiuFxrmJ5YPH2cXrPKIewoixoji56rbZ6XBPmtM8GA8/sf9unlSuwg==
 
 dot-prop@^5.2.0:
   version "5.3.0"
