@@ -1,3 +1,11 @@
+{{#if result.change }}
+<div style="padding-top: 2vw; padding-left: 8vw;">
+	<div class="alert" id="changeSaver">
+		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+		Änderung wurde gespeichert.
+	</div>
+</div>
+{{/if}}
 <section class="profile-top-container">
 	<div class="profile-left">
 		<h1 class="case-title profile-name">{{ result.user.screenname }}</h1>

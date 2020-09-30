@@ -1,6 +1,7 @@
 
 import { Router, Request, Response } from 'express'
 import Users from '../models/User'
+import Cases from '../models/Case'
 
 const router = Router()
 
@@ -20,10 +21,25 @@ router.get('/profile', async (req: any, res) => {
 })
 
 router.post('/profile', async (req: any, res) => {
+    const auth0_user = req.user
     const { userId, profileText, university, progress } = req.body
-    await Users.updateOne({ userId }, { profileText, university, progress })
+    const change = await Users.updateOne({ userId }, { profileText, university, progress })
+    const user: any = await Users.findOne({ userId: auth0_user.user_id })
 
-    res.redirect('/users')
+    let isOwnProfile = true
+
+    await Cases.find({ 'author.authorId': auth0_user.user_id, 'meta.isDeleted': false, $or: [{ 'meta.isDraft': false }, { 'meta.isPublished': true }] }, (err, allCases: any) => {
+        const result = {
+            user,
+            allCases,
+            authorName: req.user.displayName,
+            picture: req.user.picture,
+            // signupDate,
+            isOwnProfile,
+            change
+        }
+        res.render('profile', { result })
+    })
 })
 
 export default router
