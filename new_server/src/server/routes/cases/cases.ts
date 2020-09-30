@@ -64,11 +64,11 @@ router.get('/', async (req: Request, res: Response) => {
 
 // get text edit page
 router.get('/:id/text', async (req: any, res: Response) => {
-	const id = req.params.id
-	const oneCase = await Cases.findOne({ caseId: id })
+	const caseId = req.params.id
+	const oneCase = await Cases.findOne({ caseId })
 	const result = {
 		oneCase,
-		id
+		caseId
 	}
 	res.render('uploadCaseText', { result })
 })
@@ -154,6 +154,14 @@ router.post('/:id/text', async (req: any, res: Response) => {
 	const { user_id, picture, email, nickname } = req.user
 	const { title, issue, task, solution, footnotes } = req.body
 
+	if (!title) {
+		let result = {
+			error: 'Wählen Sie bitte einen Titel für ihren Fall aus.',
+			caseId
+		}
+		res.render('uploadCaseText', { result })
+	}
+
 	if (+caseId == 0) {
 		let caseId = uuidv4()
 		const data = {
@@ -193,11 +201,19 @@ router.post('/:id/text', async (req: any, res: Response) => {
 			],
 			selfWriteConfirm: false,
 		}
-		const result: any = await Cases.create(data)
-		res.render('uploadCaseDetails', { result, caseId })
+		const cases: any = await Cases.create(data)
+		const result = {
+			cases,
+			caseId
+		}
+		res.render('uploadCaseDetails', { result })
 	} else {
-		const result = await Cases.updateOne({ caseId }, { 'case.title': title, 'case.issue': issue, 'case.task': task, 'case.solution': solution, 'case.footnotes': footnotes })
-		res.render('uploadCaseDetails', { result, caseId })
+		const cases = await Cases.updateOne({ caseId }, { 'case.title': title, 'case.issue': issue, 'case.task': task, 'case.solution': solution, 'case.footnotes': footnotes })
+		const result = {
+			cases,
+			caseId
+		}
+		res.render('uploadCaseDetails', { result })
 	}
 })
 
@@ -205,23 +221,40 @@ router.post('/:id/text', async (req: any, res: Response) => {
 router.post('/:id/details', async (req: Request, res: Response) => {
 	const { id } = req.params
 	const { categorie, subcategories, tags } = req.body
+
 	if (!subcategories || !tags) {
 		let result = {
-			error: 'Wählen Sie bitte mehr als ein Teilgebiet & Problem aus.'
+			error: 'Wählen Sie mehr als ein Teilgebiet und oder Problem aus.',
+			caseId: id
 		}
 		res.render('uploadCaseDetails', { result })
 	}
+
 	let tagsArray = []
-	const tagsPlain: any = await JSON.parse(tags)
-	await tagsPlain.forEach(element => {
+
+	const problems = safelyParseJSON(tags)
+
+	problems.forEach(element => {
 		tagsArray.push(element.value)
 	});
-	await Cases.updateOne({ caseId: id }, { categories: categorie, 'meta.isDraft': false, 'meta.isPublished': true, $push: { subcategories: subcategories, problems: tagsArray } })
+
+	await Cases.updateOne({ caseId: id }, { categories: categorie, 'meta.isDraft': false, 'meta.isPublished': true, subcategories: subcategories, problems: tagsArray })
 	res.redirect(`/cases/${id}/view`)
 })
 
 const escapeRegex = async (text) => {
 	return await text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
+}
+
+const safelyParseJSON = (json: string) => {
+	let parsed: any[]
+	try {
+		parsed = JSON.parse(json)
+	} catch (err) {
+		console.error(err)
+	}
+
+	return parsed // Could be undefined!
 }
 
 export default router
