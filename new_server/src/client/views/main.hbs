@@ -18,33 +18,26 @@
 	<script type="text/javascript">
 		tinymce.init({
 			selector: '.normalArea',
-			toolbar: 'undo redo | styleselect | bold italic | alignjustify',
-			menu: {
-				file: { title: 'Dokument', items: '' },
-				edit: { title: 'Bearbeiten', items: 'undo redo | cut copy paste | selectall' },
-				format: { title: 'Format', items: '' },
-				view: { title: 'Ansicht', items: 'visualaid' }
-			},
 			width: '900',
-			style_formats: [
-				{
-					title: 'Text', items: [
-						{ title: 'Überschrift 1', format: 'h1' },
-						{ title: 'Überschrift 2', format: 'h2' },
-						{ title: 'Überschrift 3', format: 'h3' },
-						{ title: 'Überschrift 4', format: 'h4' },
-						{ title: 'Paragraph', format: 'p' },
-						{ title: 'Fett', format: 'bold' },
-						{ title: 'Verweis', format: 'superscript' },
-						{ title: 'Fussnote', format: 'subscript' },
-					]
-				},
-				{
-					title: 'Formatierung', items: [
-						{ title: 'Blocksatz', format: 'alignjustify' }
-					]
-				}
-			]
+			plugins: 'print autoresize preview paste importcss searchreplace autolink autosave save directionality visualblocks visualchars fullscreen link charmap hr nonbreaking anchor toc insertdatetime advlist lists wordcount textpattern noneditable help charmap',
+			menu: {
+				file: { title: 'File', items: 'newdocument restoredraft | preview | print ' },
+				edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
+				view: { title: 'View', items: 'code | visualaid visualchars visualblocks | spellchecker | preview fullscreen' },
+				format: { title: 'Format', items: 'bold underline superscript subscript | blockformats | removeformat' },
+				insert: { title: 'Insert', items: '' },
+				tools: { title: 'Tools', items: 'spellchecker spellcheckerlanguage | code wordcount' },
+				help: { title: 'Help', items: '' }
+			},
+			toolbar: 'undo redo | bold underline | formatselect | alignjustify | outdent indent | numlist bullist | removeformat | charmap | fullscreen  preview save print | insertfile link',
+			toolbar_sticky: true,
+			autosave_ask_before_unload: true,
+			autosave_interval: '10s',
+			autosave_prefix: 'tinymce-autosave-{path}{query}-{id}-',
+			autosave_restore_when_empty: true,
+			autosave_retention: '15m',
+			toolbar_mode: 'sliding',
+			contextmenu: 'bold underline',
 		});
 	</script>
 </head>
@@ -140,7 +133,7 @@
 				<div class="logout">
 					<div><a href="/help">Hilfe</a></div>
 					<div><a href="/logout">Ausloggen</a></div>
-					<div style="margin-top: 2.5vw; color: var(--juriverse-grey); text-align: center; font-size: 13px;">Made with <span
+					<div style="margin-top: 10px; color: var(--juriverse-grey); text-align: center; font-size: 13px;">Made with <span
 							style="color: var(--juriverse-gold);">&#9829;</span> in Berlin</div>
 				</div>
 			</li>
