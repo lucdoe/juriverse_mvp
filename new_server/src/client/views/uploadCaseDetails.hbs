@@ -5,7 +5,7 @@
 	</div>
 	{{/if}}
 	<h1 class="upload-details-title">Wähle aus...</h1>
-	<form action="/cases/{{caseId}}/details" method="post">
+	<form action="/cases/{{result.caseId}}/details" method="post">
 
 			<div class="upload-subheader-wrapper">
 				<label for="issue" class="upload-subheader">Rechtsgebiet</label>
@@ -27,7 +27,7 @@
 
 			<group class="inline-radio" id="zivilrecht-radio">
 				<div>
-					<input type="checkbox" name="subcategories" value="BGB AT"><label for="subcategories">BGB AT</label>
+					<input type="checkbox" name="subcategories" value="BGB AT" checked><label for="subcategories">BGB AT</label>
 				</div>
 				<div>
 					<input type="checkbox" name="subcategories" value="Schuldrecht AT">
