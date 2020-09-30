@@ -28,8 +28,8 @@ body {
 #logo a {
 	text-decoration: none;
 	color: var(--juriverse-gold);
-	margin: 2vw;
-	font-size: 2.5vw;
+	margin: 2vw 40px 0px 2vw;
+    font-size: 2.0vw;
 	font-family: Gilroy;
 }
 
@@ -107,7 +107,7 @@ li a {
 }
 
 .material-icons.md-24 {
-	font-size: 24px;
+	font-size: 1.7vw;
 	cursor: pointer;
 	width: 35px;
 	padding-left: 5px;
@@ -144,7 +144,7 @@ li a {
 .profile {
 	position: absolute;
 	bottom: 0;
-	margin-bottom: 11vw;
+	margin-bottom: 100px;
 	width: 100%;
 }
 
@@ -158,7 +158,7 @@ li a {
 .logout {
 	position: absolute;
 	bottom: 0;
-	margin-bottom: 2vw;
+	margin-bottom: 1vw;
 	width: 100%;
 }
 
