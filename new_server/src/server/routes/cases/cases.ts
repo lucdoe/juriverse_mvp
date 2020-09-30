@@ -112,15 +112,33 @@ router.post('/:id/done', async (req: any, res: Response) => {
 // publish case
 router.post('/:id/publish', async (req: any, res: Response) => {
 	const { id } = req.params
-	await Cases.updateOne({ caseId: id }, { $set: { 'meta.isPublished': true, 'meta.isDraft': false } })
-	res.redirect('../../../upload')
+	const change = await Cases.updateOne({ caseId: id }, { $set: { 'meta.isPublished': true, 'meta.isDraft': false } })
+	const { user_id } = req.user
+	const publicCases = await Cases.find({ $and: [{ 'meta.isPublished': true }, { 'meta.isDeleted': false }, { 'author.authorId': user_id }] })
+	const draftCases = await Cases.find({ $and: [{ 'meta.isDraft': true }, { 'meta.isDeleted': false }, { 'author.authorId': user_id }] })
+	const result = {
+		publicCases,
+		draftCases,
+		userId: user_id,
+		change
+	}
+	res.render('yourCases', { result })
 })
 
 // publish case
 router.post('/:id/unpublish', async (req: any, res: Response) => {
 	const { id } = req.params
-	await Cases.updateOne({ caseId: id }, { $set: { 'meta.isPublished': false, 'meta.isDraft': true } })
-	res.redirect('../../../upload')
+	const change = await Cases.updateOne({ caseId: id }, { $set: { 'meta.isPublished': false, 'meta.isDraft': true } })
+	const { user_id } = req.user
+	const publicCases = await Cases.find({ $and: [{ 'meta.isPublished': true }, { 'meta.isDeleted': false }, { 'author.authorId': user_id }] })
+	const draftCases = await Cases.find({ $and: [{ 'meta.isDraft': true }, { 'meta.isDeleted': false }, { 'author.authorId': user_id }] })
+	const result = {
+		publicCases,
+		draftCases,
+		userId: user_id,
+		change
+	}
+	res.render('yourCases', { result })
 })
 
 // report case

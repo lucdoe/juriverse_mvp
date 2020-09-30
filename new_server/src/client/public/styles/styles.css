@@ -1166,3 +1166,9 @@ textarea:focus {
 	font-weight: bold;
 	color: var(--juriverse-gold);
 }
+
+#changeSaver {
+	align-self: center;
+	justify-self: center;
+	width: 20vw;
+}

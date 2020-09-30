@@ -1,3 +1,11 @@
+{{#if result.change }}
+<div style="padding-top: 2vw; padding-left: 8vw;">
+	<div class="alert" id="changeSaver">
+		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+		Änderung wurde gespeichert.
+	</div>
+</div>
+{{/if}}
 <section class="top-box upload-box">
 	<h2 class="upload-header">Deine Fälle</h2>
 	<a class="rob-font" href="/cases/0/text" type="submit">Fall schreiben</a>
