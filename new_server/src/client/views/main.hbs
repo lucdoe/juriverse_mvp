@@ -19,29 +19,29 @@
 		tinymce.init({
 			selector: '.normalArea',
 			toolbar: 'undo redo | styleselect | bold italic | alignjustify',
-			menubar: 'file edit',
-			width: '1000',
+			menu: {
+				file: { title: 'Dokument', items: '' },
+				edit: { title: 'Bearbeiten', items: 'undo redo | cut copy paste | selectall' },
+				format: { title: 'Format', items: '' },
+				view: { title: 'Ansicht', items: 'visualaid' }
+			},
+			width: '900',
 			style_formats: [
 				{
-					title: 'Headings', items: [
-						{ title: 'Heading 1', format: 'h1' },
-						{ title: 'Heading 2', format: 'h2' },
-						{ title: 'Heading 3', format: 'h3' },
-						{ title: 'Heading 4', format: 'h4' },
-						{ title: 'Heading 5', format: 'h5' },
-						{ title: 'Heading 6', format: 'h6' }
+					title: 'Text', items: [
+						{ title: 'Überschrift 1', format: 'h1' },
+						{ title: 'Überschrift 2', format: 'h2' },
+						{ title: 'Überschrift 3', format: 'h3' },
+						{ title: 'Überschrift 4', format: 'h4' },
+						{ title: 'Paragraph', format: 'p' },
+						{ title: 'Fett', format: 'bold' },
+						{ title: 'Verweis', format: 'superscript' },
+						{ title: 'Fussnote', format: 'subscript' },
 					]
 				},
 				{
-					title: 'Inline', items: [
-						{ title: 'Bold', format: 'bold' },
-						{ title: 'Superscript', format: 'superscript' },
-						{ title: 'Subscript', format: 'subscript' },
-					]
-				},
-				{
-					title: 'Align', items: [
-						{ title: 'Justify', format: 'alignjustify' }
+					title: 'Formatierung', items: [
+						{ title: 'Blocksatz', format: 'alignjustify' }
 					]
 				}
 			]
