@@ -136,7 +136,7 @@ li a {
 
 .listLink a {
 	color: var(--juriverse-grey);
-	font-size: 16px;
+	font-size: 1vw;
 	font-weight: 600;
 	letter-spacing: 1.2px;
 }
@@ -265,6 +265,13 @@ li a {
 	font-size: 14px;
 	color: var(--juriverse-grey);
 	text-transform: uppercase;
+	margin-left: 8vw;
+	margin-bottom: -5px;
+}
+
+.noCasesPublished {
+	font-size: 15px;
+	color: var(--juriverse-gold);
 	margin-left: 8vw;
 	margin-bottom: -5px;
 }
@@ -678,6 +685,7 @@ textarea::placeholder {
 	line-height: 30px;
 	border: none;
 	width: 36vw;
+	font-family: 'Roboto', sans-serif;
 }
 
 #uploadTitle {
@@ -869,6 +877,7 @@ input[type='checkbox'] {
 	line-height: 20px;
 	color: #a3a3a8;
 	margin-bottom: 20px;
+	font-style: italic;
 }
 
 .upc {
@@ -1139,4 +1148,15 @@ textarea:focus {
 /* When moving the mouse over the close button */
 .closebtn:hover {
 	color: black;
+}
+
+.editProfileContainer {
+	text-align: center;
+    margin-left: -74px;
+    margin-top: 1vw;
+}
+
+.editProfileLink {
+	font-weight: bold;
+	color: var(--juriverse-gold);
 }

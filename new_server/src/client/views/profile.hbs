@@ -8,13 +8,19 @@
 	</div>
 	<div class="profile-right">
 		<div><img src="{{result.picture}}"></div>
-		{{#if result.isOwnProfile }}<div><a href="/edit/profile">Profil bearbeiten</a></div> {{/if}}
+		{{#if result.isOwnProfile }}<div class="editProfileContainer"><a class="editProfileLink" href="/edit/profile">Profil
+				bearbeiten</a></div>
+		{{/if}}
 
 	</div>
 </section>
 <div class="divider"></div>
 <section>
+	{{#if result.allCases}}
 	<h3 class="content-header all-cases">Fälle von {{result.authorName}}</h2>
+	{{else}}
+	<h3 class="noCasesPublished all-cases">{{result.authorName}} hat noch keine Fälle veröffentlicht.</h2>
+		{{/if}}
 		{{#each result.allCases }}
 	<article class="card-wrapper">
 		<div class="title-flex">
