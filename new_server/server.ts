@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 })
 
 
-const port = process.env.PORT
+const port = process.env.PORT || 2907
 
 const server = app.listen(port, async () => {
 
