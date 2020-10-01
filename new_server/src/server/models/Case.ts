@@ -31,6 +31,7 @@ const caseSchema = new Schema({
 		isDeleted: Boolean,
 		uploadDate: Date,
 		wordCount: Number,
+		readTime: Number,
 		intro: String,
 	},
 	report: [
