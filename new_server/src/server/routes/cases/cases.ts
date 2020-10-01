@@ -5,6 +5,10 @@ import Users from '../../models/User'
 
 import { v4 as uuidv4 } from 'uuid'
 import DOMPurify from '../../middlewares/sanitizer'
+import { escapeRegex } from '../../helpers/escapeRegex'
+import { safelyParseJSON } from '../../helpers/parseJSON'
+import { getWordCount } from '../../helpers/getWordCount'
+import { readTime } from '../../helpers/calculateReadTime'
 
 
 const router = Router()
@@ -292,7 +296,8 @@ router.post('/:id/text', async (req: any, res: Response) => {
 				isDraft: true,
 				isDeleted: false,
 				uploadDate: Date.now(),
-				wordCount: task.split(" ").length + issue.split(" ").length + solution.split(" ").length + footnotes.split(" ").length,
+				wordCount: getWordCount(title, issue, task, solution, footnotes),
+				readTime: readTime(getWordCount(title, issue, task, solution, footnotes)),
 				intro: task.substring(0, 100),
 			},
 			report: [
@@ -357,19 +362,5 @@ router.post('/:id/details', async (req: Request, res: Response) => {
 	res.redirect(`/cases/${caseIdClean}/view`)
 })
 
-const escapeRegex = async (text) => {
-	return await text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
-}
-
-const safelyParseJSON = (json: string) => {
-	let parsed: any[]
-	try {
-		parsed = JSON.parse(json)
-	} catch (err) {
-		console.error(err)
-	}
-
-	return parsed // Could be undefined!
-}
 
 export default router
