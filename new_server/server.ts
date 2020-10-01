@@ -1,7 +1,9 @@
 import app from './app'
-import { connectDB } from './src/server/middlewares/db'
 import chalk from 'chalk'
-new chalk.Instance({ level: 3 });
+
+
+import { connectDB } from './src/server/middlewares/db'
+
 
 if (process.env.NODE_ENV === 'production') {
 	process.on('uncaughtException', (er) => {
@@ -10,6 +12,7 @@ if (process.env.NODE_ENV === 'production') {
 		process.exit(1)
 	})
 }
+
 
 // error handler
 app.use(async (err, req, res, next) => {
@@ -22,6 +25,7 @@ app.use(async (err, req, res, next) => {
 	res.render('error')
 })
 
+
 app.use((req, res, next) => {
 	const message = "Seite wurde nicht gefunden, wir bitte dies zu entschuldigen."
 	const error = "404 Not Found"
@@ -29,12 +33,17 @@ app.use((req, res, next) => {
 })
 
 
-const port = process.env.port || 2907
+const port = process.env.PORT
 
 const server = app.listen(port, async () => {
+
+	new chalk.Instance({ level: 3 });
+
 	connectDB()
+
 	console.log(chalk.bold('	' + '>>>', chalk.hex('#cca768')('Juriverse App'), 'live on', chalk.underline.blue('http://localhost:' + port), 'in', app.get('env'), 'mode. <<<'))
 	console.log(chalk.bold('	>>> Press', chalk.red('CTRL-C to stop'), 'the application. <<<\n'))
 })
+
 
 export default server
