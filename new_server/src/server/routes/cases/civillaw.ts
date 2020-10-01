@@ -1,24 +1,18 @@
 import { Router, Request, Response } from 'express'
-import Cases from '../../models/Case'
+import { create } from 'express-handlebars'
+import { getCatCases } from '../../helpers/casesHelper'
+
 
 const router = Router()
 
-const categories = { categories: 'Zivilrecht' }
+
+const categorie = 'Zivilrecht'
 const rating = 750
 
-const query = {
-	$and: [
-		{ $or: [{ categories: 'Zivilrecht' }] },
-		{ $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] },
-		{ 'meta.isDeleted': false }
-	]
-}
 
-// gets zivilrecht cases
 router.get('/', async (req: Request, res: Response) => {
 
-	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
-	const allCases = await Cases.find(query)
+	const { allCases, recommendedCases } = await getCatCases(rating, categorie)
 
 	if (allCases.length == 0) {
 
@@ -41,3 +35,6 @@ router.get('/', async (req: Request, res: Response) => {
 })
 
 export default router
+
+
+

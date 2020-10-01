@@ -29,8 +29,8 @@ import { secured } from './src/server/middlewares/secured'
 import { userInViews } from './src/server/middlewares/userInViews'
 
 
-import { sess } from './src/server/helpers/session'
-import { strategy } from './src/server/helpers/passport'
+import { sess } from './src/server/configs/session'
+import { strategy } from './src/server/configs/passport'
 
 
 const app = express()

@@ -1,24 +1,19 @@
 import { Router, Request, Response } from 'express'
-import Cases from '../../models/Case'
+
+
+import { getCatCases } from '../../helpers/casesHelper'
+
 
 const router = Router()
 
-const categories = { categories: 'Öffentliches Recht' }
+
+const categorie = 'Öffentliches Recht' 
 const rating = 900
 
-const query = {
-	$and: [
-		{ $or: [{ categories: 'Öffentliches Recht' }] },
-		{ $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] },
-		{ 'meta.isDeleted': false }
-	]
-}
 
-// getsall Öffentliches Recht
 router.get('/', async (req: Request, res: Response) => {
 
-	const recommendedCases = await Cases.find({ $and: [{ 'meta.ratingCount': { $gt: rating } }, categories, { 'meta.isPublished': true }, { 'meta.isDraft': false }] })
-	const allCases = await Cases.find(query)
+	const { allCases, recommendedCases } = await getCatCases(rating, categorie)
 
 	if (allCases.length == 0) {
 

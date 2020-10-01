@@ -1,11 +1,14 @@
 import Cases from '../models/Case'
 import Users from '../models/User'
 import { Router, Response } from 'express'
-import DOMPurify from '../middlewares/sanitizer'
+
+
+import { sanitizeInput } from '../middlewares/sanitizer'
+
 
 const router = Router()
 
-// get user profile
+
 router.get('/', async (req: any, res: Response) => {
 
 	const auth0_user = req.user
@@ -98,7 +101,7 @@ router.get('/:id', async (req: any, res) => {
 
 	const { id } = req.params
 
-	let user_idClean = DOMPurify.sanitize(id)
+	let user_idClean = sanitizeInput(id)
 
 	const user: any = await Users.findOne({ userId: id })
 	await Cases.find({ $and: [{ 'author.authorId': user_idClean }, { $or: [{ 'meta.isPublished': true }, { 'meta.isDraft': false }] }] }, async (err, allCases: any) => {
@@ -135,7 +138,7 @@ router.post('/:id/delete', async (req: any, res) => {
 
 	const { user_id } = req.user
 
-	let user_idClean = DOMPurify.sanitize(user_id)
+	let user_idClean = sanitizeInput(user_id)
 
 	const result = await Users.update({ userId: user_idClean }, { isDeleted: true })
 
