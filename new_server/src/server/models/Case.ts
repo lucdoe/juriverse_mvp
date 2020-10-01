@@ -30,7 +30,7 @@ const caseSchema = new Schema({
 		isDraft: Boolean,
 		isDeleted: Boolean,
 		uploadDate: Date,
-		length: String,
+		wordCount: Number,
 		intro: String,
 	},
 	report: [

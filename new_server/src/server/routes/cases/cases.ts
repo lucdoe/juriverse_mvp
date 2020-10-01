@@ -1,10 +1,14 @@
-import { Router, Request, Response, json } from 'express'
+import { Router, Request, Response } from 'express'
 import Cases from '../../models/Case'
 import Users from '../../models/User'
+
+
 import { v4 as uuidv4 } from 'uuid'
 import DOMPurify from '../../middlewares/sanitizer'
 
+
 const router = Router()
+
 
 // get all cases
 router.get('/', async (req: Request, res: Response) => {
@@ -67,9 +71,13 @@ router.get('/', async (req: Request, res: Response) => {
 
 // get text edit page
 router.get('/:id/text', async (req: any, res: Response) => {
+
 	const caseIdRaw = req.params.id
+
 	const caseId = DOMPurify.sanitize(caseIdRaw)
+
 	const oneCase = await Cases.findOne({ caseId })
+
 	const result = {
 		oneCase,
 		caseId
@@ -77,17 +85,23 @@ router.get('/:id/text', async (req: any, res: Response) => {
 	res.render('uploadCaseText', { result })
 })
 
+
 // get text edit page
 router.get('/:id/report', async (req: any, res: Response) => {
+
 	const idRaw = req.params.id
+
 	const id = DOMPurify.sanitize(idRaw)
+
 	const oneCase = await Cases.findOne({ caseId: id })
+
 	const result = {
 		oneCase,
 		id
 	}
 	res.render('report', { result })
 })
+
 
 // get one case
 router.get('/:id/view', async (req: Request, res: Response) => {
@@ -101,21 +115,23 @@ router.get('/:id/view', async (req: Request, res: Response) => {
 	res.render('case', { result, recommended })
 })
 
+
 // comes from caseDetails, creates case renders case page
 router.post('/:id/view', async (req: Request, res: Response) => {
 
 	const { caseId, categories, subcategories, problems } = req.body
 
 	const caseIdClean = DOMPurify.sanitize(caseId)
-	const categoriesIdClean = DOMPurify.sanitize(categories)
+	const categoriesClean = DOMPurify.sanitize(categories)
 	const subcategoriesClean = DOMPurify.sanitize(subcategories)
 	const problemsClean = DOMPurify.sanitize(problems)
 
-	await Cases.update({ caseIdClean }, { categoriesIdClean, subcategoriesClean, problemsClean, 'meta.isPublished': true, 'meta.isDraft': false })
+	await Cases.update({ caseIdClean }, { categoriesClean, subcategoriesClean, problemsClean, 'meta.isPublished': true, 'meta.isDraft': false })
 	const result = await Cases.findOne({ caseId })
 
 	res.render('case', { result })
 })
+
 
 // marks case as done
 router.post('/:id/done', async (req: any, res: Response) => {
@@ -130,6 +146,7 @@ router.post('/:id/done', async (req: any, res: Response) => {
 		res.redirect('/cases')
 	})
 })
+
 
 // publish case
 router.post('/:id/publish', async (req: any, res: Response) => {
@@ -153,6 +170,7 @@ router.post('/:id/publish', async (req: any, res: Response) => {
 	res.render('yourCases', { result })
 })
 
+
 // publish case
 router.post('/:id/unpublish', async (req: any, res: Response) => {
 
@@ -175,6 +193,7 @@ router.post('/:id/unpublish', async (req: any, res: Response) => {
 	res.render('yourCases', { result })
 })
 
+
 // report case
 router.post('/:id/report', async (req: any, res: Response) => {
 
@@ -192,6 +211,7 @@ router.post('/:id/report', async (req: any, res: Response) => {
 	res.render('case', { result, report })
 })
 
+
 // report case
 router.get('/:id/like', async (req: any, res: Response) => {
 
@@ -205,6 +225,7 @@ router.get('/:id/like', async (req: any, res: Response) => {
 	res.render('case', { result, like })
 })
 
+
 // delete case
 router.post('/:id/delete', async (req: any, res: Response) => {
 
@@ -217,19 +238,22 @@ router.post('/:id/delete', async (req: any, res: Response) => {
 	res.redirect('/upload')
 })
 
+
 // /cases/text - creates case
 router.post('/:id/text', async (req: any, res: Response) => {
 
 	const caseId = req.params.id
-	const { user_id, picture, email, nickname } = req.user
+	const { user_id, picture, emails, nickname } = req.user
 	const { title, issue, task, solution, footnotes } = req.body
 
 	const caseIdClean = DOMPurify.sanitize(caseId)
 	const titleClean = DOMPurify.sanitize(title)
 	const user_idClean = DOMPurify.sanitize(user_id)
 	const pictureClean = DOMPurify.sanitize(picture)
-	const emailClean = DOMPurify.sanitize(email)
+	const emailClean = DOMPurify.sanitize(emails[0].value)
 	const nicknameClean = DOMPurify.sanitize(nickname)
+
+	const findUser: any = Users.findOne({ userId: user_idClean })
 
 	if (!titleClean) {
 
@@ -248,9 +272,9 @@ router.post('/:id/text', async (req: any, res: Response) => {
 			author: {
 				authorId: user_idClean,
 				picture: pictureClean,
-				name: nicknameClean,
+				name: nicknameClean || findUser.screenname,
 				email: emailClean,
-				university: '',
+				university: findUser.university,
 			},
 			case: {
 				title: titleClean,
@@ -267,14 +291,14 @@ router.post('/:id/text', async (req: any, res: Response) => {
 				isPublished: false,
 				isDraft: true,
 				isDeleted: false,
-				uploadDate: '',
-				length: 0,
-				intro: '',
+				uploadDate: Date.now(),
+				wordCount: task.split(" ").length + issue.split(" ").length + solution.split(" ").length + footnotes.split(" ").length,
+				intro: task.substring(0, 100),
 			},
 			report: [
 				{
-					userId: '',
-					caseId: '',
+					userId: '0',
+					caseId: '0',
 					reportText: ''
 				}
 			],
