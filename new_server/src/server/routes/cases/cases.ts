@@ -18,6 +18,7 @@ const router = Router()
 router.get('/', async (req: Request, res: Response) => {
 
 	const searchRaw = req.query.si
+
 	let search = DOMPurify.sanitize(searchRaw)
 
 	if (search) {
@@ -280,6 +281,9 @@ router.post('/:id/text', async (req: any, res: Response) => {
 				email: emailClean,
 				university: findUser.university,
 			},
+			categories: [],
+			subcategories: [],
+			problems: [],
 			case: {
 				title: titleClean,
 				task,
@@ -310,20 +314,24 @@ router.post('/:id/text', async (req: any, res: Response) => {
 			selfWriteConfirm: false,
 		}
 
-		const cases: any = await Cases.create(data)
+		await Cases.create(data)
+		const cases: any = await Cases.findOne({ caseId })
 
 		const result = {
 			cases,
+			subcategories: cases.subcategories,
 			caseId
 		}
 		res.render('uploadCaseDetails', { result })
 
 	} else {
 
-		const cases = await Cases.updateOne({ caseIdClean }, { 'case.title': titleClean, 'case.issue': issue, 'case.task': task, 'case.solution': solution, 'case.footnotes': footnotes })
+		await Cases.updateOne({ caseIdClean }, { 'case.title': titleClean, 'case.issue': issue, 'case.task': task, 'case.solution': solution, 'case.footnotes': footnotes })
+		const cases: any = await Cases.findOne({ caseId: caseIdClean })
 
 		const result = {
 			cases,
+			subcategories: cases.subcategories,
 			caseId: caseIdClean
 		}
 		res.render('uploadCaseDetails', { result })
@@ -341,9 +349,12 @@ router.post('/:id/details', async (req: Request, res: Response) => {
 	const subcategoriesClean = DOMPurify.sanitize(subcategories)
 	const tagsClean = DOMPurify.sanitize(tags)
 
+	const cases: any = await Cases.findOne({ caseIdClean })
+
 	if (!subcategoriesClean || !tagsClean) {
 		let result = {
 			error: 'Wählen Sie mehr als ein Teilgebiet und oder Problem aus.',
+			subcategories: cases.subcategories,
 			caseId: caseIdClean
 		}
 		res.render('uploadCaseDetails', { result })

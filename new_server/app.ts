@@ -51,7 +51,7 @@ const logger = winston.createLogger({
 if (process.env.NODE_ENV !== 'production') {
 	logger.add(new winston.transports.Console({
 		format: winston.format.simple(),
-	}));
+	}))
 }
 
 
@@ -69,7 +69,7 @@ if (process.env.NODE_ENV === 'production') {
 	// Uncomment the line below if your application is behind a proxy (like on Heroku)
 	// or if you're encountering the error message:
 	// "Unable to verify authorization request state"
-	app.set('trust proxy', 1);
+	app.set('trust proxy', 1)
 }
 
 
@@ -79,10 +79,26 @@ app.use(passport.session())
 app.use(userInViews())
 
 
-app.engine('.hbs', exphbs({ extname: '.hbs', handlebars: allowInsecurePrototypeAccess(Handlebars), layoutsDir: `${__dirname}/src/client/views` }))
-app.set('view engine', '.hbs');
-app.set('views', (path.join(__dirname + '/src/client/views')))
-app.use(express.static(path.join(__dirname + '/src/client/', 'public')))
+var hbs = exphbs.create({
+	// Specify helpers which are only registered on this instance.
+	helpers: {
+		inArray: function (array: [string], value: string, options) {
+			if (array.includes(value)) {
+				return 'checked'
+			}
+			return false
+		},
+	},
+	extname: 'hbs',
+	handlebars: allowInsecurePrototypeAccess(Handlebars),
+	layoutsDir: `${__dirname}/src/client/views`
+});
+
+
+app.engine('hbs', hbs.engine)
+app.set('view engine', 'hbs');
+app.set('views', (path.join(__dirname + '/src/client/views/')))
+app.use(express.static(path.join(__dirname + '/src/client/public')))
 app.use(helmet({ contentSecurityPolicy: false }))
 app.use(json())
 app.use(bodyParser.urlencoded({ extended: false }))

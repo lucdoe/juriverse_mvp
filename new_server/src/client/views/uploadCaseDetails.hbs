@@ -12,12 +12,12 @@
 			</div>
 			<group class="inline-radio">
 				<div><input type="radio" name="categorie" id="civillaw" onclick="openLawTab('civillaw', 'zivilrecht-radio')"
-						value="Zivilrecht" checked><label for="categorie">Zivilrecht</label></div>
+						value="Zivilrecht" {{#inArray result.cases.categories 'Zivilrecht'}}{{/inArray}}><label for="categorie">Zivilrecht</label></div>
 				<div><input type="radio" name="categorie" id="criminallaw" onclick="openLawTab('criminallaw', 'strafrecht-radio')"
-						value="Strafrecht"><label for="categorie">Strafrecht</label>
+						value="Strafrecht"{{#inArray result.cases.categories 'Strafrecht'}}{{/inArray}}><label for="categorie">Strafrecht</label>
 				</div>
 				<div><input type="radio" name="categorie" id="publiclaw" onclick="openLawTab('publiclaw', 'oefrecht-radio')"
-						value="Öffentliches Recht">
+						value="Öffentliches Recht" {{#inArray result.cases.categories 'Öffentliches Recht'}}{{/inArray}}>
 					<label for="categorie">Öffentliches Recht</label>
 				</div>
 			</group>
@@ -27,84 +27,110 @@
 
 			<group class="inline-radio" id="zivilrecht-radio">
 				<div>
-					<input type="checkbox" name="subcategories" value="BGB AT" checked><label for="subcategories">BGB AT</label>
+					<input type="checkbox" name="subcategories" value="BGB AT" {{#inArray result.cases.subcategories 'BGB AT'}}{{/inArray}}>
+					<label for="subcategories">BGB AT</label>
 				</div>
 				<div>
-					<input type="checkbox" name="subcategories" value="Schuldrecht AT">
+					<input type="checkbox" name="subcategories" value="Schuldrecht AT"
+						{{#inArray result.cases.subcategories "Schuldrecht AT"}}{{/inArray}}>
 					<label for="subcategories">Schuldrecht AT</label>
 				</div>
 				<div>
-					<input type="checkbox" name="subcategories" value="Schuldrecht BT">
+					<input type="checkbox" name="subcategories" value="Schuldrecht BT"
+						{{#inArray result.cases.subcategories "Schuldrecht BT"}}{{/inArray}}>
 					<label for="subcategories">Schuldrecht BT</label>
 				</div>
 				<div>
-					<input type="checkbox" name="subcategories" value="Sachenrecht"><label for="subcategories">Sachenrecht</label>
+					<input type="checkbox" name="subcategories" value="Sachenrecht"
+						{{#inArray result.cases.subcategories "Sachenrecht"}}{{/inArray}}>
+					<label for="subcategories">Sachenrecht</label>
 				</div>
 				<div>
-					<input type="checkbox" name="subcategories" value="Handelsrecht"><label
+					<input type="checkbox" name="subcategories" value="Handelsrecht"
+						{{#inArray result.cases.subcategories "Handelsrecht"}}{{/inArray}}>
+					<label
 						for="subcategories">Handelsrecht</label>
 				</div>
 				<div>
-					<input type="checkbox" name="subcategories" value="Gesellschaftsrecht"><label
+					<input type="checkbox" name="subcategories" value="Gesellschaftsrecht"
+						{{#inArray result.cases.subcategories "Gesellschaftsrecht"}}{{/inArray}}>
+					<label
 						for="subcategories">Gesellschaftsrecht</label></div>
 				<div>
-					<input type="checkbox" name="subcategories" value="Erbrecht"><label for="subcategories">Erbrecht</label>
+					<input type="checkbox" name="subcategories" value="Erbrecht"
+						{{#inArray result.cases.subcategories "Erbrecht"}}{{/inArray}}>
+					<label for="subcategories">Erbrecht</label>
 				</div>
 				<div>
-					<input type="checkbox" name="subcategories" value="Arbeitsrecht"><label
+					<input type="checkbox" name="subcategories" value="Arbeitsrecht"
+						{{#inArray result.cases.subcategories "Arbeitsrecht"}}{{/inArray}}>
+					<label
 						for="subcategories">Arbeitsrecht</label>
 				</div>
 				<div>
-					<input type="checkbox" name="subcategories" value="Familienrecht"><label
+					<input type="checkbox" name="subcategories" value="Familienrecht"
+						{{#inArray result.cases.subcategories "Familienrecht"}}{{/inArray}}>
+					<label
 						for="subcategories">Familienrecht</label>
 				</div>
 				<div>
-					<input type="checkbox" name="subcategories" value="Zivilprozessrecht"><label
+					<input type="checkbox" name="subcategories" value="Zivilprozessrecht"
+						{{#inArray result.cases.subcategories "Zivilprozessrecht"}}{{/inArray}}>
+					<label
 						for="subcategories">Zivilprozessrecht</label>
 				</div>
 			</group>
 
 			<group class="inline-radio" id="strafrecht-radio">
 				<div>
-					<input type="checkbox" name="subcategories" value="Strafrecht AT">
+					<input type="checkbox" name="subcategories" value="Strafrecht AT"
+						{{#inArray result.cases.subcategories "Strafrecht AT"}}{{/inArray}}>
 					<label for="subcategories">Strafrecht AT</label>
 				</div>
 				<div>
-					<input type="checkbox" name="subcategories" value="Strafrecht BT">
+					<input type="checkbox" name="subcategories" value="Strafrecht BT"
+						{{#inArray result.cases.subcategories "Strafrecht BT"}}{{/inArray}}>
 					<label for="subcategories">Strafrecht BT</label>
 				</div>
 				<div>
-					<input type="checkbox" name="subcategories" value="StPO">
+					<input type="checkbox" name="subcategories" value="StPO" {{#inArray result.cases.subcategories "StPO"}}{{/inArray}}>
 					<label for="subcategories">StPO</label>
 				</div>
 			</group>
 			<group class="inline-radio" id="oefrecht-radio">
 				<div>
-					<input type="checkbox" name="subcategories" value="Grund- und Menschenrechte">
+					<input type="checkbox" name="subcategories" value="Grund- und Menschenrechte"
+						{{#inArray result.cases.subcategories "Grund- und Menschenrechte"}}{{/inArray}}>
 					<label for="subcategories">Grund- und Menschenrechte</label>
 				</div>
 				<div>
-					<input type="checkbox" name="subcategories" value="Verwaltungsrecht AT">
+					<input type="checkbox" name="subcategories" value="Verwaltungsrecht AT"
+						{{#inArray result.cases.subcategories "Verwaltungsrecht AT"}}{{/inArray}}>
 					<label for="subcategories">Verwaltungsrecht AT</label>
 				</div>
 				<div>
-					<input type="checkbox" name="subcategories" value="Verwaltungsrecht BT">
+					<input type="checkbox" name="subcategories" value="Verwaltungsrecht BT"
+						{{#inArray result.cases.subcategories "Verwaltungsrecht BT"}}{{/inArray}}>
 					<label for="subcategories">Verwaltungsrecht BT</label>
 				</div>
 				<div>
-					<input type="checkbox" name="subcategories" value="Staatsorganisationsrecht">
+					<input type="checkbox" name="subcategories" value="Staatsorganisationsrecht"
+						{{#inArray result.cases.subcategories "Staatsorganisationsrecht"}}{{/inArray}}>
 					<label for="subcategories">Staatsorganisationsrecht</label>
 				</div>
 				<div>
-					<input type="checkbox" name="subcategories" value="Europarecht">
+					<input type="checkbox" name="subcategories" value="Europarecht"
+						{{#inArray result.cases.subcategories "Europarecht"}}{{/inArray}}>
 					<label for="subcategories">Europarecht</label>
 				</div>
 				<div>
-					<input type="checkbox" name="subcategories" value="Völkerrecht">
+					<input type="checkbox" name="subcategories" value="Völkerrecht"
+						{{#inArray result.cases.subcategories "Völkerrecht"}}{{/inArray}}>
 					<label for="subcategories">Völkerrecht</label>
 				</div>
 				<div>
-					<input type="checkbox" name="subcategories" value="Staatsrecht mit Bezügen">
+					<input type="checkbox" name="subcategories" value="Staatsrecht mit Bezügen"
+						{{#inArray result.cases.subcategories "Staatsrecht mit Bezügen"}}{{/inArray}}>
 					<label for="subcategories">Staatsrecht mit Bezügen</label>
 				</div>
 			</group>
@@ -120,3 +146,8 @@
 			{{!-- <input id="upload-save" name="upload-save" class="continue-upload" value="Als Entwurf speichern" type="submit"> --}}
 			</form>
 </section>
+<script>
+	window.addEventListener('DOMContentLoaded', (event) => {
+		openLawTab()
+	});
+</script>
