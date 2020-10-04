@@ -41,8 +41,8 @@ const server = app.listen(port, async () => {
 
 	connectDB()
 
-	console.log(chalk.bold('	' + '>>>', chalk.hex('#cca768')('Juriverse App'), 'live on', chalk.underline.blue('http://localhost:' + port), 'in', app.get('env'), 'mode. <<<'))
-	console.log(chalk.bold('	>>> Press', chalk.red('CTRL-C to stop'), 'the application. <<<\n'))
+	console.log(chalk.bold('\n', '	' + '>>>', chalk.hex('#cca768')('Juriverse App'), 'live on', chalk.underline.blue('http://localhost:' + port), 'in', app.get('env'), 'mode. <<<'))
+	console.log(chalk.bold('	>>> Press', chalk.red('CTRL-C to stop'), 'the application. <<<'))
 })
 
 
